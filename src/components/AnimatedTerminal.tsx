@@ -1,0 +1,76 @@
+import { useEffect, useMemo, useState } from 'react';
+import type { TerminalSection } from '../data/portfolio';
+
+type Props = {
+  section: TerminalSection;
+};
+
+const PROMPT_SPEED = 35;
+const OUTPUT_SPEED = 12;
+
+function useReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(query.matches);
+
+    const onChange = () => setReducedMotion(query.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+
+  return reducedMotion;
+}
+
+export default function AnimatedTerminal({ section }: Props) {
+  const reducedMotion = useReducedMotion();
+  const command = `> ${section.command}`;
+  const output = useMemo(() => section.lines.join('\n'), [section.lines]);
+  const [visibleCommand, setVisibleCommand] = useState('');
+  const [visibleOutput, setVisibleOutput] = useState('');
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setVisibleCommand(command);
+      setVisibleOutput(output);
+      return;
+    }
+
+    setVisibleCommand('');
+    setVisibleOutput('');
+
+    let commandIndex = 0;
+    let outputIndex = 0;
+    let outputTimer: number | undefined;
+
+    const commandTimer = window.setInterval(() => {
+      commandIndex += 1;
+      setVisibleCommand(command.slice(0, commandIndex));
+
+      if (commandIndex >= command.length) {
+        window.clearInterval(commandTimer);
+        outputTimer = window.setInterval(() => {
+          outputIndex += 1;
+          setVisibleOutput(output.slice(0, outputIndex));
+
+          if (outputIndex >= output.length && outputTimer) {
+            window.clearInterval(outputTimer);
+          }
+        }, OUTPUT_SPEED);
+      }
+    }, PROMPT_SPEED);
+
+    return () => {
+      window.clearInterval(commandTimer);
+      if (outputTimer) window.clearInterval(outputTimer);
+    };
+  }, [command, output, reducedMotion]);
+
+  return (
+    <div className="terminal-output terminal-output--enhanced" aria-live="polite">
+      <p className="terminal-command">{visibleCommand}<span className="terminal-cursor" aria-hidden="true" /></p>
+      <pre className="terminal-lines">{visibleOutput}</pre>
+    </div>
+  );
+}

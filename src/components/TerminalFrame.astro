@@ -1,0 +1,33 @@
+---
+import AnimatedTerminal from './AnimatedTerminal';
+import { terminalSections, type TerminalSection } from '../data/portfolio';
+
+type Props = {
+  section: TerminalSection;
+};
+
+const { section } = Astro.props;
+---
+
+<section class="terminal-shell" aria-labelledby="terminal-heading">
+  <h1 id="terminal-heading" class="sr-only">Software developer portfolio terminal</h1>
+  <nav class="terminal-tabs" aria-label="Portfolio sections">
+    {terminalSections.map((item) => (
+      <a
+        class:list={['terminal-tab', { 'terminal-tab--active': item.slug === section.slug }]}
+        href={item.href}
+        aria-current={item.slug === section.slug ? 'page' : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+
+  <div class="terminal-screen">
+    <div class="terminal-output terminal-output--static">
+      <p class="terminal-command">&gt; {section.command}</p>
+      <pre class="terminal-lines">{section.lines.join('\n')}</pre>
+    </div>
+    <AnimatedTerminal section={section} client:load />
+  </div>
+</section>

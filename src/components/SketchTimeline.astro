@@ -1,0 +1,33 @@
+---
+import { timelineItems } from '../data/portfolio';
+---
+
+<section class="timeline-section" aria-labelledby="timeline-heading">
+  <div class="timeline-heading-block">
+    <p class="section-kicker">Projects and achievements</p>
+    <h2 id="timeline-heading">A winding record of things I have built</h2>
+  </div>
+
+  <div class="timeline-canvas">
+    <svg class="timeline-path" viewBox="0 0 520 1650" aria-hidden="true" preserveAspectRatio="none">
+      <path
+        d="M220 10 C335 125 405 210 352 300 C282 417 170 430 230 560 C295 700 360 735 260 870 C150 1018 348 1040 390 1180 C430 1320 230 1325 205 1510 C198 1560 205 1608 225 1640"
+      />
+    </svg>
+
+    <ol class="timeline-list">
+      {timelineItems.map((item, index) => (
+        <li class:list={['timeline-item', `timeline-item--${item.side}`, `timeline-item--${item.marker}`]}>
+          <div class="timeline-marker" aria-hidden="true">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+          </div>
+          <article class="timeline-card">
+            <p>{item.eyebrow}</p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

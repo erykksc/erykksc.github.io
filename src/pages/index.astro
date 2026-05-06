@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import TerminalFrame from '../components/TerminalFrame.astro';
+import SketchTimeline from '../components/SketchTimeline.astro';
+import { defaultSection } from '../data/portfolio';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Software Developer Portfolio" description="Software developer portfolio with terminal-style sections, projects, experience, and a visual timeline.">
+	<main class="page-shell home-page">
+		<section class="hero-copy" aria-labelledby="page-title">
+			<p class="section-kicker">Software developer portfolio</p>
+			<h1 id="page-title">I build software with a systems mindset and a product focus.</h1>
+			<p>
+				Replace this introduction with a short, specific summary of who you are, what you build,
+				and what kind of work you want to be known for.
+			</p>
+		</section>
+
+		<TerminalFrame section={defaultSection} />
+		<SketchTimeline />
+	</main>
 </Layout>
