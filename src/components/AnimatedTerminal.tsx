@@ -3,10 +3,9 @@ import type { TerminalSection } from '../data/portfolio';
 
 type Props = {
   section: TerminalSection;
+  promptSpeedMs: number;
+  outputSpeedMs: number;
 };
-
-const PROMPT_SPEED = 35;
-const OUTPUT_SPEED = 12;
 
 function useReducedMotion() {
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -23,7 +22,7 @@ function useReducedMotion() {
   return reducedMotion;
 }
 
-export default function AnimatedTerminal({ section }: Props) {
+export default function AnimatedTerminal({ section, promptSpeedMs, outputSpeedMs }: Props) {
   const reducedMotion = useReducedMotion();
   const command = `> ${section.command}`;
   const output = useMemo(() => section.lines.join('\n'), [section.lines]);
@@ -57,15 +56,15 @@ export default function AnimatedTerminal({ section }: Props) {
           if (outputIndex >= output.length && outputTimer) {
             window.clearInterval(outputTimer);
           }
-        }, OUTPUT_SPEED);
+        }, outputSpeedMs);
       }
-    }, PROMPT_SPEED);
+    }, promptSpeedMs);
 
     return () => {
       window.clearInterval(commandTimer);
       if (outputTimer) window.clearInterval(outputTimer);
     };
-  }, [command, output, reducedMotion]);
+  }, [command, output, outputSpeedMs, promptSpeedMs, reducedMotion]);
 
   return (
     <div className="terminal-output terminal-output--enhanced" aria-live="polite">

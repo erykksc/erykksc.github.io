@@ -1,6 +1,6 @@
 ---
 import AnimatedTerminal from './AnimatedTerminal';
-import { terminalSections, type TerminalSection } from '../data/portfolio';
+import { terminalAnimation, terminalSections, type TerminalSection } from '../data/portfolio';
 
 type Props = {
   section: TerminalSection;
@@ -11,23 +11,49 @@ const { section } = Astro.props;
 
 <section class="terminal-shell" aria-labelledby="terminal-heading">
   <h1 id="terminal-heading" class="sr-only">Software developer portfolio terminal</h1>
-  <nav class="terminal-tabs" aria-label="Portfolio sections">
-    {terminalSections.map((item) => (
-      <a
-        class:list={['terminal-tab', { 'terminal-tab--active': item.slug === section.slug }]}
-        href={item.href}
-        aria-current={item.slug === section.slug ? 'page' : undefined}
-      >
-        {item.label}
-      </a>
-    ))}
-  </nav>
+  <div class="terminal-chrome">
+    <div class="terminal-titlebar" aria-hidden="true">
+      <div class="terminal-controls">
+        <span class="terminal-control terminal-control--close"></span>
+        <span class="terminal-control terminal-control--minimize"></span>
+        <span class="terminal-control terminal-control--zoom"></span>
+      </div>
+      <p>portfolio.local</p>
+    </div>
+
+    <nav class="terminal-tabs" aria-label="Portfolio sections">
+      {terminalSections.map((item) => (
+        <a
+          class:list={['terminal-tab', { 'terminal-tab--active': item.slug === section.slug }]}
+          href={item.href}
+          aria-current={item.slug === section.slug ? 'page' : undefined}
+        >
+          <span>{item.label}</span>
+          {item.slug === section.slug && (
+            <svg class="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
+            </svg>
+          )}
+        </a>
+      ))}
+      <button class="terminal-tab-add" type="button" aria-label="Add terminal tab">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 3.25V12.75M3.25 8H12.75" />
+        </svg>
+      </button>
+    </nav>
+  </div>
 
   <div class="terminal-screen">
     <div class="terminal-output terminal-output--static">
       <p class="terminal-command">&gt; {section.command}</p>
       <pre class="terminal-lines">{section.lines.join('\n')}</pre>
     </div>
-    <AnimatedTerminal section={section} client:load />
+    <AnimatedTerminal
+      section={section}
+      promptSpeedMs={terminalAnimation.promptSpeedMs}
+      outputSpeedMs={terminalAnimation.outputSpeedMs}
+      client:load
+    />
   </div>
 </section>
