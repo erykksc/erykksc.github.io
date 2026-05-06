@@ -1,16 +1,10 @@
 ---
 import AnimatedTerminal from './AnimatedTerminal';
-import { terminalAnimation, terminalSections, type TerminalSection } from '../data/portfolio';
-
-type Props = {
-  section: TerminalSection;
-};
-
-const { section } = Astro.props;
+import { defaultSection, terminalAnimation, terminalSections } from '../data/portfolio';
 ---
 
-<section class="terminal-shell" aria-labelledby="terminal-heading">
-  <h1 id="terminal-heading" class="sr-only">Software developer portfolio terminal</h1>
+<section class="terminal-shell terminal-shell--static" aria-labelledby="terminal-heading-static">
+  <h2 id="terminal-heading-static" class="sr-only">Software developer portfolio terminal summaries</h2>
   <div class="terminal-chrome">
     <div class="terminal-titlebar" aria-hidden="true">
       <div class="terminal-controls">
@@ -23,18 +17,16 @@ const { section } = Astro.props;
 
     <nav class="terminal-tabs" aria-label="Portfolio sections">
       {terminalSections.map((item) => (
-        <a
-          class:list={['terminal-tab', { 'terminal-tab--active': item.slug === section.slug }]}
-          href={item.href}
-          aria-current={item.slug === section.slug ? 'page' : undefined}
+        <span
+          class:list={['terminal-tab', { 'terminal-tab--active': item.slug === defaultSection.slug }]}
         >
           <span>{item.label}</span>
-          {item.slug === section.slug && (
+          {item.slug === defaultSection.slug && (
             <svg class="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
             </svg>
           )}
-        </a>
+        </span>
       ))}
       <button class="terminal-tab-add" type="button" aria-label="Add terminal tab">
         <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -45,16 +37,23 @@ const { section } = Astro.props;
   </div>
 
   <div class="terminal-screen" style={`--terminal-cursor-blink: ${terminalAnimation.cursorBlinkMs}ms`}>
-    <div class="terminal-output terminal-output--static">
-      <p class="terminal-command">&gt; {section.command}</p>
-      <pre class="terminal-lines">{section.lines.join('\n')}</pre>
+    <div class="terminal-output">
+      {terminalSections.map((section) => (
+        <section class="terminal-static-section" aria-labelledby={`terminal-static-${section.slug}`}>
+          <h3 id={`terminal-static-${section.slug}`} class="sr-only">{section.heading}</h3>
+          <p class="terminal-command">&gt; {section.command}</p>
+          <pre class="terminal-lines">{section.lines.join('\n')}</pre>
+        </section>
+      ))}
       <p class="terminal-command terminal-command--next">&gt; <span class="terminal-cursor" aria-hidden="true"></span></p>
     </div>
-    <AnimatedTerminal
-      section={section}
-      promptSpeedMs={terminalAnimation.promptSpeedMs}
-      outputSpeedMs={terminalAnimation.outputSpeedMs}
-      client:load
-    />
   </div>
 </section>
+
+<AnimatedTerminal
+  sections={terminalSections}
+  promptSpeedMs={terminalAnimation.promptSpeedMs}
+  outputSpeedMs={terminalAnimation.outputSpeedMs}
+  cursorBlinkMs={terminalAnimation.cursorBlinkMs}
+  client:load
+/>

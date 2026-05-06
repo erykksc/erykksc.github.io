@@ -3,13 +3,7 @@ import TerminalFrame from './TerminalFrame.astro';
 import SketchTimeline from './SketchTimeline.astro';
 import SocialLinks from './SocialLinks.astro';
 import HeroActions from './HeroActions.astro';
-import { heroContent, type TerminalSection } from '../data/portfolio';
-
-type Props = {
-  section: TerminalSection;
-};
-
-const { section } = Astro.props;
+import { heroContent } from '../data/portfolio';
 ---
 
 <main class="page-shell home-page">
@@ -24,6 +18,6 @@ const { section } = Astro.props;
   </section>
 
   <HeroActions />
-  <TerminalFrame section={section} />
+  <TerminalFrame />
   <SketchTimeline />
 </main>

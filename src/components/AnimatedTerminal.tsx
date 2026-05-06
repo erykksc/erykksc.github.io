@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { TerminalSection } from '../data/portfolio';
 
 type Props = {
-  section: TerminalSection;
+  sections: TerminalSection[];
   promptSpeedMs: number;
   outputSpeedMs: number;
+  cursorBlinkMs: number;
 };
 
 type TerminalPhase = 'command' | 'output' | 'done';
@@ -24,8 +26,10 @@ function useReducedMotion() {
   return reducedMotion;
 }
 
-export default function AnimatedTerminal({ section, promptSpeedMs, outputSpeedMs }: Props) {
+export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedMs, cursorBlinkMs }: Props) {
   const reducedMotion = useReducedMotion();
+  const [activeSlug, setActiveSlug] = useState(sections[0]?.slug);
+  const section = sections.find((item) => item.slug === activeSlug) ?? sections[0];
   const command = `> ${section.command}`;
   const output = useMemo(() => section.lines.join('\n'), [section.lines]);
   const [visibleCommand, setVisibleCommand] = useState('');
@@ -74,17 +78,61 @@ export default function AnimatedTerminal({ section, promptSpeedMs, outputSpeedMs
   }, [command, output, outputSpeedMs, promptSpeedMs, reducedMotion]);
 
   return (
-    <div className="terminal-output terminal-output--enhanced" aria-live="polite">
-      <p className="terminal-command">
-        {visibleCommand}
-        {phase === 'command' && <span className="terminal-cursor" aria-hidden="true" />}
-      </p>
-      <pre className="terminal-lines">{visibleOutput}</pre>
-      {phase === 'done' && (
-        <p className="terminal-command terminal-command--next">
-          &gt; <span className="terminal-cursor" aria-hidden="true" />
-        </p>
-      )}
-    </div>
+    <section className="terminal-shell terminal-shell--enhanced" aria-labelledby="terminal-heading-enhanced">
+      <h2 id="terminal-heading-enhanced" className="sr-only">Software developer portfolio terminal</h2>
+      <div className="terminal-chrome">
+        <div className="terminal-titlebar" aria-hidden="true">
+          <div className="terminal-controls">
+            <span className="terminal-control terminal-control--close" />
+            <span className="terminal-control terminal-control--minimize" />
+            <span className="terminal-control terminal-control--zoom" />
+          </div>
+          <p>portfolio.local</p>
+        </div>
+
+        <div className="terminal-tabs" role="tablist" aria-label="Portfolio sections">
+          {sections.map((item) => {
+            const isActive = item.slug === section.slug;
+
+            return (
+              <button
+                className={`terminal-tab${isActive ? ' terminal-tab--active' : ''}`}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveSlug(item.slug)}
+              >
+                <span>{item.label}</span>
+                {isActive && (
+                  <svg className="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+          <button className="terminal-tab-add" type="button" aria-label="Add terminal tab">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 3.25V12.75M3.25 8H12.75" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="terminal-screen" style={{ '--terminal-cursor-blink': `${cursorBlinkMs}ms` } as CSSProperties}>
+        <div className="terminal-output" aria-live="polite">
+          <p className="terminal-command">
+            {visibleCommand}
+            {phase === 'command' && <span className="terminal-cursor" aria-hidden="true" />}
+          </p>
+          <pre className="terminal-lines">{visibleOutput}</pre>
+          {phase === 'done' && (
+            <p className="terminal-command terminal-command--next">
+              &gt; <span className="terminal-cursor" aria-hidden="true" />
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
