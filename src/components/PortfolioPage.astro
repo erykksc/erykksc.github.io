@@ -1,0 +1,27 @@
+---
+import TerminalFrame from './TerminalFrame.astro';
+import SketchTimeline from './SketchTimeline.astro';
+import SocialLinks from './SocialLinks.astro';
+import { heroContent, type TerminalSection } from '../data/portfolio';
+
+type Props = {
+  section: TerminalSection;
+};
+
+const { section } = Astro.props;
+---
+
+<main class="page-shell home-page">
+  <section class="hero-copy" aria-labelledby="page-title">
+    <div class="profile-photo-slot" aria-label="Profile photo placeholder">
+      <span>Photo</span>
+    </div>
+    <p class="section-kicker">{heroContent.kicker}</p>
+    <h1 id="page-title">{heroContent.title}</h1>
+    <p>{heroContent.description}</p>
+  </section>
+
+  <SocialLinks />
+  <TerminalFrame section={section} />
+  <SketchTimeline />
+</main>

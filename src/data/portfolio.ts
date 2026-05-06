@@ -39,6 +39,13 @@ export const socialLinks: SocialLink[] = [
   },
 ];
 
+export const heroContent = {
+  kicker: "Software developer portfolio",
+  title: "Eryk Kściuczyk",
+  description:
+    "Replace this introduction with a short, specific summary of who you are, what you build, and what kind of work you want to be known for.",
+};
+
 export const terminalSections: TerminalSection[] = [
   {
     slug: "about",

@@ -1,8 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TerminalFrame from '../components/TerminalFrame.astro';
-import SketchTimeline from '../components/SketchTimeline.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import PortfolioPage from '../components/PortfolioPage.astro';
 import { getTerminalSection, terminalSections } from '../data/portfolio';
 
 export function getStaticPaths() {
@@ -16,21 +14,5 @@ const section = Astro.props.section ?? getTerminalSection(Astro.params.section);
 ---
 
 <Layout title={`${section.heading} | Portfolio`} description={`${section.heading} portfolio section.`}>
-  <main class="page-shell home-page">
-    <section class="hero-copy" aria-labelledby="page-title">
-      <div class="profile-photo-slot" aria-label="Profile photo placeholder">
-        <span>Photo</span>
-      </div>
-      <p class="section-kicker">Software developer portfolio</p>
-      <h1 id="page-title">I build software with a systems mindset and a product focus.</h1>
-      <p>
-        Replace this introduction with a short, specific summary of who you are, what you build,
-        and what kind of work you want to be known for.
-      </p>
-    </section>
-
-    <SocialLinks />
-    <TerminalFrame section={section} />
-    <SketchTimeline />
-  </main>
+  <PortfolioPage section={section} />
 </Layout>
