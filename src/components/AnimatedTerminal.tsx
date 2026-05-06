@@ -96,6 +96,7 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
 
             return (
               <button
+                key={item.slug}
                 className={`terminal-tab${isActive ? ' terminal-tab--active' : ''}`}
                 type="button"
                 role="tab"
