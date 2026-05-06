@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import TerminalFrame from '../components/TerminalFrame.astro';
 import SketchTimeline from '../components/SketchTimeline.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { getTerminalSection, terminalSections } from '../data/portfolio';
 
 export function getStaticPaths() {
@@ -25,6 +26,7 @@ const section = Astro.props.section ?? getTerminalSection(Astro.params.section);
       </p>
     </section>
 
+    <SocialLinks />
     <TerminalFrame section={section} />
     <SketchTimeline />
   </main>

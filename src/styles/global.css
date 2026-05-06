@@ -17,7 +17,9 @@ html {
   min-width: 320px;
   background: var(--paper-muted);
   color: var(--ink);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 }
 
 body {
@@ -100,6 +102,75 @@ p {
   margin: 1.4rem auto 0;
   font-size: clamp(1rem, 2vw, 1.2rem);
   line-height: 1.7;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0.65rem;
+  width: min(31rem, 100%);
+  margin-block: clamp(-4.25rem, -4vw, -2.4rem) clamp(-3.8rem, -3.3vw, -2rem);
+}
+
+.social-link {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.68rem 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 0.9rem 1.1rem 0.85rem 1rem;
+  background: var(--paper);
+  box-shadow: 4px 5px 0 rgba(32, 32, 32, 0.08);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.social-link:nth-child(2) {
+  transform: rotate(0.45deg);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  background: #dfd0b7;
+  box-shadow: 2px 3px 0 rgba(32, 32, 32, 0.12);
+}
+
+.social-link:focus-visible {
+  outline: 3px solid var(--line);
+  outline-offset: 3px;
+}
+
+.social-link-icon {
+  width: 1.85rem;
+  height: 1.85rem;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.social-link-icon--github {
+  transform: scale(1.08);
+}
+
+.social-link-copy {
+  display: grid;
+  min-width: 0;
+}
+
+.social-link-copy span:last-child {
+  margin-top: 0.18rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0.68;
 }
 
 .terminal-shell {
@@ -194,7 +265,9 @@ p {
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  transition: transform 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
 }
 
 .terminal-tab > span:first-child {
@@ -494,19 +567,35 @@ p {
   }
 
   .terminal-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) 2.7rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .terminal-tab-add {
+    display: none;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+    width: min(22rem, 100%);
+  }
+
+  .social-link {
+    flex-basis: 10rem;
   }
 
   .terminal-tab {
     min-height: 3.3rem;
     padding-inline: 0.35rem;
     font-size: 0.66rem;
-    grid-template-columns: 0.8rem minmax(0, 1fr) 0.8rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .terminal-tab > span:first-child {
+    grid-column: 1;
   }
 
   .terminal-tab-close {
-    width: 0.72rem;
-    height: 0.72rem;
+    display: none;
   }
 
   .terminal-tab-add {

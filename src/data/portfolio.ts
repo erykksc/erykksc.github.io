@@ -15,10 +15,29 @@ export type TimelineItem = {
   side: "left" | "right";
 };
 
+export type SocialLink = {
+  label: string;
+  href: string;
+  handle: string;
+};
+
 export const terminalAnimation = {
   promptSpeedMs: 35,
   outputSpeedMs: 3,
 };
+
+export const socialLinks: SocialLink[] = [
+  {
+    label: "GitHub",
+    href: "https://github.com/your-username",
+    handle: "@your-username",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/your-username",
+    handle: "/in/your-username",
+  },
+];
 
 export const terminalSections: TerminalSection[] = [
   {

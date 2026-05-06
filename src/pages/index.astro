@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import TerminalFrame from '../components/TerminalFrame.astro';
 import SketchTimeline from '../components/SketchTimeline.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { defaultSection } from '../data/portfolio';
 ---
 
@@ -16,6 +17,7 @@ import { defaultSection } from '../data/portfolio';
 			</p>
 		</section>
 
+		<SocialLinks />
 		<TerminalFrame section={defaultSection} />
 		<SketchTimeline />
 	</main>
