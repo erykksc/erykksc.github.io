@@ -29,6 +29,7 @@ export type HeroAction = {
 export const terminalAnimation = {
   promptSpeedMs: 35,
   outputSpeedMs: 3,
+  cursorBlinkMs: 2000,
 };
 
 export const profileName = "Eryk Kściuczyk";

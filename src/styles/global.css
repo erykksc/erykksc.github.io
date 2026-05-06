@@ -82,8 +82,20 @@ a {
   border: 3px solid var(--line);
   border-radius: 49% 51% 48% 52% / 52% 46% 54% 48%;
   background:
-    linear-gradient(135deg, transparent 48%, rgba(32, 32, 32, 0.16) 49%, rgba(32, 32, 32, 0.16) 51%, transparent 52%),
-    linear-gradient(45deg, transparent 48%, rgba(32, 32, 32, 0.16) 49%, rgba(32, 32, 32, 0.16) 51%, transparent 52%),
+    linear-gradient(
+      135deg,
+      transparent 48%,
+      rgba(32, 32, 32, 0.16) 49%,
+      rgba(32, 32, 32, 0.16) 51%,
+      transparent 52%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 48%,
+      rgba(32, 32, 32, 0.16) 49%,
+      rgba(32, 32, 32, 0.16) 51%,
+      transparent 52%
+    ),
     #f7f2e8;
   box-shadow: 6px 7px 0 rgba(32, 32, 32, 0.08);
   transform: rotate(-1.2deg);
@@ -181,7 +193,9 @@ p {
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, 0.35rem);
-  transition: opacity 160ms ease, transform 160ms ease;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
   white-space: nowrap;
 }
 
@@ -239,7 +253,10 @@ p {
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .hero-action:nth-child(2) {
@@ -458,7 +475,7 @@ p {
   margin-left: 0.15rem;
   vertical-align: -0.12em;
   background: var(--ink);
-  animation: blink 900ms steps(2, start) infinite;
+  animation: blink var(--terminal-cursor-blink, 520ms) steps(1, start) infinite;
 }
 
 .timeline-section {

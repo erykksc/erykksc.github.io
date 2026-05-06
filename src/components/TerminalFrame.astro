@@ -44,10 +44,11 @@ const { section } = Astro.props;
     </nav>
   </div>
 
-  <div class="terminal-screen">
+  <div class="terminal-screen" style={`--terminal-cursor-blink: ${terminalAnimation.cursorBlinkMs}ms`}>
     <div class="terminal-output terminal-output--static">
       <p class="terminal-command">&gt; {section.command}</p>
       <pre class="terminal-lines">{section.lines.join('\n')}</pre>
+      <p class="terminal-command terminal-command--next">&gt; <span class="terminal-cursor" aria-hidden="true"></span></p>
     </div>
     <AnimatedTerminal
       section={section}
