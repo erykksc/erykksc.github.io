@@ -2,6 +2,7 @@
 import TerminalFrame from './TerminalFrame.astro';
 import SketchTimeline from './SketchTimeline.astro';
 import SocialLinks from './SocialLinks.astro';
+import HeroActions from './HeroActions.astro';
 import { heroContent, type TerminalSection } from '../data/portfolio';
 
 type Props = {
@@ -18,10 +19,11 @@ const { section } = Astro.props;
     </div>
     <p class="section-kicker">{heroContent.kicker}</p>
     <h1 id="page-title">{heroContent.title}</h1>
+    <SocialLinks />
     <p>{heroContent.description}</p>
   </section>
 
-  <SocialLinks />
+  <HeroActions />
   <TerminalFrame section={section} />
   <SketchTimeline />
 </main>

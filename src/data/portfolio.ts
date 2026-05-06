@@ -21,10 +21,17 @@ export type SocialLink = {
   handle: string;
 };
 
+export type HeroAction = {
+  label: string;
+  href: string;
+};
+
 export const terminalAnimation = {
   promptSpeedMs: 35,
   outputSpeedMs: 3,
 };
+
+export const profileName = "Eryk Kściuczyk";
 
 export const socialLinks: SocialLink[] = [
   {
@@ -41,10 +48,21 @@ export const socialLinks: SocialLink[] = [
 
 export const heroContent = {
   kicker: "Software developer portfolio",
-  title: "Eryk Kściuczyk",
+  title: profileName,
   description:
     "Replace this introduction with a short, specific summary of who you are, what you build, and what kind of work you want to be known for.",
 };
+
+export const heroActions: HeroAction[] = [
+  {
+    label: "CONTACT ME",
+    href: "mailto:your.email@example.com",
+  },
+  {
+    label: "VIEW RESUME",
+    href: "/resume.pdf",
+  },
+];
 
 export const terminalSections: TerminalSection[] = [
   {
