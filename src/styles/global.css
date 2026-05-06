@@ -73,6 +73,33 @@ a {
   text-align: center;
 }
 
+.profile-photo-slot {
+  display: grid;
+  width: clamp(8rem, 18vw, 13rem);
+  height: clamp(8rem, 18vw, 13rem);
+  place-items: center;
+  margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+  border: 3px solid var(--line);
+  border-radius: 49% 51% 48% 52% / 52% 46% 54% 48%;
+  background:
+    linear-gradient(135deg, transparent 48%, rgba(32, 32, 32, 0.16) 49%, rgba(32, 32, 32, 0.16) 51%, transparent 52%),
+    linear-gradient(45deg, transparent 48%, rgba(32, 32, 32, 0.16) 49%, rgba(32, 32, 32, 0.16) 51%, transparent 52%),
+    #f7f2e8;
+  box-shadow: 6px 7px 0 rgba(32, 32, 32, 0.08);
+  transform: rotate(-1.2deg);
+}
+
+.profile-photo-slot span {
+  padding: 0.35rem 0.6rem;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .section-kicker {
   margin: 0 0 0.75rem;
   font-size: clamp(0.76rem, 1.5vw, 0.9rem);
