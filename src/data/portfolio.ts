@@ -44,13 +44,13 @@ export const profileName = "Eryk Kściuczyk";
 export const socialLinks: SocialLink[] = [
   {
     label: "GitHub",
-    href: "https://github.com/your-username",
-    handle: "@your-username",
+    href: "https://github.com/erykksc",
+    handle: "@erykksc",
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/your-username",
-    handle: "/in/your-username",
+    href: "https://www.linkedin.com/in/eryk-ksciuczyk",
+    handle: "/in/eryk-ksciuczyk",
   },
 ];
 
