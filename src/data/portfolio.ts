@@ -12,6 +12,13 @@ export type TimelineItem = {
   eyebrow: string;
   description: string;
   marker: "circle" | "oval" | "large";
+  media: {
+    type: "image" | "github";
+    shape: "circle" | "square";
+    src?: string;
+    alt?: string;
+  };
+  href?: string;
   side: "left" | "right";
 };
 
@@ -118,6 +125,13 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Replace this with a short story about what you built, why it mattered, and what technical decisions were important.",
     marker: "circle",
+    media: {
+      type: "image",
+      shape: "circle",
+      src: "/timeline/project-one.jpg",
+      alt: "Screenshot or photo for Project / Achievement One",
+    },
+    href: "https://example.com/project-one",
     side: "right",
   },
   {
@@ -126,6 +140,12 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Use this card for a strong portfolio item. Keep the copy specific: problem, contribution, stack, and result.",
     marker: "circle",
+    media: {
+      type: "github",
+      shape: "circle",
+      alt: "Project / Achievement Two on GitHub",
+    },
+    href: "https://github.com/your-username/project-two",
     side: "left",
   },
   {
@@ -134,6 +154,13 @@ export const timelineItems: TimelineItem[] = [
     description:
       "This layout is static HTML, so crawlers can read it even though the visual presentation looks hand drawn.",
     marker: "oval",
+    media: {
+      type: "image",
+      shape: "square",
+      src: "/timeline/project-three.jpg",
+      alt: "Screenshot or photo for Project / Achievement Three",
+    },
+    href: "https://example.com/project-three",
     side: "right",
   },
   {
@@ -142,6 +169,13 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Add links later if useful. The visual markers intentionally vary in size to match the sketch rather than a standard timeline.",
     marker: "large",
+    media: {
+      type: "image",
+      shape: "square",
+      src: "/timeline/project-four.jpg",
+      alt: "Screenshot or photo for Project / Achievement Four",
+    },
+    href: "https://example.com/project-four",
     side: "left",
   },
   {
@@ -150,6 +184,12 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Use this final item for an earlier milestone, education achievement, award, or foundational project.",
     marker: "circle",
+    media: {
+      type: "github",
+      shape: "circle",
+      alt: "Project / Achievement Five on GitHub",
+    },
+    href: "https://github.com/your-username/project-five",
     side: "right",
   },
 ];
