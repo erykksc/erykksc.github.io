@@ -13,7 +13,7 @@ export type TimelineItem = {
   description: string;
   marker: "circle" | "oval" | "large";
   media: {
-    type: "image" | "github";
+    type: "image" | "github" | "code" | "terminal" | "spark";
     shape: "circle" | "square";
     src?: string;
     alt?: string;
@@ -126,10 +126,9 @@ export const timelineItems: TimelineItem[] = [
       "Replace this with a short story about what you built, why it mattered, and what technical decisions were important.",
     marker: "circle",
     media: {
-      type: "image",
+      type: "code",
       shape: "circle",
-      src: "/timeline/project-one.jpg",
-      alt: "Screenshot or photo for Project / Achievement One",
+      alt: "Code icon for Project / Achievement One",
     },
     href: "https://example.com/project-one",
     side: "right",
@@ -155,10 +154,9 @@ export const timelineItems: TimelineItem[] = [
       "This layout is static HTML, so crawlers can read it even though the visual presentation looks hand drawn.",
     marker: "oval",
     media: {
-      type: "image",
+      type: "terminal",
       shape: "square",
-      src: "/timeline/project-three.jpg",
-      alt: "Screenshot or photo for Project / Achievement Three",
+      alt: "Terminal icon for Project / Achievement Three",
     },
     href: "https://example.com/project-three",
     side: "right",
@@ -170,10 +168,9 @@ export const timelineItems: TimelineItem[] = [
       "Add links later if useful. The visual markers intentionally vary in size to match the sketch rather than a standard timeline.",
     marker: "large",
     media: {
-      type: "image",
+      type: "spark",
       shape: "square",
-      src: "/timeline/project-four.jpg",
-      alt: "Screenshot or photo for Project / Achievement Four",
+      alt: "Spark icon for Project / Achievement Four",
     },
     href: "https://example.com/project-four",
     side: "left",
