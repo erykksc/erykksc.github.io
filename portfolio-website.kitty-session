@@ -12,6 +12,6 @@ launch opencode
 
 new_tab server
 cd .
-launch npm run dev
+launch npm run dev -- --open
 
 focus_tab title:neovim
