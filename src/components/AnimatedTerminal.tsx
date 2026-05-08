@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, KeyboardEvent } from 'react';
 import type { TerminalSection } from '../data/portfolio';
 
 type Props = {
@@ -28,13 +28,52 @@ function useReducedMotion() {
 
 export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedMs, cursorBlinkMs }: Props) {
   const reducedMotion = useReducedMotion();
-  const [activeSlug, setActiveSlug] = useState(sections[0]?.slug);
-  const section = sections.find((item) => item.slug === activeSlug) ?? sections[0];
-  const command = `> ${section.command}`;
-  const output = useMemo(() => section.lines.join('\n'), [section.lines]);
+  const [openSlugs, setOpenSlugs] = useState(() => sections.map((item) => item.slug));
+  const [activeSlug, setActiveSlug] = useState<string | undefined>(sections[0]?.slug);
+  const openSections = sections.filter((item) => openSlugs.includes(item.slug));
+  const closedSection = sections.find((item) => !openSlugs.includes(item.slug));
+  const section = openSections.find((item) => item.slug === activeSlug) ?? openSections[0];
+  const command = section ? `> ${section.command}` : '> no tabs open';
+  const output = useMemo(
+    () => section?.lines.join('\n') ?? 'Press + to reopen a portfolio section.',
+    [section?.lines],
+  );
   const [visibleCommand, setVisibleCommand] = useState('');
   const [visibleOutput, setVisibleOutput] = useState('');
   const [phase, setPhase] = useState<TerminalPhase>('command');
+
+  function closeTab(slug: string) {
+    setOpenSlugs((currentSlugs) => {
+      const nextSlugs = currentSlugs.filter((item) => item !== slug);
+
+      if (slug === activeSlug) {
+        const closingIndex = currentSlugs.indexOf(slug);
+        setActiveSlug(nextSlugs[closingIndex] ?? nextSlugs[closingIndex - 1]);
+      }
+
+      return nextSlugs;
+    });
+  }
+
+  function reopenTab() {
+    if (!closedSection) return;
+
+    setOpenSlugs((currentSlugs) => {
+      const nextSlugs = sections
+        .map((item) => item.slug)
+        .filter((slug) => currentSlugs.includes(slug) || slug === closedSection.slug);
+
+      return nextSlugs;
+    });
+    setActiveSlug(closedSection.slug);
+  }
+
+  function onTabKeyDown(event: KeyboardEvent<HTMLDivElement>, slug: string) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+
+    event.preventDefault();
+    setActiveSlug(slug);
+  }
 
   useEffect(() => {
     if (reducedMotion) {
@@ -91,28 +130,44 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
         </div>
 
         <div className="terminal-tabs" role="tablist" aria-label="Portfolio sections">
-          {sections.map((item) => {
-            const isActive = item.slug === section.slug;
+          {openSections.map((item) => {
+            const isActive = item.slug === section?.slug;
 
             return (
-              <button
+              <div
                 key={item.slug}
                 className={`terminal-tab${isActive ? ' terminal-tab--active' : ''}`}
-                type="button"
                 role="tab"
+                tabIndex={0}
                 aria-selected={isActive}
+                aria-controls="terminal-output-panel"
                 onClick={() => setActiveSlug(item.slug)}
+                onKeyDown={(event) => onTabKeyDown(event, item.slug)}
               >
                 <span>{item.label}</span>
-                {isActive && (
+                <button
+                  className="terminal-tab-close-button"
+                  type="button"
+                  aria-label={`Close ${item.label} tab`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeTab(item.slug);
+                  }}
+                >
                   <svg className="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
                   </svg>
-                )}
-              </button>
+                </button>
+              </div>
             );
           })}
-          <button className="terminal-tab-add" type="button" aria-label="Add terminal tab">
+          <button
+            className="terminal-tab-add"
+            type="button"
+            aria-label={closedSection ? `Reopen ${closedSection.label} tab` : 'All terminal tabs are open'}
+            disabled={!closedSection}
+            onClick={reopenTab}
+          >
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 3.25V12.75M3.25 8H12.75" />
             </svg>
@@ -121,7 +176,7 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
       </div>
 
       <div className="terminal-screen" style={{ '--terminal-cursor-blink': `${cursorBlinkMs}ms` } as CSSProperties}>
-        <div className="terminal-output" aria-live="polite">
+        <div id="terminal-output-panel" className="terminal-output" aria-live="polite">
           <p className="terminal-command">
             {visibleCommand}
             {phase === 'command' && <span className="terminal-cursor" aria-hidden="true" />}
