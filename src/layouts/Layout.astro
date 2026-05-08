@@ -26,10 +26,71 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<script is:inline>
-			document.documentElement.classList.add('js-enabled');
+			{
+				let storedTheme = null;
+				try {
+					storedTheme = localStorage.getItem('theme');
+				} catch {
+					storedTheme = null;
+				}
+
+				const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				const theme = storedTheme || systemTheme;
+
+				document.documentElement.classList.add('js-enabled');
+				document.documentElement.dataset.theme = theme;
+			}
 		</script>
 	</head>
 	<body>
+		<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" data-theme-toggle>
+			<span class="theme-toggle__label" data-theme-toggle-label>Light</span>
+			<span class="theme-toggle__track" aria-hidden="true">
+				<span class="theme-toggle__thumb"></span>
+			</span>
+		</button>
 		<slot />
+		<script is:inline>
+			{
+				const themeToggle = document.querySelector('[data-theme-toggle]');
+				const themeToggleLabel = document.querySelector('[data-theme-toggle-label]');
+				const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
+
+				function getStoredTheme() {
+					try {
+						return localStorage.getItem('theme');
+					} catch {
+						return null;
+					}
+				}
+
+				function setTheme(theme, persist = true) {
+					document.documentElement.dataset.theme = theme;
+					if (persist) {
+						try {
+							localStorage.setItem('theme', theme);
+						} catch {
+							// Ignore storage failures and keep the in-page theme change.
+						}
+					}
+
+					const isDark = theme === 'dark';
+					themeToggle?.setAttribute('aria-pressed', String(isDark));
+					themeToggle?.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} theme`);
+					if (themeToggleLabel) themeToggleLabel.textContent = isDark ? 'Dark' : 'Light';
+				}
+
+				setTheme(document.documentElement.dataset.theme || 'light', false);
+
+				themeToggle?.addEventListener('click', () => {
+					setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+				});
+
+				themePreference.addEventListener('change', (event) => {
+					if (getStoredTheme()) return;
+					setTheme(event.matches ? 'dark' : 'light', false);
+				});
+			}
+		</script>
 	</body>
 </html>
