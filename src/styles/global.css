@@ -476,6 +476,15 @@ p {
   border: 2px solid var(--line);
   border-radius: 999px;
   box-shadow: 2px 2px 0 var(--line);
+  transition:
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.terminal-control:hover,
+.terminal-control:focus-visible {
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.26);
+  transform: translate(2px, 2px);
 }
 
 .terminal-control--close {
