@@ -2,19 +2,19 @@
 
 :root {
   color-scheme: light;
-  --ink: #000;
-  --paper: #fff7d6;
-  --surface: #fff;
-  --paper-muted: #ffeaa3;
-  --line: #000;
-  --accent-yellow: #ffd93d;
-  --accent-pink: #ff5c8a;
-  --accent-blue: #5bbcff;
-  --accent-green: #7cff6b;
-  --accent-orange: #ff8a3d;
-  --shadow-hard: 7px 7px 0 var(--line);
-  --shadow-hard-lg: 14px 14px 0 var(--line);
-  --shadow-hard-sm: 4px 4px 0 var(--line);
+  --ink: #111111;
+  --paper: #f7f7f2;
+  --surface: #ffffff;
+  --paper-muted: #e9e9e1;
+  --line: #111111;
+  --accent-yellow: #f5c400;
+  --accent-pink: #d6d6cc;
+  --accent-blue: #efefea;
+  --accent-green: #2b2b2b;
+  --accent-orange: #b8b8ae;
+  --shadow-hard: 7px 7px 0 rgba(17, 17, 17, 0.86);
+  --shadow-hard-lg: 14px 14px 0 rgba(17, 17, 17, 0.9);
+  --shadow-hard-sm: 4px 4px 0 rgba(17, 17, 17, 0.82);
 }
 
 * {
@@ -24,8 +24,8 @@
 html {
   min-width: 320px;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(17, 17, 17, 0.035) 1px, transparent 1px),
     var(--paper-muted);
   background-size: 2.25rem 2.25rem;
   color: var(--ink);
@@ -146,7 +146,7 @@ p {
   font-size: clamp(2rem, 6vw, 5rem);
   line-height: 0.98;
   letter-spacing: -0.07em;
-  text-shadow: 4px 4px 0 var(--accent-yellow);
+  text-shadow: 3px 3px 0 var(--accent-yellow);
 }
 
 .hero-copy p:last-child {
@@ -360,15 +360,15 @@ p {
 }
 
 .terminal-control--close {
-  background: var(--accent-pink);
+  background: #ff5f57;
 }
 
 .terminal-control--minimize {
-  background: var(--accent-yellow);
+  background: #ffbd2e;
 }
 
 .terminal-control--zoom {
-  background: var(--accent-green);
+  background: #28c840;
 }
 
 .terminal-tabs {
@@ -423,11 +423,13 @@ p {
 .terminal-tab:hover,
 .terminal-tab:focus-visible {
   background: var(--accent-green);
+  color: var(--surface);
 }
 
 .terminal-tab--active {
   z-index: 1;
   background: var(--accent-yellow);
+  color: var(--ink);
 }
 
 .terminal-tab-close {
@@ -463,6 +465,7 @@ p {
 
 .terminal-tab-add:hover {
   background: var(--accent-green);
+  color: var(--surface);
 }
 
 .terminal-tab:focus-visible {
@@ -757,6 +760,7 @@ a.timeline-marker:focus-visible {
 .timeline-card h3 a:hover,
 .timeline-card h3 a:focus-visible {
   background: var(--accent-green);
+  color: var(--surface);
   outline: 2px solid var(--line);
   outline-offset: 3px;
   text-decoration: none;
