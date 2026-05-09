@@ -421,7 +421,7 @@ p {
   border: 4px solid var(--line);
   border-radius: 0.9rem;
   background: var(--surface);
-  box-shadow: var(--shadow-hard-lg);
+  box-shadow: var(--shadow-hard);
   overflow: hidden;
 }
 
@@ -528,7 +528,7 @@ p {
   padding: 0.72rem 0.85rem;
   border-width: 3px;
   border-radius: 0.65rem;
-  box-shadow: 3px 3px 0 var(--line);
+  box-shadow: var(--shadow-hard);
   color: inherit;
   cursor: pointer;
   font: inherit;
@@ -549,34 +549,29 @@ p {
   min-width: 0;
 }
 
-.terminal-tab:nth-child(2),
-.terminal-tab:nth-child(3) {
-  transform: none;
-}
-
 .terminal-tab:hover,
 .terminal-tab:focus-visible {
   z-index: 3;
   background: var(--accent-pink);
-  box-shadow: 1px 1px 0 var(--line);
+  box-shadow: 3px 3px 0 var(--line);
   color: var(--ink);
-  transform: translate(2px, 2px);
+  transform: translate(4px, 4px);
 }
 
 .terminal-tab--active {
   z-index: 2;
   background: var(--accent-yellow);
-  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.18);
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.18);
   color: var(--ink-on-accent);
-  transform: translate(1px, 1px);
+  transform: translate(4px, 4px);
 }
 
 .terminal-tab--active:hover,
 .terminal-tab--active:focus-visible {
   background: var(--accent-yellow);
-  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.22);
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.18);
   color: var(--ink-on-accent);
-  transform: translate(1px, 1px);
+  transform: translate(4px, 4px);
 }
 
 .terminal-tab-close {
@@ -629,7 +624,7 @@ p {
   border: 3px solid var(--line);
   border-radius: 0.65rem;
   background: var(--accent-pink);
-  box-shadow: 3px 3px 0 var(--line);
+  box-shadow: var(--shadow-hard);
   color: var(--ink);
   cursor: pointer;
   transition:
@@ -649,9 +644,9 @@ p {
 
 .terminal-tab-add:hover {
   background: var(--accent-green);
-  box-shadow: 1px 1px 0 var(--line);
+  box-shadow: 3px 3px 0 var(--line);
   color: var(--surface);
-  transform: translate(2px, 2px);
+  transform: translate(4px, 4px);
 }
 
 .terminal-tab:focus-visible {
