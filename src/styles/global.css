@@ -833,6 +833,120 @@ p {
   font-size: 1.05rem;
 }
 
+.project-preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: -0.1rem 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-preview-tag {
+  --badge-bg: var(--paper);
+  --badge-fg: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 1.35rem;
+  padding: 0.12rem 0.38rem;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--badge-bg);
+  box-shadow: 2px 2px 0 var(--line);
+  color: var(--badge-fg);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.project-preview-tag--react,
+.project-preview-tag--web-app,
+.project-preview-tag--typescript,
+.project-preview-tag--visualization,
+.project-preview-tag--website,
+.project-preview-tag--github-pages {
+  --badge-bg: #61dafb;
+  --badge-fg: #111111;
+}
+
+.project-preview-tag--aws,
+.project-preview-tag--serverless,
+.project-preview-tag--benchmarking {
+  --badge-bg: #ff9900;
+  --badge-fg: #111111;
+}
+
+.project-preview-tag--go,
+.project-preview-tag--htmx,
+.project-preview-tag--cli,
+.project-preview-tag--automation {
+  --badge-bg: #00add8;
+  --badge-fg: #111111;
+}
+
+.project-preview-tag--rust,
+.project-preview-tag--c,
+.project-preview-tag--c-,
+.project-preview-tag--engine,
+.project-preview-tag--embedded {
+  --badge-bg: #dea584;
+  --badge-fg: #111111;
+}
+
+.project-preview-tag--python,
+.project-preview-tag--numpy,
+.project-preview-tag--ml,
+.project-preview-tag--data,
+.project-preview-tag--simulation {
+  --badge-bg: #ffd43b;
+  --badge-fg: #111111;
+}
+
+.project-preview-tag--docker,
+.project-preview-tag--kubernetes,
+.project-preview-tag--postgresql,
+.project-preview-tag--mobilitydb,
+.project-preview-tag--citus {
+  --badge-bg: #2496ed;
+  --badge-fg: #ffffff;
+}
+
+.project-preview-tag--calendar,
+.project-preview-tag--pdf,
+.project-preview-tag--wikipedia,
+.project-preview-tag--graph,
+.project-preview-tag--downloader,
+.project-preview-tag--library {
+  --badge-bg: var(--accent-yellow);
+  --badge-fg: var(--ink-on-accent);
+}
+
+.project-preview-tag--discord,
+.project-preview-tag--game,
+.project-preview-tag--game-jam,
+.project-preview-tag--godot,
+.project-preview-tag--retro,
+.project-preview-tag--graphics,
+.project-preview-tag--terminal {
+  --badge-bg: #5865f2;
+  --badge-fg: #ffffff;
+}
+
+.project-preview-tag--nix,
+.project-preview-tag--shell,
+.project-preview-tag--neovim,
+.project-preview-tag--keyboard,
+.project-preview-tag--algorithms,
+.project-preview-tag--prototype,
+.project-preview-tag--thesis,
+.project-preview-tag--tex,
+.project-preview-tag--lua {
+  --badge-bg: var(--accent-blue);
+  --badge-fg: var(--ink);
+}
+
 .project-preview-copy p {
   margin: 0;
   line-height: 1.5;

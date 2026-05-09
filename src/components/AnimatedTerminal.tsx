@@ -12,6 +12,11 @@ type Props = {
 
 type TerminalPhase = 'command' | 'output' | 'done';
 
+function getTechnologyBadgeClass(tag: string) {
+  const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return `project-preview-tag project-preview-tag--${slug || 'default'}`;
+}
+
 function useReducedMotion() {
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -243,6 +248,9 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
                   </div>
                   <div className="project-preview-copy">
                     <h4>{project.title}</h4>
+                    <ul className="project-preview-tags" aria-label={`${project.title} technologies`}>
+                      {project.tags.map((tag) => <li className={getTechnologyBadgeClass(tag)} key={tag}>{tag}</li>)}
+                    </ul>
                     <p>{project.description}</p>
                     {project.sourceHref && (
                       <a href={project.sourceHref} target="_blank" rel="noreferrer">
