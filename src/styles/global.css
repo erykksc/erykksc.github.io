@@ -654,20 +654,6 @@ p {
   transform: translate(2px, 2px);
 }
 
-.terminal-tab-add:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: translate(1px, 1px);
-  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.18);
-}
-
-.terminal-tab-add:disabled:hover {
-  background: var(--accent-pink);
-  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.18);
-  color: var(--ink);
-  transform: translate(1px, 1px);
-}
-
 .terminal-tab:focus-visible {
   outline: 3px solid var(--line);
   outline-offset: 3px;
@@ -1062,11 +1048,7 @@ a.timeline-marker:focus-visible {
   }
 
   .terminal-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .terminal-tab-add {
-    display: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 3.25rem;
   }
 
   .social-links {
@@ -1099,8 +1081,9 @@ a.timeline-marker:focus-visible {
     grid-column: 1;
   }
 
-  .terminal-tab-close {
+  .terminal-tab-close-button {
     display: none;
+    pointer-events: none;
   }
 
   .terminal-tab-add {

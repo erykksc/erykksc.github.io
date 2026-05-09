@@ -41,6 +41,11 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
   const [visibleCommand, setVisibleCommand] = useState('');
   const [visibleOutput, setVisibleOutput] = useState('');
   const [phase, setPhase] = useState<TerminalPhase>('command');
+  const tabGridStyle = {
+    gridTemplateColumns: closedSection
+      ? `repeat(${openSections.length}, minmax(0, 1fr)) 3.25rem`
+      : `repeat(${openSections.length}, minmax(0, 1fr))`,
+  } as CSSProperties;
 
   function closeTab(slug: string) {
     setOpenSlugs((currentSlugs) => {
@@ -129,7 +134,7 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
           <p>portfolio.local</p>
         </div>
 
-        <div className="terminal-tabs" role="tablist" aria-label="Portfolio sections">
+        <div className="terminal-tabs" role="tablist" aria-label="Portfolio sections" style={tabGridStyle}>
           {openSections.map((item) => {
             const isActive = item.slug === section?.slug;
 
@@ -161,17 +166,18 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
               </div>
             );
           })}
-          <button
-            className="terminal-tab-add"
-            type="button"
-            aria-label={closedSection ? `Reopen ${closedSection.label} tab` : 'All terminal tabs are open'}
-            disabled={!closedSection}
-            onClick={reopenTab}
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M8 3.25V12.75M3.25 8H12.75" />
-            </svg>
-          </button>
+          {closedSection && (
+            <button
+              className="terminal-tab-add"
+              type="button"
+              aria-label={`Reopen ${closedSection.label} tab`}
+              onClick={reopenTab}
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 3.25V12.75M3.25 8H12.75" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
 
