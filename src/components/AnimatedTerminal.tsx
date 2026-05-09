@@ -10,6 +10,7 @@ type Props = {
 };
 
 type TerminalPhase = 'command' | 'output' | 'done';
+type TerminalWindowState = 'open' | 'closed' | 'minimized';
 
 type TerminalHistoryItem = {
   command: string;
@@ -55,6 +56,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   const [interactiveCommand, setInteractiveCommand] = useState('');
   const [interactiveHistory, setInteractiveHistory] = useState<TerminalHistoryItem[]>([]);
   const [isProjectWindowOpen, setIsProjectWindowOpen] = useState(false);
+  const [terminalWindowState, setTerminalWindowState] = useState<TerminalWindowState>('open');
+  const [isMaximized, setIsMaximized] = useState(false);
   const tabGridStyle = {
     gridTemplateColumns: closedSection
       ? `repeat(${openSections.length}, minmax(0, 1fr)) 3.25rem`
@@ -125,6 +128,21 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     setInteractiveCommand('');
   }
 
+  function closeTerminal() {
+    setIsProjectWindowOpen(false);
+    setIsMaximized(false);
+    setTerminalWindowState('closed');
+  }
+
+  function minimizeTerminal() {
+    setIsProjectWindowOpen(false);
+    setTerminalWindowState('minimized');
+  }
+
+  function openTerminal() {
+    setTerminalWindowState('open');
+  }
+
   useEffect(() => {
     if (!isProjectWindowOpen) return;
 
@@ -170,7 +188,7 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   }, [command, output, promptSpeedMs, reducedMotion]);
 
   useEffect(() => {
-    if (phase !== 'done' || isProjectWindowOpen) return;
+    if (phase !== 'done' || isProjectWindowOpen || terminalWindowState !== 'open') return;
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.defaultPrevented || event.altKey || event.metaKey) return;
@@ -203,17 +221,56 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [command, interactiveCommand, isProjectWindowOpen, output, phase]);
+  }, [command, interactiveCommand, isProjectWindowOpen, output, phase, terminalWindowState]);
+
+  if (terminalWindowState === 'closed') {
+    return (
+      <button className="terminal-reopen-action" type="button" onClick={openTerminal}>
+        Open Terminal
+      </button>
+    );
+  }
+
+  if (terminalWindowState === 'minimized') {
+    return (
+      <button className="terminal-minimized-action" type="button" aria-label="Restore terminal" onClick={openTerminal}>
+        <span className="terminal-minimized-icon" aria-hidden="true">
+          <span className="terminal-minimized-titlebar" />
+          <span className="terminal-minimized-prompt">&gt;_</span>
+        </span>
+        <span>Terminal</span>
+      </button>
+    );
+  }
 
   return (
-    <section className="terminal-shell terminal-shell--enhanced" aria-labelledby="terminal-heading-enhanced">
+    <section
+      className={`terminal-shell terminal-shell--enhanced${isMaximized ? ' terminal-shell--maximized' : ''}`}
+      aria-labelledby="terminal-heading-enhanced"
+    >
       <h2 id="terminal-heading-enhanced" className="sr-only">Software developer portfolio terminal</h2>
       <div className="terminal-chrome">
-        <div className="terminal-titlebar" aria-hidden="true">
+        <div className="terminal-titlebar">
           <div className="terminal-controls">
-            <span className="terminal-control terminal-control--close" />
-            <span className="terminal-control terminal-control--minimize" />
-            <span className="terminal-control terminal-control--zoom" />
+            <button
+              className="terminal-control terminal-control--close"
+              type="button"
+              aria-label="Close terminal"
+              onClick={closeTerminal}
+            />
+            <button
+              className="terminal-control terminal-control--minimize"
+              type="button"
+              aria-label="Minimize terminal"
+              onClick={minimizeTerminal}
+            />
+            <button
+              className="terminal-control terminal-control--zoom"
+              type="button"
+              aria-label={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
+              aria-pressed={isMaximized}
+              onClick={() => setIsMaximized((currentValue) => !currentValue)}
+            />
           </div>
           <p>portfolio.local</p>
         </div>
