@@ -177,7 +177,7 @@ a {
   background: var(--paper);
   border: 4px solid var(--line);
   border-radius: 1.25rem;
-  box-shadow: var(--shadow-hard-lg);
+  box-shadow: none;
 }
 
 .home-page {
@@ -738,7 +738,7 @@ p {
   border: 4px solid var(--line);
   border-radius: 1rem;
   background: var(--paper);
-  box-shadow: var(--shadow-hard-lg);
+  box-shadow: none;
   overflow: auto;
 }
 
@@ -763,7 +763,7 @@ p {
   border: 3px solid var(--line);
   border-radius: 50%;
   background: #ff5f57;
-  box-shadow: var(--shadow-hard-sm);
+  box-shadow: none;
   color: #111111;
   cursor: pointer;
   transition:
@@ -773,7 +773,6 @@ p {
 
 .project-window-close:hover,
 .project-window-close:focus-visible {
-  box-shadow: 1px 1px 0 var(--line);
   transform: translate(3px, 3px);
 }
 
@@ -803,7 +802,7 @@ p {
   border: 3px solid var(--line);
   border-radius: 0.85rem;
   background: var(--surface);
-  box-shadow: var(--shadow-hard);
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -828,9 +827,34 @@ p {
   padding: 1rem;
 }
 
-.project-preview-copy h4 {
+.project-preview-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.55rem;
   margin: 0 0 0.6rem;
+}
+
+.project-preview-copy h4 {
+  margin: 0;
   font-size: 1.05rem;
+}
+
+.project-preview-year {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 1.55rem;
+  padding: 0.16rem 0.45rem;
+  border: 2px solid var(--line);
+  border-radius: 0.35rem;
+  background: var(--accent-yellow);
+  color: var(--ink-on-accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(-1.5deg);
 }
 
 .project-preview-tags {
@@ -853,7 +877,7 @@ p {
   border: 2px solid var(--line);
   border-radius: 999px;
   background: var(--badge-bg);
-  box-shadow: 2px 2px 0 var(--line);
+  box-shadow: none;
   color: var(--badge-fg);
   font-size: 0.66rem;
   font-weight: 900;
@@ -975,11 +999,10 @@ p {
 
 .project-preview-copy a:hover,
 .project-preview-copy a:focus-visible {
-  background: var(--accent-green);
+  background: var(--accent-pink);
   box-shadow: 1px 1px 0 var(--line);
-  color: var(--surface);
-  outline: 2px solid var(--line);
-  outline-offset: 3px;
+  color: var(--ink);
+  outline: none;
   transform: translate(3px, 3px);
 }
 

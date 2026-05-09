@@ -247,7 +247,10 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
                     <img src={project.image} alt="" loading="lazy" />
                   </div>
                   <div className="project-preview-copy">
-                    <h4>{project.title}</h4>
+                    <div className="project-preview-title-row">
+                      <h4>{project.title}</h4>
+                      <span className="project-preview-year">{project.year}</span>
+                    </div>
                     <ul className="project-preview-tags" aria-label={`${project.title} technologies`}>
                       {project.tags.map((tag) => <li className={getTechnologyBadgeClass(tag)} key={tag}>{tag}</li>)}
                     </ul>

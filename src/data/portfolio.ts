@@ -9,6 +9,7 @@ export type TerminalSection = {
 
 export type ProjectPreview = {
   title: string;
+  year: string;
   description: string;
   image: string;
   tags: string[];
@@ -499,6 +500,7 @@ const projectPreviewImages = [
 export const projectPreviews: ProjectPreview[] = allGithubProjects.map(
   (project, index) => ({
     title: project.name,
+    year: project.year,
     description: project.description,
     image: projectPreviewImages[index % projectPreviewImages.length],
     tags: project.tags,
