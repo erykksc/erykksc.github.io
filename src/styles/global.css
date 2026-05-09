@@ -727,6 +727,11 @@ p {
 .timeline-canvas {
   position: relative;
   min-height: 103rem;
+  --timeline-progress: 1;
+}
+
+.js-enabled .timeline-canvas {
+  --timeline-progress: 0;
 }
 
 .timeline-path {
@@ -746,6 +751,11 @@ p {
   stroke-linejoin: miter;
 }
 
+.js-enabled .timeline-path path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--timeline-progress));
+}
+
 .timeline-list {
   position: relative;
   display: grid;
@@ -761,6 +771,19 @@ p {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: center;
   gap: clamp(1rem, 3vw, 2rem);
+}
+
+.js-enabled .timeline-item {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+}
+
+.js-enabled .timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timeline-marker {

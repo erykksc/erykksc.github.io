@@ -8,16 +8,17 @@ import { timelineItems } from '../data/portfolio';
     <h2 id="timeline-heading">A winding record of things I have built</h2>
   </div>
 
-  <div class="timeline-canvas">
+  <div class="timeline-canvas" data-timeline-canvas>
     <svg class="timeline-path" viewBox="0 0 1000 1650" aria-hidden="true" preserveAspectRatio="none">
       <path
-        d="M208 95 C96 190 86 320 708 410 C1030 456 950 640 292 755 C-5 805 108 1030 750 1145 C1050 1200 895 1395 417 1565"
+        pathLength="1"
+        d="M208 95 C96 190 86 320 708 410 C1030 456 950 640 292 755 C-5 805 108 1030 750 1145 C1050 1200 895 1395 417 1635"
       />
     </svg>
 
     <ol class="timeline-list">
       {timelineItems.map((item, index) => (
-        <li class:list={['timeline-item', `timeline-item--${item.side}`, `timeline-item--${item.marker}`]}>
+        <li class:list={['timeline-item', `timeline-item--${item.side}`, `timeline-item--${item.marker}`]} data-timeline-item>
           {item.href ? (
             <a
               class:list={['timeline-marker', `timeline-marker--${item.media.shape}`]}
@@ -83,3 +84,52 @@ import { timelineItems } from '../data/portfolio';
     </ol>
   </div>
 </section>
+
+<script is:inline>
+  {
+    const canvas = document.querySelector('[data-timeline-canvas]');
+    const items = document.querySelectorAll('[data-timeline-item]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (canvas) {
+      if (reducedMotion) {
+        canvas.style.setProperty('--timeline-progress', '1');
+        items.forEach((item) => item.classList.add('is-visible'));
+      } else {
+        let ticking = false;
+
+        const updateProgress = () => {
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          const scrollY = window.scrollY || window.pageYOffset;
+          const canvasRect = canvas.getBoundingClientRect();
+          const canvasTop = canvasRect.top + scrollY;
+          const canvasHeight = canvasRect.height;
+          const documentHeight = document.documentElement.scrollHeight;
+          const maxScroll = Math.max(documentHeight - viewportHeight, 0);
+          const progressPoint = scrollY + viewportHeight * 0.73;
+          const rawProgress = (progressPoint - canvasTop) / (canvasHeight * 0.88);
+          const progress = scrollY >= maxScroll - 2 ? 1 : Math.min(Math.max(rawProgress, 0), 1);
+
+          canvas.style.setProperty('--timeline-progress', progress.toFixed(4));
+          items.forEach((item) => {
+            const itemRect = item.getBoundingClientRect();
+            const isVisible = itemRect.bottom > 0 && itemRect.top < viewportHeight * 0.92;
+
+            item.classList.toggle('is-visible', isVisible);
+          });
+          ticking = false;
+        };
+
+        const requestUpdate = () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(updateProgress);
+        };
+
+        updateProgress();
+        window.addEventListener('scroll', requestUpdate, { passive: true });
+        window.addEventListener('resize', requestUpdate);
+      }
+    }
+  }
+</script>
