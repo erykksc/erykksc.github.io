@@ -327,6 +327,10 @@ p {
   white-space: nowrap;
 }
 
+:root[data-theme='dark'] .social-link::after {
+  color: var(--ink);
+}
+
 .social-link:hover,
 .social-link:focus-visible {
   background: var(--accent-yellow);
