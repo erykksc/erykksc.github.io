@@ -11,6 +11,12 @@ type Props = {
 
 type TerminalPhase = 'command' | 'output' | 'done';
 
+type TerminalHistoryItem = {
+  command: string;
+  output: string;
+  showProjectsAction?: boolean;
+};
+
 function getTechnologyBadgeClass(tag: string) {
   const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   return `project-preview-tag project-preview-tag--${slug || 'default'}`;
@@ -46,6 +52,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   const [visibleCommand, setVisibleCommand] = useState('');
   const [visibleOutput, setVisibleOutput] = useState('');
   const [phase, setPhase] = useState<TerminalPhase>('command');
+  const [interactiveCommand, setInteractiveCommand] = useState('');
+  const [interactiveHistory, setInteractiveHistory] = useState<TerminalHistoryItem[]>([]);
   const [isProjectWindowOpen, setIsProjectWindowOpen] = useState(false);
   const tabGridStyle = {
     gridTemplateColumns: closedSection
@@ -86,6 +94,37 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     setActiveSlug(slug);
   }
 
+  function getInteractiveOutput(enteredCommand: string) {
+    if (enteredCommand === command) return output;
+    if (enteredCommand === 'ls' && section) return section.files.join('\n');
+    if (
+      section?.slug === 'projects'
+      && ['cd projects', 'cd projects/'].includes(enteredCommand)
+    ) {
+      setIsProjectWindowOpen(true);
+      return '';
+    }
+    if (section?.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand)) return '';
+    if (section?.slug === 'projects' && enteredCommand === 'cat highlights.txt') return output;
+
+    return 'command unknown';
+  }
+
+  function runInteractiveCommand() {
+    const enteredCommand = interactiveCommand.trim().replace(/\s+/g, ' ');
+    if (!enteredCommand) return;
+
+    setInteractiveHistory((currentHistory) => [
+      ...currentHistory,
+      {
+        command: interactiveCommand,
+        output: getInteractiveOutput(enteredCommand),
+        showProjectsAction: section?.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand),
+      },
+    ]);
+    setInteractiveCommand('');
+  }
+
   useEffect(() => {
     if (!isProjectWindowOpen) return;
 
@@ -102,12 +141,16 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
       setVisibleCommand(command);
       setVisibleOutput(output);
       setPhase('done');
+      setInteractiveCommand('');
+      setInteractiveHistory([]);
       return;
     }
 
     setVisibleCommand('');
     setVisibleOutput('');
     setPhase('command');
+    setInteractiveCommand('');
+    setInteractiveHistory([]);
 
     let commandIndex = 0;
     const commandTimer = window.setInterval(() => {
@@ -125,6 +168,42 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
       window.clearInterval(commandTimer);
     };
   }, [command, output, promptSpeedMs, reducedMotion]);
+
+  useEffect(() => {
+    if (phase !== 'done' || isProjectWindowOpen) return;
+
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.defaultPrevented || event.altKey || event.metaKey) return;
+
+      if (event.ctrlKey) {
+        if (event.key.toLowerCase() === 'u') {
+          event.preventDefault();
+          setInteractiveCommand('');
+        }
+        return;
+      }
+
+      if (event.key === 'Backspace') {
+        event.preventDefault();
+        setInteractiveCommand((currentCommand) => currentCommand.slice(0, -1));
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        runInteractiveCommand();
+        return;
+      }
+
+      if (event.key.length === 1) {
+        event.preventDefault();
+        setInteractiveCommand((currentCommand) => `${currentCommand}${event.key}`);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [command, interactiveCommand, isProjectWindowOpen, output, phase]);
 
   return (
     <section className="terminal-shell terminal-shell--enhanced" aria-labelledby="terminal-heading-enhanced">
@@ -196,15 +275,28 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
             </span>
           </p>
           <pre className="terminal-lines">{visibleOutput}</pre>
-          {phase === 'done' && (
-            <p className="terminal-command terminal-command--next">
-              &gt; <span className="terminal-cursor" aria-hidden="true" />
-            </p>
-          )}
           {section?.slug === 'projects' && phase === 'done' && (
             <button className="terminal-projects-action" type="button" onClick={() => setIsProjectWindowOpen(true)}>
               View All Projects
             </button>
+          )}
+          {phase === 'done' && interactiveHistory.map((item, index) => (
+            <div className="terminal-history-item" key={`${item.command}-${index}`}>
+              <p className="terminal-command terminal-command--next">
+                &gt; <span className="terminal-typed-command">{item.command}</span>
+              </p>
+              {item.output && <pre className="terminal-lines terminal-lines--history">{item.output}</pre>}
+              {item.showProjectsAction && (
+                <button className="terminal-projects-action" type="button" onClick={() => setIsProjectWindowOpen(true)}>
+                  View All Projects
+                </button>
+              )}
+            </div>
+          ))}
+          {phase === 'done' && (
+            <p className="terminal-command terminal-command--next">
+              &gt; <span className="terminal-typed-command">{interactiveCommand}</span><span className="terminal-cursor" aria-hidden="true" />
+            </p>
           )}
         </div>
       </div>

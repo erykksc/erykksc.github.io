@@ -697,6 +697,11 @@ p {
   text-align: left;
 }
 
+.terminal-lines--history {
+  min-height: auto;
+  margin-bottom: 0.8rem;
+}
+
 .terminal-projects-action {
   display: flex;
   width: min(16rem, 100%);

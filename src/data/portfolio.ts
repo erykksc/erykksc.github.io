@@ -3,6 +3,7 @@ export type TerminalSection = {
   label: string;
   href: string;
   command: string;
+  files: string[];
   heading: string;
   lines: string[];
 };
@@ -98,6 +99,7 @@ export const terminalSections: TerminalSection[] = [
     label: "About Me",
     href: "/about",
     command: "cat about.txt",
+    files: ["about.txt"],
     heading: "About Me",
     lines: [
       "Stats:",
@@ -113,6 +115,7 @@ export const terminalSections: TerminalSection[] = [
     label: "Projects",
     href: "/projects",
     command: "ls projects && cat highlights.txt",
+    files: ["projects/", "highlights.txt"],
     heading: "Projects",
     lines: [
       "Pinned GitHub highlights:",
@@ -129,6 +132,7 @@ export const terminalSections: TerminalSection[] = [
     label: "Professional Experience",
     href: "/experience",
     command: "cat professional_experience.txt",
+    files: ["professional_experience.txt"],
     heading: "Professional Experience",
     lines: [
       "Experience:",
