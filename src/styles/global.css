@@ -670,6 +670,15 @@ p {
   color: var(--ink);
 }
 
+.terminal-prompt,
+.terminal-typed-command {
+  display: inline;
+}
+
+.terminal-typed-command {
+  white-space: pre-wrap;
+}
+
 .terminal-static-section + .terminal-static-section {
   margin-top: clamp(1.6rem, 3vw, 2.4rem);
 }
@@ -1015,6 +1024,10 @@ p {
   background: var(--accent-green);
   outline: 2px solid var(--line);
   animation: blink var(--terminal-cursor-blink, 520ms) steps(1, start) infinite;
+}
+
+.terminal-cursor--typing {
+  animation: none;
 }
 
 .timeline-section {

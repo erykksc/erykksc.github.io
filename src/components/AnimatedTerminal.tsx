@@ -6,7 +6,6 @@ import type { TerminalSection } from '../data/portfolio';
 type Props = {
   sections: TerminalSection[];
   promptSpeedMs: number;
-  outputSpeedMs: number;
   cursorBlinkMs: number;
 };
 
@@ -32,14 +31,14 @@ function useReducedMotion() {
   return reducedMotion;
 }
 
-export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedMs, cursorBlinkMs }: Props) {
+export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkMs }: Props) {
   const reducedMotion = useReducedMotion();
   const [openSlugs, setOpenSlugs] = useState(() => sections.map((item) => item.slug));
   const [activeSlug, setActiveSlug] = useState<string | undefined>(sections[0]?.slug);
   const openSections = sections.filter((item) => openSlugs.includes(item.slug));
   const closedSection = sections.find((item) => !openSlugs.includes(item.slug));
   const section = openSections.find((item) => item.slug === activeSlug) ?? openSections[0];
-  const command = section ? `> ${section.command}` : '> no tabs open';
+  const command = section ? section.command : 'no tabs open';
   const output = useMemo(
     () => section?.lines.join('\n') ?? 'Press + to reopen a portfolio section.',
     [section?.lines],
@@ -111,33 +110,21 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
     setPhase('command');
 
     let commandIndex = 0;
-    let outputIndex = 0;
-    let outputTimer: number | undefined;
-
     const commandTimer = window.setInterval(() => {
       commandIndex += 1;
       setVisibleCommand(command.slice(0, commandIndex));
 
       if (commandIndex >= command.length) {
         window.clearInterval(commandTimer);
-        setPhase('output');
-        outputTimer = window.setInterval(() => {
-          outputIndex += 1;
-          setVisibleOutput(output.slice(0, outputIndex));
-
-          if (outputIndex >= output.length && outputTimer) {
-            window.clearInterval(outputTimer);
-            setPhase('done');
-          }
-        }, outputSpeedMs);
+        setVisibleOutput(output);
+        setPhase('done');
       }
     }, promptSpeedMs);
 
     return () => {
       window.clearInterval(commandTimer);
-      if (outputTimer) window.clearInterval(outputTimer);
     };
-  }, [command, output, outputSpeedMs, promptSpeedMs, reducedMotion]);
+  }, [command, output, promptSpeedMs, reducedMotion]);
 
   return (
     <section className="terminal-shell terminal-shell--enhanced" aria-labelledby="terminal-heading-enhanced">
@@ -202,8 +189,11 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
       <div className="terminal-screen" style={{ '--terminal-cursor-blink': `${cursorBlinkMs}ms` } as CSSProperties}>
         <div id="terminal-output-panel" className="terminal-output" aria-live="polite">
           <p className="terminal-command">
-            {visibleCommand}
-            {phase === 'command' && <span className="terminal-cursor" aria-hidden="true" />}
+            <span className="terminal-prompt" aria-hidden="true">&gt;</span>{' '}
+            <span className="terminal-typed-command">
+              <span>{visibleCommand}</span>
+              {phase === 'command' && <span className="terminal-cursor terminal-cursor--typing" aria-hidden="true" />}
+            </span>
           </p>
           <pre className="terminal-lines">{visibleOutput}</pre>
           {phase === 'done' && (
