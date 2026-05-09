@@ -684,6 +684,191 @@ p {
   text-align: left;
 }
 
+.terminal-projects-action {
+  display: flex;
+  width: min(16rem, 100%);
+  align-items: center;
+  justify-content: center;
+  margin: 1.35rem auto 0;
+  padding: 0.9rem 1rem;
+  border: 3px solid var(--line);
+  border-radius: 0.65rem;
+  background: var(--accent-yellow);
+  box-shadow: var(--shadow-hard);
+  color: var(--ink-on-accent);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.terminal-projects-action:hover,
+.terminal-projects-action:focus-visible {
+  background: var(--accent-pink);
+  box-shadow: 3px 3px 0 var(--line);
+  color: var(--ink);
+  transform: translate(4px, 4px);
+}
+
+.terminal-projects-action:focus-visible {
+  outline: 3px solid var(--line);
+  outline-offset: 3px;
+}
+
+.project-window-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(0, 0, 0, 0.46);
+}
+
+.project-window {
+  position: relative;
+  width: min(62rem, 100%);
+  max-height: min(45rem, calc(100vh - 2rem));
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 4px solid var(--line);
+  border-radius: 1rem;
+  background: var(--paper);
+  box-shadow: var(--shadow-hard-lg);
+  overflow: auto;
+}
+
+.project-window h3 {
+  margin: 0 3rem 1.35rem 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  text-shadow: 3px 3px 0 var(--accent-yellow);
+}
+
+.project-window-close {
+  appearance: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  padding: 0;
+  border: 3px solid var(--line);
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: var(--shadow-hard-sm);
+  color: #111111;
+  cursor: pointer;
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.project-window-close:hover,
+.project-window-close:focus-visible {
+  box-shadow: 1px 1px 0 var(--line);
+  transform: translate(3px, 3px);
+}
+
+.project-window-close:focus-visible {
+  outline: 3px solid var(--line);
+  outline-offset: 3px;
+}
+
+.project-window-close svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.project-window-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.project-preview-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border: 3px solid var(--line);
+  border-radius: 0.85rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-hard);
+  overflow: hidden;
+}
+
+.project-preview-image {
+  aspect-ratio: 16 / 10;
+  border-bottom: 3px solid var(--line);
+  background: var(--accent-blue);
+  overflow: hidden;
+}
+
+.project-preview-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.project-preview-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.project-preview-copy h4 {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+}
+
+.project-preview-copy p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.project-preview-copy a {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.45rem 0.65rem;
+  border: 2px solid var(--line);
+  border-radius: 0.45rem;
+  background: var(--accent-yellow);
+  box-shadow: var(--shadow-hard-sm);
+  color: var(--ink-on-accent);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.project-preview-copy a:hover,
+.project-preview-copy a:focus-visible {
+  background: var(--accent-green);
+  box-shadow: 1px 1px 0 var(--line);
+  color: var(--surface);
+  outline: 2px solid var(--line);
+  outline-offset: 3px;
+  transform: translate(3px, 3px);
+}
+
 .terminal-cursor {
   display: inline-block;
   width: 0.65ch;
@@ -1114,6 +1299,21 @@ a.timeline-marker:focus-visible {
   .terminal-screen {
     width: 100%;
     margin: 0;
+  }
+
+  .terminal-projects-action {
+    width: min(13rem, 100%);
+    padding: 0.78rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .project-window {
+    max-height: calc(100vh - 1.25rem);
+    border-width: 3px;
+  }
+
+  .project-window-grid {
+    grid-template-columns: 1fr;
   }
 
   .terminal-lines,

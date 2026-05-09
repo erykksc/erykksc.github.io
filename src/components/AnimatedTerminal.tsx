@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
+import { projectPreviews } from '../data/portfolio';
 import type { TerminalSection } from '../data/portfolio';
 
 type Props = {
@@ -41,6 +42,7 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
   const [visibleCommand, setVisibleCommand] = useState('');
   const [visibleOutput, setVisibleOutput] = useState('');
   const [phase, setPhase] = useState<TerminalPhase>('command');
+  const [isProjectWindowOpen, setIsProjectWindowOpen] = useState(false);
   const tabGridStyle = {
     gridTemplateColumns: closedSection
       ? `repeat(${openSections.length}, minmax(0, 1fr)) 3.25rem`
@@ -79,6 +81,17 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
     event.preventDefault();
     setActiveSlug(slug);
   }
+
+  useEffect(() => {
+    if (!isProjectWindowOpen) return;
+
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') setIsProjectWindowOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isProjectWindowOpen]);
 
   useEffect(() => {
     if (reducedMotion) {
@@ -193,8 +206,56 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, outputSpeedM
               &gt; <span className="terminal-cursor" aria-hidden="true" />
             </p>
           )}
+          {section?.slug === 'projects' && phase === 'done' && (
+            <button className="terminal-projects-action" type="button" onClick={() => setIsProjectWindowOpen(true)}>
+              View All Projects
+            </button>
+          )}
         </div>
       </div>
+
+      {isProjectWindowOpen && (
+        <div className="project-window-backdrop" role="presentation" onMouseDown={() => setIsProjectWindowOpen(false)}>
+          <section
+            className="project-window"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-window-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              className="project-window-close"
+              type="button"
+              aria-label="Close projects window"
+              onClick={() => setIsProjectWindowOpen(false)}
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
+              </svg>
+            </button>
+            <p className="section-kicker">Selected work</p>
+            <h3 id="project-window-title">Projects</h3>
+            <div className="project-window-grid">
+              {projectPreviews.map((project) => (
+                <article className="project-preview-card" key={project.title}>
+                  <div className="project-preview-image" aria-hidden="true">
+                    <img src={project.image} alt="" loading="lazy" />
+                  </div>
+                  <div className="project-preview-copy">
+                    <h4>{project.title}</h4>
+                    <p>{project.description}</p>
+                    {project.sourceHref && (
+                      <a href={project.sourceHref} target="_blank" rel="noreferrer">
+                        View source
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
     </section>
   );
 }

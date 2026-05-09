@@ -7,6 +7,13 @@ export type TerminalSection = {
   lines: string[];
 };
 
+export type ProjectPreview = {
+  title: string;
+  description: string;
+  image: string;
+  sourceHref?: string;
+};
+
 export type TimelineItem = {
   title: string;
   eyebrow: string;
@@ -115,6 +122,26 @@ export const terminalSections: TerminalSection[] = [
       "- Technologies: TypeScript, React, Astro, Node.js, databases",
       "- Add internships, research work, freelance work, or open-source here",
     ],
+  },
+];
+
+export const projectPreviews: ProjectPreview[] = [
+  {
+    title: "Project One",
+    description: "A concise product-oriented summary of the problem, technical approach, and outcome.",
+    image: "/project-preview-one.svg",
+    sourceHref: "https://github.com/your-username/project-one",
+  },
+  {
+    title: "Project Two",
+    description: "A practical system built with a focus on usability, reliable data flow, and measurable impact.",
+    image: "/project-preview-two.svg",
+    sourceHref: "https://github.com/your-username/project-two",
+  },
+  {
+    title: "Project Three",
+    description: "A focused case study placeholder for a polished portfolio item with clear technical tradeoffs.",
+    image: "/project-preview-three.svg",
   },
 ];
 
