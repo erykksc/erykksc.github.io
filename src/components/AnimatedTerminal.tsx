@@ -129,16 +129,32 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
 
   function getInteractiveOutput(enteredCommand: string) {
     if (enteredCommand === command) return output;
-    if (enteredCommand === 'ls' && section) return section.files.join('\n');
+
+    const [commandName = '', ...args] = enteredCommand.split(' ');
+    const firstArg = args[0];
+
+    if (commandName === 'ls' && args.length === 0 && section) return section.files.join('\n');
     if (
       section?.slug === 'projects'
-      && ['cd projects', 'cd projects/'].includes(enteredCommand)
+      && commandName === 'cd'
+      && args.length === 1
+      && ['projects', 'projects/'].includes(firstArg)
     ) {
       setIsProjectWindowOpen(true);
       return '';
     }
-    if (section?.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand)) return '';
-    if (section?.slug === 'projects' && enteredCommand === 'cat highlights.txt') return output;
+
+    if (
+      section?.slug === 'projects'
+      && commandName === 'ls'
+      && args.length === 1
+      && ['projects', 'projects/'].includes(firstArg)
+    ) return '';
+
+    if (commandName === 'cat' && args.length === 0) return 'cat <FILE> - prints content of the file';
+    if (commandName === 'cat' && args.length === 1 && section?.files.includes(firstArg)) return output;
+
+    if (['cat', 'cd', 'ls'].includes(commandName)) return 'permission denied';
 
     return 'command unknown';
   }
