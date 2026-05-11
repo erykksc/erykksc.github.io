@@ -1203,6 +1203,7 @@ p {
 
 .timeline-canvas {
   position: relative;
+  isolation: isolate;
   min-height: 103rem;
   --timeline-progress: 1;
 }
@@ -1213,6 +1214,7 @@ p {
 
 .timeline-path {
   position: absolute;
+  z-index: -1000;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -1235,6 +1237,7 @@ p {
 
 .timeline-list {
   position: relative;
+  z-index: 1;
   display: grid;
   gap: clamp(5.5rem, 10vw, 9rem);
   margin: 0;
@@ -1387,6 +1390,7 @@ a.timeline-marker:focus-visible {
 }
 
 .timeline-card {
+  position: relative;
   z-index: 2;
   max-width: 32rem;
   padding: clamp(0.9rem, 2.3vw, 1.35rem);
