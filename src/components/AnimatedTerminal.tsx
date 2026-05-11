@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { projectPreviews } from '../data/portfolio';
 import type { TerminalSection } from '../data/portfolio';
@@ -17,6 +17,26 @@ type TerminalHistoryItem = {
   output: string;
   showProjectsAction?: boolean;
 };
+
+type TerminalTabState = {
+  visibleCommand: string;
+  visibleOutput: string;
+  phase: TerminalPhase;
+  interactiveCommand: string;
+  interactiveHistory: TerminalHistoryItem[];
+  hasIntroPlayed: boolean;
+};
+
+function createTerminalTabState(): TerminalTabState {
+  return {
+    visibleCommand: '',
+    visibleOutput: '',
+    phase: 'command',
+    interactiveCommand: '',
+    interactiveHistory: [],
+    hasIntroPlayed: false,
+  };
+}
 
 function getTechnologyBadgeClass(tag: string) {
   const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -40,6 +60,7 @@ function useReducedMotion() {
 
 export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkMs }: Props) {
   const reducedMotion = useReducedMotion();
+  const animatingSlugs = useRef(new Set<string>());
   const [openSlugs, setOpenSlugs] = useState(() => sections.map((item) => item.slug));
   const [activeSlug, setActiveSlug] = useState<string | undefined>(sections[0]?.slug);
   const openSections = sections.filter((item) => openSlugs.includes(item.slug));
@@ -50,14 +71,16 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     () => section?.lines.join('\n') ?? 'Press + to reopen a portfolio section.',
     [section?.lines],
   );
-  const [visibleCommand, setVisibleCommand] = useState('');
-  const [visibleOutput, setVisibleOutput] = useState('');
-  const [phase, setPhase] = useState<TerminalPhase>('command');
-  const [interactiveCommand, setInteractiveCommand] = useState('');
-  const [interactiveHistory, setInteractiveHistory] = useState<TerminalHistoryItem[]>([]);
+  const [tabStates, setTabStates] = useState<Record<string, TerminalTabState>>({});
   const [isProjectWindowOpen, setIsProjectWindowOpen] = useState(false);
   const [terminalWindowState, setTerminalWindowState] = useState<TerminalWindowState>('open');
   const [isMaximized, setIsMaximized] = useState(false);
+  const activeTabState = section ? tabStates[section.slug] : undefined;
+  const visibleCommand = section ? activeTabState?.visibleCommand ?? '' : command;
+  const visibleOutput = section ? activeTabState?.visibleOutput ?? '' : output;
+  const phase = section ? activeTabState?.phase ?? 'command' : 'done';
+  const interactiveCommand = section ? activeTabState?.interactiveCommand ?? '' : '';
+  const interactiveHistory = section ? activeTabState?.interactiveHistory ?? [] : [];
   const tabGridStyle = {
     gridTemplateColumns: closedSection
       ? `repeat(${openSections.length}, minmax(0, 1fr)) 3.25rem`
@@ -65,6 +88,13 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   } as CSSProperties;
 
   function closeTab(slug: string) {
+    animatingSlugs.current.delete(slug);
+    setTabStates((currentStates) => {
+      const nextStates = { ...currentStates };
+      delete nextStates[slug];
+      return nextStates;
+    });
+
     setOpenSlugs((currentSlugs) => {
       const nextSlugs = currentSlugs.filter((item) => item !== slug);
 
@@ -114,23 +144,40 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   }
 
   function runInteractiveCommand() {
-    const enteredCommand = interactiveCommand.trim().replace(/\s+/g, ' ');
+    if (!section) return;
+
+    const slug = section.slug;
+    const rawCommand = activeTabState?.interactiveCommand ?? '';
+    const enteredCommand = rawCommand.trim().replace(/\s+/g, ' ');
     if (!enteredCommand) return;
 
-    setInteractiveHistory((currentHistory) => [
-      ...currentHistory,
-      {
-        command: interactiveCommand,
-        output: getInteractiveOutput(enteredCommand),
-        showProjectsAction: section?.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand),
-      },
-    ]);
-    setInteractiveCommand('');
+    const historyItem = {
+      command: rawCommand,
+      output: getInteractiveOutput(enteredCommand),
+      showProjectsAction: section.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand),
+    };
+
+    setTabStates((currentStates) => {
+      const currentState = currentStates[slug] ?? createTerminalTabState();
+
+      return {
+        ...currentStates,
+        [slug]: {
+          ...currentState,
+          interactiveCommand: '',
+          interactiveHistory: [...currentState.interactiveHistory, historyItem],
+        },
+      };
+    });
   }
 
   function closeTerminal() {
     setIsProjectWindowOpen(false);
     setIsMaximized(false);
+    setOpenSlugs(sections.map((item) => item.slug));
+    setActiveSlug(sections[0]?.slug);
+    setTabStates({});
+    animatingSlugs.current.clear();
     setTerminalWindowState('closed');
   }
 
@@ -155,37 +202,94 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
   }, [isProjectWindowOpen]);
 
   useEffect(() => {
+    if (terminalWindowState !== 'open') return;
+    if (!section) return;
+
+    const slug = section.slug;
+    if (tabStates[slug]?.hasIntroPlayed || animatingSlugs.current.has(slug)) return;
+
     if (reducedMotion) {
-      setVisibleCommand(command);
-      setVisibleOutput(output);
-      setPhase('done');
-      setInteractiveCommand('');
-      setInteractiveHistory([]);
+      setTabStates((currentStates) => ({
+        ...currentStates,
+        [slug]: {
+          ...(currentStates[slug] ?? createTerminalTabState()),
+          visibleCommand: command,
+          visibleOutput: output,
+          phase: 'done',
+          hasIntroPlayed: true,
+        },
+      }));
       return;
     }
 
-    setVisibleCommand('');
-    setVisibleOutput('');
-    setPhase('command');
-    setInteractiveCommand('');
-    setInteractiveHistory([]);
+    animatingSlugs.current.add(slug);
+    setTabStates((currentStates) => ({
+      ...currentStates,
+      [slug]: {
+        ...(currentStates[slug] ?? createTerminalTabState()),
+        visibleCommand: '',
+        visibleOutput: '',
+        phase: 'command',
+      },
+    }));
 
     let commandIndex = 0;
     const commandTimer = window.setInterval(() => {
       commandIndex += 1;
-      setVisibleCommand(command.slice(0, commandIndex));
+      setTabStates((currentStates) => {
+        const currentState = currentStates[slug] ?? createTerminalTabState();
+
+        return {
+          ...currentStates,
+          [slug]: {
+            ...currentState,
+            visibleCommand: command.slice(0, commandIndex),
+          },
+        };
+      });
 
       if (commandIndex >= command.length) {
         window.clearInterval(commandTimer);
-        setVisibleOutput(output);
-        setPhase('done');
+        animatingSlugs.current.delete(slug);
+        setTabStates((currentStates) => {
+          const currentState = currentStates[slug] ?? createTerminalTabState();
+
+          return {
+            ...currentStates,
+            [slug]: {
+              ...currentState,
+              visibleCommand: command,
+              visibleOutput: output,
+              phase: 'done',
+              hasIntroPlayed: true,
+            },
+          };
+        });
       }
     }, promptSpeedMs);
 
     return () => {
       window.clearInterval(commandTimer);
+      if (!animatingSlugs.current.has(slug)) return;
+
+      animatingSlugs.current.delete(slug);
+      setTabStates((currentStates) => {
+        const currentState = currentStates[slug];
+        if (!currentState) return currentStates;
+
+        return {
+          ...currentStates,
+          [slug]: {
+            ...currentState,
+            visibleCommand: command,
+            visibleOutput: output,
+            phase: 'done',
+            hasIntroPlayed: true,
+          },
+        };
+      });
     };
-  }, [command, output, promptSpeedMs, reducedMotion]);
+  }, [command, output, promptSpeedMs, reducedMotion, section?.slug, terminalWindowState]);
 
   useEffect(() => {
     if (phase !== 'done' || isProjectWindowOpen || terminalWindowState !== 'open') return;
@@ -196,14 +300,38 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
       if (event.ctrlKey) {
         if (event.key.toLowerCase() === 'u') {
           event.preventDefault();
-          setInteractiveCommand('');
+          if (section) {
+            setTabStates((currentStates) => {
+              const currentState = currentStates[section.slug] ?? createTerminalTabState();
+
+              return {
+                ...currentStates,
+                [section.slug]: {
+                  ...currentState,
+                  interactiveCommand: '',
+                },
+              };
+            });
+          }
         }
         return;
       }
 
       if (event.key === 'Backspace') {
         event.preventDefault();
-        setInteractiveCommand((currentCommand) => currentCommand.slice(0, -1));
+        if (section) {
+          setTabStates((currentStates) => {
+            const currentState = currentStates[section.slug] ?? createTerminalTabState();
+
+            return {
+              ...currentStates,
+              [section.slug]: {
+                ...currentState,
+                interactiveCommand: currentState.interactiveCommand.slice(0, -1),
+              },
+            };
+          });
+        }
         return;
       }
 
@@ -215,13 +343,25 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
 
       if (event.key.length === 1) {
         event.preventDefault();
-        setInteractiveCommand((currentCommand) => `${currentCommand}${event.key}`);
+        if (section) {
+          setTabStates((currentStates) => {
+            const currentState = currentStates[section.slug] ?? createTerminalTabState();
+
+            return {
+              ...currentStates,
+              [section.slug]: {
+                ...currentState,
+                interactiveCommand: `${currentState.interactiveCommand}${event.key}`,
+              },
+            };
+          });
+        }
       }
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [command, interactiveCommand, isProjectWindowOpen, output, phase, terminalWindowState]);
+  }, [command, interactiveCommand, isProjectWindowOpen, output, phase, section, terminalWindowState]);
 
   if (terminalWindowState === 'closed') {
     return (
@@ -256,12 +396,16 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
               className="terminal-control terminal-control--close"
               type="button"
               aria-label="Close terminal"
+              data-hint="Close"
+              title="Close terminal"
               onClick={closeTerminal}
             />
             <button
               className="terminal-control terminal-control--minimize"
               type="button"
               aria-label="Minimize terminal"
+              data-hint="Minimize"
+              title="Minimize terminal"
               onClick={minimizeTerminal}
             />
             <button
@@ -269,6 +413,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
               type="button"
               aria-label={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
               aria-pressed={isMaximized}
+              data-hint={isMaximized ? 'Restore' : 'Maximize'}
+              title={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
               onClick={() => setIsMaximized((currentValue) => !currentValue)}
             />
           </div>
