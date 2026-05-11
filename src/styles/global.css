@@ -418,6 +418,41 @@ p {
   outline-offset: 3px;
 }
 
+.hero-stats {
+  display: grid;
+  width: min(48rem, 100%);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin: clamp(1rem, 2.2vw, 1.5rem) auto 0;
+}
+
+.hero-stat {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0;
+  text-align: center;
+}
+
+.hero-stat strong {
+  display: block;
+  color: var(--ink);
+  font-size: clamp(2.1rem, 4.8vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  text-shadow: 2px 2px 0 var(--accent-yellow);
+}
+
+.hero-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: clamp(0.68rem, 1.15vw, 0.82rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
 .terminal-shell {
   width: min(55rem, 100%);
   min-height: clamp(28rem, 46vw, 44rem);
@@ -1536,6 +1571,25 @@ a.timeline-marker:focus-visible {
 
   .hero-action {
     flex-basis: 10rem;
+  }
+
+  .hero-stats {
+    width: min(23rem, 100%);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .hero-stat {
+    padding: 0;
+  }
+
+  .hero-stat strong {
+    font-size: clamp(2.15rem, 12vw, 3.25rem);
+  }
+
+  .hero-stat span {
+    font-size: 0.68rem;
   }
 
   .terminal-tab {
