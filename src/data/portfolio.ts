@@ -178,7 +178,8 @@ export const githubHighlights: GithubProject[] = [
   },
   {
     name: "chatreply",
-    description: "CLI tool that lets scripts respond to stdin messages through chat platforms like Discord and Telegram.",
+    description:
+      "CLI tool that lets scripts respond to stdin messages through chat platforms like Discord and Telegram.",
     href: "https://github.com/erykksc/chatreply",
     year: "2024",
     language: "Go",
@@ -188,7 +189,8 @@ export const githubHighlights: GithubProject[] = [
   },
   {
     name: "citus-mobilitydb",
-    description: "Dockerfiles and image configuration for running MobilityDB with the Citus extension.",
+    description:
+      "Dockerfiles and image configuration for running MobilityDB with the Citus extension.",
     href: "https://github.com/erykksc/citus-mobilitydb",
     year: "2025",
     language: "Dockerfile",
@@ -198,7 +200,8 @@ export const githubHighlights: GithubProject[] = [
   },
   {
     name: "Terminal-Tetris",
-    description: "Terminal Tetris clone implemented on top of a custom C++ terminal game engine.",
+    description:
+      "Terminal Tetris clone implemented on top of a custom C++ terminal game engine.",
     href: "https://github.com/erykksc/Terminal-Tetris",
     year: "2021",
     language: "C++",
@@ -211,16 +214,18 @@ export const githubHighlights: GithubProject[] = [
 const otherGithubProjects: GithubProject[] = [
   {
     name: "wikigraph",
-    description: "TypeScript web app for visualizing Wikipedia topics as a graph of connected pages.",
+    description:
+      "Interactive audio-visual installation visualizing Wikipedia as a graph of connected pages.",
     href: "https://github.com/erykksc/wikigraph",
     year: "2026",
     language: "TypeScript",
     stars: 3,
-    tags: ["Wikipedia", "Graph", "Visualization"],
+    tags: ["Wikipedia", "Graph", "React"],
   },
   {
     name: "wikiparse-rs",
-    description: "Fast Rust parser for Wikipedia SQL dumps with a CLI-oriented data processing workflow.",
+    description:
+      "Fast Rust parser for Wikipedia SQL dumps with a CLI-oriented data processing workflow.",
     href: "https://github.com/erykksc/wikiparse-rs",
     year: "2026",
     language: "Rust",
@@ -229,7 +234,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "Ludum-Dare-46",
-    description: "C# game jam project built for Ludum Dare 46.",
+    description:
+      "Video game written in 72h for Ludum Dare 46 in an interdisciplinary team using Unity game engine and C#.",
     href: "https://github.com/erykksc/Ludum-Dare-46",
     year: "2020",
     language: "C#",
@@ -238,7 +244,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "LD_45",
-    description: "C# game jam project built for Ludum Dare 45.",
+    description:
+      "Video game written in 72h for Ludum Dare 45 in an interdisciplinary team using Unity game engine and C#.",
     href: "https://github.com/erykksc/LD_45",
     year: "2019",
     language: "C#",
@@ -247,7 +254,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "escooter-trips-generator",
-    description: "Python tool for generating synthetic e-scooter trip datasets for urban mobility simulations.",
+    description:
+      "Generate synthetic e-scooter trip datasets for urban mobility simulations.",
     href: "https://github.com/erykksc/escooter-trips-generator",
     year: "2025",
     language: "Python",
@@ -256,7 +264,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "lres",
-    description: "Low Res Entertainment System, a compact C++ project for retro-style experiments.",
+    description:
+      "Low Res Entertainment System, a compact C++ project for retro-style experiments.",
     href: "https://github.com/erykksc/lres",
     year: "2023",
     language: "C++",
@@ -265,7 +274,7 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "JBZD_Downloader",
-    description: "Python downloader utility for JBZD content.",
+    description: "Python downloader utility for jbzd.com.pl content.",
     href: "https://github.com/erykksc/JBZD_Downloader",
     year: "2019",
     language: "Python",
@@ -274,7 +283,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: ".dotfiles",
-    description: "Personal development environment configuration covering shell, Neovim, Lua, Nix, and scripts.",
+    description:
+      "Personal development environment configuration covering shell, Neovim, Lua, Nix, and scripts.",
     href: "https://github.com/erykksc/.dotfiles",
     year: "2024",
     language: "Shell",
@@ -292,7 +302,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "valkey-benchmark",
-    description: "Benchmarking and reporting project around Valkey using scripts, Go, Python, infrastructure config, and Typst.",
+    description:
+      "Benchmark with report of horizontal and vertical scalability of Valkey.",
     href: "https://github.com/erykksc/valkey-benchmark",
     year: "2025",
     language: "Typst",
@@ -301,7 +312,7 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "nes-esp",
-    description: "C project exploring NES-related work on ESP-style embedded tooling.",
+    description: "C project for Networked Embedded Systems module at TU Berlin",
     href: "https://github.com/erykksc/nes-esp",
     year: "2025",
     language: "C",
@@ -310,7 +321,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "crkbd",
-    description: "Configuration for a Corne keyboard layout using Nix and shell tooling.",
+    description:
+      "Configuration for a Corne keyboard layout using Nix and shell tooling.",
     href: "https://github.com/erykksc/crkbd",
     year: "2025",
     language: "Nix",
@@ -319,7 +331,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "bachelor-thesis",
-    description: "Bachelor thesis repository with TeX writing, Go experiments, and infrastructure scripts.",
+    description:
+      "Bachelor thesis repository with TeX writing, Go experiments, and infrastructure scripts.",
     href: "https://github.com/erykksc/bachelor-thesis",
     year: "2025",
     language: "TeX",
@@ -328,7 +341,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "citus-k8s-manager",
-    description: "Python and Docker tooling for managing Citus-related Kubernetes workflows.",
+    description:
+      "Python and Docker tooling for managing Citus-related Kubernetes workflows.",
     href: "https://github.com/erykksc/citus-k8s-manager",
     year: "2025",
     language: "Python",
@@ -337,7 +351,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "busy-bees",
-    description: "Early Go prototype for the Busy Bees scheduling idea, including initial .ics parsing experiments.",
+    description:
+      "Early Go prototype for the Busy Bees scheduling idea, including initial .ics parsing experiments.",
     href: "https://github.com/erykksc/busy-bees",
     year: "2025",
     language: "Go",
@@ -346,7 +361,9 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "krakjam25",
-    description: "Godot game jam project written in GDScript.",
+    description:
+      "Video game written in 48h in a team in Godot game engine and GDScript. \
+		Developed in a team for KrakJam 2025.",
     href: "https://github.com/erykksc/krakjam25",
     year: "2025",
     language: "GDScript",
@@ -355,7 +372,7 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "advent-of-code-2023",
-    description: "Advent of Code 2023 solutions across Lua, Go, and Python.",
+    description: "Advent of Code 2023 solutions in Lua, Go, and Python.",
     href: "https://github.com/erykksc/advent-of-code-2023",
     year: "2025",
     language: "Lua",
@@ -373,16 +390,19 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "KrakJam24",
-    description: "Godot game jam project written in GDScript.",
+    description:
+      "Video game written in 48h in a team in Godot game engine and GDScript. \
+		Developed in a team for KrakJam 2024.",
     href: "https://github.com/erykksc/KrakJam24",
     year: "2024",
     language: "GDScript",
     stars: 0,
-    tags: ["Godot", "Game jam"],
+    tags: ["Godot", "Game jam", "Video game"],
   },
   {
     name: "who-asked-frequency-calc",
-    description: "Small web app for calculating the frequency of the phrase \"who asked?\".",
+    description:
+      'Small web app for calculating the frequency of the phrase "who asked?".',
     href: "https://github.com/erykksc/who-asked-frequency-calc",
     year: "2023",
     language: "CSS",
@@ -400,7 +420,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "terminal-game-engine",
-    description: "Small C++ engine for building terminal games, separate from the Tetris game built on top of it.",
+    description:
+      "Custom C++ engine for building terminal games built from scratch with no external dependencies.",
     href: "https://github.com/erykksc/terminal-game-engine",
     year: "2021",
     language: "C++",
@@ -409,7 +430,9 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "silence-eraser",
-    description: "Python utility for cutting silence from video files.",
+    description:
+      "Python utility for cutting silence from video files. \
+		Project developed as a freelance project for a video editor.",
     href: "https://github.com/erykksc/silence-eraser",
     year: "2021",
     language: "Python",
@@ -427,7 +450,9 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "Neural-Net",
-    description: "Neural network implemented in Python and NumPy for an International Baccalaureate extended essay.",
+    description:
+      "Neural network implemented in pure Python and NumPy without usage of external macihne learning libraries. \
+		It was written for an International Baccalaureate extended essay.",
     href: "https://github.com/erykksc/Neural-Net",
     year: "2019",
     language: "Python",
@@ -445,7 +470,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "Simple-UML-Class-Designer",
-    description: "Python app for reading and creating custom JSON UML class diagram files.",
+    description:
+      "Python app for reading and creating custom JSON UML class diagram files.",
     href: "https://github.com/erykksc/Simple-UML-Class-Designer",
     year: "2019",
     language: "Python",
@@ -454,7 +480,8 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "Math-Trivial-Sentence-Maker",
-    description: "Small Python experiment for generating math-style trivial sentences.",
+    description:
+      "comedic small Python script for generating math-style 'trivial' sentences.",
     href: "https://github.com/erykksc/Math-Trivial-Sentence-Maker",
     year: "2019",
     language: "Python",
@@ -463,7 +490,9 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "Quizlet_Downloader",
-    description: "Python downloader utility for Quizlet content.",
+    description:
+      "Python utility for exporting flashcard decks from Quizlet.\
+		This tools aids students from transfering their flashcards into other systems such as open-source alternative: Anki",
     href: "https://github.com/erykksc/Quizlet_Downloader",
     year: "2019",
     language: "Python",
@@ -472,7 +501,7 @@ const otherGithubProjects: GithubProject[] = [
   },
   {
     name: "sorting-visualization",
-    description: "Python sorting algorithm visualization experiment.",
+    description: "Sorting algorithm visualization written in Python.",
     href: "https://github.com/erykksc/sorting-visualization",
     year: "2019",
     language: "Python",
@@ -514,10 +543,24 @@ export const projectPreviews: ProjectPreview[] = allGithubProjects.map(
 
 export const timelineItems: TimelineItem[] = [
   {
-    title: "wikiparse-rs",
+    title: "Spanish B1.2 course at ZEMS",
     eyebrow: "2026",
     description:
-      "Rust parser and CLI for streaming Wikipedia SQL dumps into usable data formats for downstream analysis.",
+      "I continued learning Spanish and finished the course and exam of Spanish at B1.2 level",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "square",
+      alt: "",
+    },
+    href: "",
+    side: "right",
+  },
+  {
+    title: "Project: wikiparse-rs",
+    eyebrow: "2026",
+    description:
+      "Developed a rust parser and CLI for streaming Wikipedia SQL dumps into usable data formats for downstream analysis.",
     marker: "circle",
     media: {
       type: "code",
@@ -528,10 +571,54 @@ export const timelineItems: TimelineItem[] = [
     side: "right",
   },
   {
-    title: "busybees",
+    title: "TODO: Project: Master Application Platform for TU Berlin",
+    eyebrow: "2025-2026",
+    description:
+      "TODO: Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
+		The platform has already been used in Summer Semester 2026 for the applications for XYZ degree.",
+    marker: "circle",
+    media: {
+      type: "code",
+      shape: "circle",
+      alt: "",
+    },
+    href: "",
+    side: "right",
+  },
+  {
+    title: "Computer Science M.Sc. at Technische Universität Berlin",
+    eyebrow: "2025-Present",
+    description: "I continued my studies at TU Berlin at master level.",
+    marker: "circle",
+    media: {
+      type: "code",
+      shape: "circle",
+      alt: "",
+    },
+    href: "",
+    side: "right",
+  },
+  {
+    title: "Computer Science B.Sc. at Technische Universität Berlin",
+    eyebrow: "2022-2025",
+    description:
+      "I graduated Computer Science B.Sc. at Technische Universität.\
+		My bachelor thesis was comparing horizontal and vertical scalability of two distributed spatiotemporal database systems (MobilityDB+Citus vs CrateDB) with custom Kubernetes and infrastrucutre deployments.",
+    marker: "circle",
+    media: {
+      type: "image",
+      shape: "circle",
+      alt: "Graduation",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "Project: busybees",
     eyebrow: "2025",
     description:
-      "Serverless scheduling app for university group work, using calendar integrations, Cognito auth, DynamoDB, Redis caching, and React Router.",
+      "Developed a serverless scheduling app for university group work, using calendar integrations, Cognito auth, DynamoDB, Redis caching, and React Router.\
+		The project was being developed in a team of 2, where I've handled the backend and infrastrucutre.",
     marker: "circle",
     media: {
       type: "github",
@@ -542,10 +629,9 @@ export const timelineItems: TimelineItem[] = [
     side: "left",
   },
   {
-    title: "kwikquiz",
+    title: "Project: kwikquiz",
     eyebrow: "2024",
-    description:
-      "Go and HTMX quiz platform showing a preference for small, direct web stacks where they fit the problem.",
+    description: "Developed a quiz platform using Go and HTMX in a team.",
     marker: "oval",
     media: {
       type: "terminal",
@@ -556,10 +642,10 @@ export const timelineItems: TimelineItem[] = [
     side: "right",
   },
   {
-    title: "pdf-tools-js",
+    title: "Project: pdf-tools-js",
     eyebrow: "2021-2025",
     description:
-      "Practical React app for manipulating PDFs in the browser, including merging, cutting, and joining documents.",
+      "Created a practical React app for manipulating PDFs in the browser, including merging, cutting, and joining documents.",
     marker: "large",
     media: {
       type: "spark",
@@ -570,10 +656,38 @@ export const timelineItems: TimelineItem[] = [
     side: "left",
   },
   {
-    title: "terminal-game-engine and Terminal-Tetris",
+    title: "TODO: Bitwa o Śląsk",
+    eyebrow: "",
+    description: "",
+    marker: "large",
+    media: {
+      type: "spark",
+      shape: "square",
+      alt: "",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "TODO: Engie Zielona Energia",
+    eyebrow: "2021-2024",
+    description:
+      "TODO: Worked at Engie Zielona Energia corporation, a renewable energy provider and distributor company, hiring more than XYZ employeed worldwide. \
+		There I've been building interal tools.",
+    marker: "large",
+    media: {
+      type: "spark",
+      shape: "square",
+      alt: "Engie Zielona Energia Logo",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "Project: Terminal-Tetris",
     eyebrow: "2021",
     description:
-      "A custom C++ terminal game engine followed by a Tetris clone implemented using that engine.",
+      "Created Tetris clone implemented using a custom C++ terminal game engine.",
     marker: "circle",
     media: {
       type: "github",
@@ -581,6 +695,80 @@ export const timelineItems: TimelineItem[] = [
       alt: "Terminal-Tetris on GitHub",
     },
     href: "https://github.com/erykksc/Terminal-Tetris",
+    side: "right",
+  },
+  {
+    title:
+      "2 semesters of Computer Science B.Sc. at Silesian University of Technology",
+    eyebrow: "TODO: 2021-2022",
+    description:
+      "Completed 2 semesters of Computer Science B.Sc. at Silesian University of Technology.\
+		Due to COVID, I started my studies in Poland instead of abroad.\
+		I've completed full 2 semesters at Silesian University of Technology",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "circle",
+      alt: "",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "TODO: C2 exam in english during POLSL",
+    eyebrow: "2022",
+    description:
+      "I've completed the exam XYZ and obtained the C2 English certificate.",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "circle",
+      alt: "",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "International Baccalaureate in Gliwice (Poland)",
+    eyebrow: "2021",
+    description:
+      "Graduated International Baccalaureate Program where I've completed higher level of Computer Science, Mathematics, English and German. \
+		The whole school was completed in English and thus I've acquired a C1 English certificate that is recognized by Universities",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "circle",
+      alt: "",
+    },
+    href: "",
+    side: "left",
+  },
+  {
+    title: "German Language Certificate: DSD 2",
+    eyebrow: "2021",
+    description:
+      "Acquired German language certificate from Gäthe Institut for C1 speaking and reading comprehension and B2 for the writing skills",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "square",
+      alt: "",
+    },
+    href: "",
+    side: "right",
+  },
+  {
+    title: "TODO: Project: Emeralds",
+    eyebrow: "TODO: 2020",
+    description:
+      "Video game with one server/screen where players usewith their phones as controllers.",
+    marker: "circle",
+    media: {
+      type: "spark",
+      shape: "square",
+      alt: "",
+    },
+    href: "",
     side: "right",
   },
 ];
