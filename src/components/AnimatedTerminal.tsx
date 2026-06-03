@@ -39,7 +39,10 @@ function createTerminalTabState(): TerminalTabState {
 }
 
 function getTechnologyBadgeClass(tag: string) {
-  const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const slug = tag
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
   return `project-preview-tag project-preview-tag--${slug || 'default'}`;
 }
 
@@ -58,29 +61,49 @@ function useReducedMotion() {
   return reducedMotion;
 }
 
-export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkMs }: Props) {
+export default function AnimatedTerminal({
+  sections,
+  promptSpeedMs,
+  cursorBlinkMs,
+}: Props) {
   const reducedMotion = useReducedMotion();
   const animatingSlugs = useRef(new Set<string>());
-  const [openSlugs, setOpenSlugs] = useState(() => sections.map((item) => item.slug));
-  const [activeSlug, setActiveSlug] = useState<string | undefined>(sections[0]?.slug);
+  const [openSlugs, setOpenSlugs] = useState(() =>
+    sections.map((item) => item.slug)
+  );
+  const [activeSlug, setActiveSlug] = useState<string | undefined>(
+    sections[0]?.slug
+  );
   const openSections = sections.filter((item) => openSlugs.includes(item.slug));
   const closedSection = sections.find((item) => !openSlugs.includes(item.slug));
-  const section = openSections.find((item) => item.slug === activeSlug) ?? openSections[0];
+  const section =
+    openSections.find((item) => item.slug === activeSlug) ?? openSections[0];
   const command = section ? section.command : 'no tabs open';
   const output = useMemo(
     () => section?.lines.join('\n') ?? 'Press + to reopen a portfolio section.',
-    [section?.lines],
+    [section?.lines]
   );
-  const [tabStates, setTabStates] = useState<Record<string, TerminalTabState>>({});
+  const [tabStates, setTabStates] = useState<Record<string, TerminalTabState>>(
+    {}
+  );
   const [isProjectWindowOpen, setIsProjectWindowOpen] = useState(false);
-  const [terminalWindowState, setTerminalWindowState] = useState<TerminalWindowState>('open');
+  const [terminalWindowState, setTerminalWindowState] =
+    useState<TerminalWindowState>('open');
   const [isMaximized, setIsMaximized] = useState(false);
   const activeTabState = section ? tabStates[section.slug] : undefined;
-  const visibleCommand = section ? activeTabState?.visibleCommand ?? '' : command;
-  const visibleOutput = section ? activeTabState?.visibleOutput ?? '' : output;
-  const phase = section ? activeTabState?.phase ?? 'command' : 'done';
-  const interactiveCommand = section ? activeTabState?.interactiveCommand ?? '' : '';
-  const interactiveHistory = section ? activeTabState?.interactiveHistory ?? [] : [];
+  const visibleCommand = section
+    ? (activeTabState?.visibleCommand ?? '')
+    : command;
+  const visibleOutput = section
+    ? (activeTabState?.visibleOutput ?? '')
+    : output;
+  const phase = section ? (activeTabState?.phase ?? 'command') : 'done';
+  const interactiveCommand = section
+    ? (activeTabState?.interactiveCommand ?? '')
+    : '';
+  const interactiveHistory = section
+    ? (activeTabState?.interactiveHistory ?? [])
+    : [];
   const tabGridStyle = {
     gridTemplateColumns: closedSection
       ? `repeat(${openSections.length}, minmax(0, 1fr)) 3.25rem`
@@ -113,7 +136,9 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     setOpenSlugs((currentSlugs) => {
       const nextSlugs = sections
         .map((item) => item.slug)
-        .filter((slug) => currentSlugs.includes(slug) || slug === closedSection.slug);
+        .filter(
+          (slug) => currentSlugs.includes(slug) || slug === closedSection.slug
+        );
 
       return nextSlugs;
     });
@@ -133,26 +158,34 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     const [commandName = '', ...args] = enteredCommand.split(' ');
     const firstArg = args[0];
 
-    if (commandName === 'ls' && args.length === 0 && section) return section.files.join('\n');
+    if (commandName === 'ls' && args.length === 0 && section)
+      return section.files.join('\n');
     if (
-      section?.slug === 'projects'
-      && commandName === 'cd'
-      && args.length === 1
-      && ['projects', 'projects/'].includes(firstArg)
+      section?.slug === 'projects' &&
+      commandName === 'cd' &&
+      args.length === 1 &&
+      ['projects', 'projects/'].includes(firstArg)
     ) {
       setIsProjectWindowOpen(true);
       return '';
     }
 
     if (
-      section?.slug === 'projects'
-      && commandName === 'ls'
-      && args.length === 1
-      && ['projects', 'projects/'].includes(firstArg)
-    ) return '';
+      section?.slug === 'projects' &&
+      commandName === 'ls' &&
+      args.length === 1 &&
+      ['projects', 'projects/'].includes(firstArg)
+    )
+      return '';
 
-    if (commandName === 'cat' && args.length === 0) return 'cat <FILE> - prints content of the file';
-    if (commandName === 'cat' && args.length === 1 && section?.files.includes(firstArg)) return output;
+    if (commandName === 'cat' && args.length === 0)
+      return 'cat <FILE> - prints content of the file';
+    if (
+      commandName === 'cat' &&
+      args.length === 1 &&
+      section?.files.includes(firstArg)
+    )
+      return output;
 
     if (['cat', 'cd', 'ls'].includes(commandName)) return 'permission denied';
 
@@ -170,7 +203,9 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     const historyItem = {
       command: rawCommand,
       output: getInteractiveOutput(enteredCommand),
-      showProjectsAction: section.slug === 'projects' && ['ls projects', 'ls projects/'].includes(enteredCommand),
+      showProjectsAction:
+        section.slug === 'projects' &&
+        ['ls projects', 'ls projects/'].includes(enteredCommand),
     };
 
     setTabStates((currentStates) => {
@@ -222,7 +257,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
     if (!section) return;
 
     const slug = section.slug;
-    if (tabStates[slug]?.hasIntroPlayed || animatingSlugs.current.has(slug)) return;
+    if (tabStates[slug]?.hasIntroPlayed || animatingSlugs.current.has(slug))
+      return;
 
     if (reducedMotion) {
       setTabStates((currentStates) => ({
@@ -305,10 +341,22 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
         };
       });
     };
-  }, [command, output, promptSpeedMs, reducedMotion, section?.slug, terminalWindowState]);
+  }, [
+    command,
+    output,
+    promptSpeedMs,
+    reducedMotion,
+    section?.slug,
+    terminalWindowState,
+  ]);
 
   useEffect(() => {
-    if (phase !== 'done' || isProjectWindowOpen || terminalWindowState !== 'open') return;
+    if (
+      phase !== 'done' ||
+      isProjectWindowOpen ||
+      terminalWindowState !== 'open'
+    )
+      return;
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.defaultPrevented || event.altKey || event.metaKey) return;
@@ -318,7 +366,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
           event.preventDefault();
           if (section) {
             setTabStates((currentStates) => {
-              const currentState = currentStates[section.slug] ?? createTerminalTabState();
+              const currentState =
+                currentStates[section.slug] ?? createTerminalTabState();
 
               return {
                 ...currentStates,
@@ -337,13 +386,17 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
         event.preventDefault();
         if (section) {
           setTabStates((currentStates) => {
-            const currentState = currentStates[section.slug] ?? createTerminalTabState();
+            const currentState =
+              currentStates[section.slug] ?? createTerminalTabState();
 
             return {
               ...currentStates,
               [section.slug]: {
                 ...currentState,
-                interactiveCommand: currentState.interactiveCommand.slice(0, -1),
+                interactiveCommand: currentState.interactiveCommand.slice(
+                  0,
+                  -1
+                ),
               },
             };
           });
@@ -361,7 +414,8 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
         event.preventDefault();
         if (section) {
           setTabStates((currentStates) => {
-            const currentState = currentStates[section.slug] ?? createTerminalTabState();
+            const currentState =
+              currentStates[section.slug] ?? createTerminalTabState();
 
             return {
               ...currentStates,
@@ -377,11 +431,23 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [command, interactiveCommand, isProjectWindowOpen, output, phase, section, terminalWindowState]);
+  }, [
+    command,
+    interactiveCommand,
+    isProjectWindowOpen,
+    output,
+    phase,
+    section,
+    terminalWindowState,
+  ]);
 
   if (terminalWindowState === 'closed') {
     return (
-      <button className="terminal-reopen-action" type="button" onClick={openTerminal}>
+      <button
+        className="terminal-reopen-action"
+        type="button"
+        onClick={openTerminal}
+      >
         Open Terminal
       </button>
     );
@@ -389,7 +455,12 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
 
   if (terminalWindowState === 'minimized') {
     return (
-      <button className="terminal-minimized-action" type="button" aria-label="Restore terminal" onClick={openTerminal}>
+      <button
+        className="terminal-minimized-action"
+        type="button"
+        aria-label="Restore terminal"
+        onClick={openTerminal}
+      >
         <span className="terminal-minimized-icon" aria-hidden="true">
           <span className="terminal-minimized-titlebar" />
           <span className="terminal-minimized-prompt">&gt;_</span>
@@ -404,7 +475,9 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
       className={`terminal-shell terminal-shell--enhanced${isMaximized ? ' terminal-shell--maximized' : ''}`}
       aria-labelledby="terminal-heading-enhanced"
     >
-      <h2 id="terminal-heading-enhanced" className="sr-only">Software developer portfolio terminal</h2>
+      <h2 id="terminal-heading-enhanced" className="sr-only">
+        Software developer portfolio terminal
+      </h2>
       <div className="terminal-chrome">
         <div className="terminal-titlebar">
           <div className="terminal-controls">
@@ -427,17 +500,26 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
             <button
               className="terminal-control terminal-control--zoom"
               type="button"
-              aria-label={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
+              aria-label={
+                isMaximized ? 'Restore terminal size' : 'Maximize terminal'
+              }
               aria-pressed={isMaximized}
               data-hint={isMaximized ? 'Restore' : 'Maximize'}
-              title={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
+              title={
+                isMaximized ? 'Restore terminal size' : 'Maximize terminal'
+              }
               onClick={() => setIsMaximized((currentValue) => !currentValue)}
             />
           </div>
           <p>portfolio.local</p>
         </div>
 
-        <div className="terminal-tabs" role="tablist" aria-label="Portfolio sections" style={tabGridStyle}>
+        <div
+          className="terminal-tabs"
+          role="tablist"
+          aria-label="Portfolio sections"
+          style={tabGridStyle}
+        >
           {openSections.map((item) => {
             const isActive = item.slug === section?.slug;
 
@@ -462,7 +544,11 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
                     closeTab(item.slug);
                   }}
                 >
-                  <svg className="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
+                  <svg
+                    className="terminal-tab-close"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                  >
                     <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
                   </svg>
                 </button>
@@ -484,44 +570,85 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
         </div>
       </div>
 
-      <div className="terminal-screen" style={{ '--terminal-cursor-blink': `${cursorBlinkMs}ms` } as CSSProperties}>
-        <div id="terminal-output-panel" className="terminal-output" aria-live="polite">
+      <div
+        className="terminal-screen"
+        style={
+          { '--terminal-cursor-blink': `${cursorBlinkMs}ms` } as CSSProperties
+        }
+      >
+        <div
+          id="terminal-output-panel"
+          className="terminal-output"
+          aria-live="polite"
+        >
           <p className="terminal-command">
-            <span className="terminal-prompt" aria-hidden="true">&gt;</span>{' '}
+            <span className="terminal-prompt" aria-hidden="true">
+              &gt;
+            </span>{' '}
             <span className="terminal-typed-command">
               <span>{visibleCommand}</span>
-              {phase === 'command' && <span className="terminal-cursor terminal-cursor--typing" aria-hidden="true" />}
+              {phase === 'command' && (
+                <span
+                  className="terminal-cursor terminal-cursor--typing"
+                  aria-hidden="true"
+                />
+              )}
             </span>
           </p>
           <pre className="terminal-lines">{visibleOutput}</pre>
           {section?.slug === 'projects' && phase === 'done' && (
-            <button className="terminal-projects-action" type="button" onClick={() => setIsProjectWindowOpen(true)}>
+            <button
+              className="terminal-projects-action"
+              type="button"
+              onClick={() => setIsProjectWindowOpen(true)}
+            >
               View All Projects
             </button>
           )}
-          {phase === 'done' && interactiveHistory.map((item, index) => (
-            <div className="terminal-history-item" key={`${item.command}-${index}`}>
-              <p className="terminal-command terminal-command--next">
-                &gt; <span className="terminal-typed-command">{item.command}</span>
-              </p>
-              {item.output && <pre className="terminal-lines terminal-lines--history">{item.output}</pre>}
-              {item.showProjectsAction && (
-                <button className="terminal-projects-action" type="button" onClick={() => setIsProjectWindowOpen(true)}>
-                  View All Projects
-                </button>
-              )}
-            </div>
-          ))}
+          {phase === 'done' &&
+            interactiveHistory.map((item, index) => (
+              <div
+                className="terminal-history-item"
+                key={`${item.command}-${index}`}
+              >
+                <p className="terminal-command terminal-command--next">
+                  &gt;{' '}
+                  <span className="terminal-typed-command">{item.command}</span>
+                </p>
+                {item.output && (
+                  <pre className="terminal-lines terminal-lines--history">
+                    {item.output}
+                  </pre>
+                )}
+                {item.showProjectsAction && (
+                  <button
+                    className="terminal-projects-action"
+                    type="button"
+                    onClick={() => setIsProjectWindowOpen(true)}
+                  >
+                    View All Projects
+                  </button>
+                )}
+              </div>
+            ))}
           {phase === 'done' && (
             <p className="terminal-command terminal-command--next">
-              &gt; <span className="terminal-typed-command">{interactiveCommand}</span><span className="terminal-cursor" aria-hidden="true" />
+              &gt;{' '}
+              <span className="terminal-typed-command">
+                {interactiveCommand}
+              </span>
+              <span className="terminal-cursor" aria-hidden="true" />
             </p>
           )}
         </div>
       </div>
 
       {isProjectWindowOpen && (
-        <div className="project-window-backdrop" role="presentation" onMouseDown={() => setIsProjectWindowOpen(false)}>
+        <div
+          className="project-window-backdrop"
+          role="presentation"
+          onMouseDown={() => setIsProjectWindowOpen(false)}
+        >
           <section
             className="project-window"
             role="dialog"
@@ -550,14 +677,27 @@ export default function AnimatedTerminal({ sections, promptSpeedMs, cursorBlinkM
                   <div className="project-preview-copy">
                     <div className="project-preview-title-row">
                       <h4>{project.title}</h4>
-                      <span className="project-preview-year">{project.year}</span>
+                      <span className="project-preview-year">
+                        {project.year}
+                      </span>
                     </div>
-                    <ul className="project-preview-tags" aria-label={`${project.title} technologies`}>
-                      {project.tags.map((tag) => <li className={getTechnologyBadgeClass(tag)} key={tag}>{tag}</li>)}
+                    <ul
+                      className="project-preview-tags"
+                      aria-label={`${project.title} technologies`}
+                    >
+                      {project.tags.map((tag) => (
+                        <li className={getTechnologyBadgeClass(tag)} key={tag}>
+                          {tag}
+                        </li>
+                      ))}
                     </ul>
                     <p>{project.description}</p>
                     {project.sourceHref && (
-                      <a href={project.sourceHref} target="_blank" rel="noreferrer">
+                      <a
+                        href={project.sourceHref}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         View source
                       </a>
                     )}

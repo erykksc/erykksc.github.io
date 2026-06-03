@@ -1,96 +1,115 @@
 ---
-import '../styles/global.css'
+import '../styles/global.css';
 
 type Props = {
-	title?: string;
-	description?: string;
+  title?: string;
+  description?: string;
 };
 
 const {
-	title = 'Software Developer Portfolio',
-	description = 'Software developer portfolio with projects, experience, and achievements.',
+  title = 'Software Developer Portfolio',
+  description = 'Software developer portfolio with projects, experience, and achievements.',
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="description" content={description} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<script is:inline>
-			{
-				let storedTheme = null;
-				try {
-					storedTheme = localStorage.getItem('theme');
-				} catch {
-					storedTheme = null;
-				}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline>
+      {
+        let storedTheme = null;
+        try {
+          storedTheme = localStorage.getItem('theme');
+        } catch {
+          storedTheme = null;
+        }
 
-				const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				const theme = storedTheme || systemTheme;
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+          .matches
+          ? 'dark'
+          : 'light';
+        const theme = storedTheme || systemTheme;
 
-				document.documentElement.classList.add('js-enabled');
-				document.documentElement.dataset.theme = theme;
-			}
-		</script>
-	</head>
-	<body>
-		<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" data-theme-toggle>
-			<span class="theme-toggle__label" data-theme-toggle-label>Light</span>
-			<span class="theme-toggle__track" aria-hidden="true">
-				<span class="theme-toggle__thumb"></span>
-			</span>
-		</button>
-		<slot />
-		<script is:inline>
-			{
-				const themeToggle = document.querySelector('[data-theme-toggle]');
-				const themeToggleLabel = document.querySelector('[data-theme-toggle-label]');
-				const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
+        document.documentElement.classList.add('js-enabled');
+        document.documentElement.dataset.theme = theme;
+      }
+    </script>
+  </head>
+  <body>
+    <button
+      class="theme-toggle"
+      type="button"
+      aria-label="Switch to dark theme"
+      aria-pressed="false"
+      data-theme-toggle
+    >
+      <span class="theme-toggle__label" data-theme-toggle-label>Light</span>
+      <span class="theme-toggle__track" aria-hidden="true">
+        <span class="theme-toggle__thumb"></span>
+      </span>
+    </button>
+    <slot />
+    <script is:inline>
+      {
+        const themeToggle = document.querySelector('[data-theme-toggle]');
+        const themeToggleLabel = document.querySelector(
+          '[data-theme-toggle-label]'
+        );
+        const themePreference = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        );
 
-				function getStoredTheme() {
-					try {
-						return localStorage.getItem('theme');
-					} catch {
-						return null;
-					}
-				}
+        function getStoredTheme() {
+          try {
+            return localStorage.getItem('theme');
+          } catch {
+            return null;
+          }
+        }
 
-				function setTheme(theme, persist = true) {
-					document.documentElement.dataset.theme = theme;
-					if (persist) {
-						try {
-							localStorage.setItem('theme', theme);
-						} catch {
-							// Ignore storage failures and keep the in-page theme change.
-						}
-					}
+        function setTheme(theme, persist = true) {
+          document.documentElement.dataset.theme = theme;
+          if (persist) {
+            try {
+              localStorage.setItem('theme', theme);
+            } catch {
+              // Ignore storage failures and keep the in-page theme change.
+            }
+          }
 
-					const isDark = theme === 'dark';
-					themeToggle?.setAttribute('aria-pressed', String(isDark));
-					themeToggle?.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} theme`);
-					if (themeToggleLabel) themeToggleLabel.textContent = isDark ? 'Dark' : 'Light';
-				}
+          const isDark = theme === 'dark';
+          themeToggle?.setAttribute('aria-pressed', String(isDark));
+          themeToggle?.setAttribute(
+            'aria-label',
+            `Switch to ${isDark ? 'light' : 'dark'} theme`
+          );
+          if (themeToggleLabel)
+            themeToggleLabel.textContent = isDark ? 'Dark' : 'Light';
+        }
 
-				setTheme(document.documentElement.dataset.theme || 'light', false);
+        setTheme(document.documentElement.dataset.theme || 'light', false);
 
-				themeToggle?.addEventListener('click', () => {
-					setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
-				});
+        themeToggle?.addEventListener('click', () => {
+          setTheme(
+            document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+          );
+        });
 
-				themePreference.addEventListener('change', (event) => {
-					if (getStoredTheme()) return;
-					setTheme(event.matches ? 'dark' : 'light', false);
-				});
-			}
-		</script>
-	</body>
+        themePreference.addEventListener('change', (event) => {
+          if (getStoredTheme()) return;
+          setTheme(event.matches ? 'dark' : 'light', false);
+        });
+      }
+    </script>
+  </body>
 </html>

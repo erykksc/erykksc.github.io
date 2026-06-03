@@ -1,10 +1,19 @@
 ---
 import AnimatedTerminal from './AnimatedTerminal';
-import { defaultSection, terminalAnimation, terminalSections } from '../data/portfolio';
+import {
+  defaultSection,
+  terminalAnimation,
+  terminalSections,
+} from '../data/portfolio';
 ---
 
-<section class="terminal-shell terminal-shell--static" aria-labelledby="terminal-heading-static">
-  <h2 id="terminal-heading-static" class="sr-only">Software developer portfolio terminal summaries</h2>
+<section
+  class="terminal-shell terminal-shell--static"
+  aria-labelledby="terminal-heading-static"
+>
+  <h2 id="terminal-heading-static" class="sr-only">
+    Software developer portfolio terminal summaries
+  </h2>
   <div class="terminal-chrome">
     <div class="terminal-titlebar" aria-hidden="true">
       <div class="terminal-controls">
@@ -16,36 +25,61 @@ import { defaultSection, terminalAnimation, terminalSections } from '../data/por
     </div>
 
     <nav class="terminal-tabs" aria-label="Portfolio sections">
-      {terminalSections.map((item) => (
-        <span
-          class:list={['terminal-tab', { 'terminal-tab--active': item.slug === defaultSection.slug }]}
-        >
-          <span>{item.label}</span>
-          {item.slug === defaultSection.slug && (
-            <svg class="terminal-tab-close" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
-            </svg>
-          )}
-        </span>
-      ))}
-      <button class="terminal-tab-add" type="button" aria-label="Add terminal tab">
+      {
+        terminalSections.map((item) => (
+          <span
+            class:list={[
+              'terminal-tab',
+              { 'terminal-tab--active': item.slug === defaultSection.slug },
+            ]}
+          >
+            <span>{item.label}</span>
+            {item.slug === defaultSection.slug && (
+              <svg
+                class="terminal-tab-close"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+              >
+                <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" />
+              </svg>
+            )}
+          </span>
+        ))
+      }
+      <button
+        class="terminal-tab-add"
+        type="button"
+        aria-label="Add terminal tab"
+      >
         <svg viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M8 3.25V12.75M3.25 8H12.75" />
+          <path d="M8 3.25V12.75M3.25 8H12.75"></path>
         </svg>
       </button>
     </nav>
   </div>
 
-  <div class="terminal-screen" style={`--terminal-cursor-blink: ${terminalAnimation.cursorBlinkMs}ms`}>
+  <div
+    class="terminal-screen"
+    style={`--terminal-cursor-blink: ${terminalAnimation.cursorBlinkMs}ms`}
+  >
     <div class="terminal-output">
-      {terminalSections.map((section) => (
-        <section class="terminal-static-section" aria-labelledby={`terminal-static-${section.slug}`}>
-          <h3 id={`terminal-static-${section.slug}`} class="sr-only">{section.heading}</h3>
-          <p class="terminal-command">&gt; {section.command}</p>
-          <pre class="terminal-lines">{section.lines.join('\n')}</pre>
-        </section>
-      ))}
-      <p class="terminal-command terminal-command--next">&gt; <span class="terminal-cursor" aria-hidden="true"></span></p>
+      {
+        terminalSections.map((section) => (
+          <section
+            class="terminal-static-section"
+            aria-labelledby={`terminal-static-${section.slug}`}
+          >
+            <h3 id={`terminal-static-${section.slug}`} class="sr-only">
+              {section.heading}
+            </h3>
+            <p class="terminal-command">&gt; {section.command}</p>
+            <pre class="terminal-lines">{section.lines.join('\n')}</pre>
+          </section>
+        ))
+      }
+      <p class="terminal-command terminal-command--next">
+        &gt; <span class="terminal-cursor" aria-hidden="true"></span>
+      </p>
     </div>
   </div>
 </section>

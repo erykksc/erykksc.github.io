@@ -3,7 +3,11 @@ import { heroActions } from '../data/portfolio';
 ---
 
 <nav class="hero-actions" aria-label="Primary actions">
-  {heroActions.map((action) => (
-    <a class="hero-action" href={action.href}>{action.label}</a>
-  ))}
+  {
+    heroActions.map((action) => (
+      <a class="hero-action" href={action.href}>
+        {action.label}
+      </a>
+    ))
+  }
 </nav>

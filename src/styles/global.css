@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   color-scheme: light;
@@ -19,7 +19,7 @@
   --shadow-hard-sm: 4px 4px 0 rgba(17, 17, 17, 0.82);
 }
 
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   color-scheme: dark;
   --ink: #f4f1e8;
   --ink-on-accent: #15130f;
@@ -39,7 +39,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     color-scheme: dark;
     --ink: #f4f1e8;
     --ink-on-accent: #15130f;
@@ -71,8 +71,8 @@ html {
   background-size: 2.25rem 2.25rem;
   color: var(--ink);
   font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 }
 
 body {
@@ -143,12 +143,12 @@ body {
   transition: transform 180ms ease;
 }
 
-:root[data-theme="dark"] .theme-toggle__thumb {
+:root[data-theme='dark'] .theme-toggle__thumb {
   transform: translate(1.1rem, -50%);
 }
 
-:root[data-theme="dark"] .theme-toggle:hover,
-:root[data-theme="dark"] .theme-toggle:focus-visible {
+:root[data-theme='dark'] .theme-toggle:hover,
+:root[data-theme='dark'] .theme-toggle:focus-visible {
   color: var(--ink-on-accent);
 }
 
@@ -326,7 +326,7 @@ p {
   white-space: nowrap;
 }
 
-:root[data-theme="dark"] .social-link::after {
+:root[data-theme='dark'] .social-link::after {
   color: var(--ink);
 }
 
