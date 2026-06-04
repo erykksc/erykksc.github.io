@@ -190,7 +190,7 @@ const categoryIcons = {
         const viewBox = path.ownerSVGElement?.viewBox.baseVal;
         if (!totalLength || !viewBox?.width || !viewBox?.height) return;
 
-        const getXAtY = (targetY) => {
+        const findPathLengthAtY = (targetY) => {
           let start = 0;
           let end = totalLength;
 
@@ -205,19 +205,22 @@ const categoryIcons = {
             }
           }
 
-          return path.getPointAtLength((start + end) / 2).x;
+          return (start + end) / 2;
         };
 
         items.forEach((item, index) => {
           const progress = (index + 0.5) / items.length;
           const targetY = viewBox.y + viewBox.height * progress;
-          const x = ((getXAtY(targetY) - viewBox.x) / viewBox.width) * 100;
+          const pathLen = findPathLengthAtY(targetY);
+          const point = path.getPointAtLength(pathLen);
+          const x = ((point.x - viewBox.x) / viewBox.width) * 100;
           const y = progress * 100;
           const cardSide = x < 50 ? 'right' : 'left';
 
           item.style.setProperty('--timeline-x', `${x.toFixed(3)}%`);
           item.style.setProperty('--timeline-y', `${y.toFixed(3)}%`);
           item.dataset.cardSide = cardSide;
+          item.dataset.pathProgress = String(pathLen / totalLength);
         });
 
         canvas.classList.add('is-positioned');
@@ -239,20 +242,44 @@ const categoryIcons = {
           const scrollY = window.scrollY || window.pageYOffset;
           const scrollingDown = scrollY > lastScrollY;
           lastScrollY = scrollY;
-          const canvasRect = canvas.getBoundingClientRect();
-          const canvasTop = canvasRect.top + scrollY;
-          const canvasHeight = canvasRect.height;
-          const documentHeight = document.documentElement.scrollHeight;
-          const maxScroll = Math.max(documentHeight - viewportHeight, 0);
-          const progressPoint = scrollY + viewportHeight * 0.73;
-          const rawProgress =
-            (progressPoint - canvasTop) / (canvasHeight * 0.88);
-          const progress =
-            scrollY >= maxScroll - 2
-              ? 1
-              : Math.min(Math.max(rawProgress, 0), 1);
+          const thresholdDocY = scrollY + viewportHeight * 0.92;
+          let itemAbove = null;
+          let itemBelow = null;
 
-          canvas.style.setProperty('--timeline-progress', progress.toFixed(4));
+          items.forEach((item) => {
+            const itemTop = item.getBoundingClientRect().top + scrollY;
+            const itemPathProgress = Number.parseFloat(
+              item.dataset.pathProgress
+            );
+
+            if (Number.isNaN(itemPathProgress)) return;
+
+            if (itemTop < thresholdDocY) {
+              itemAbove = { top: itemTop, pathProgress: itemPathProgress };
+            } else if (itemBelow === null) {
+              itemBelow = { top: itemTop, pathProgress: itemPathProgress };
+            }
+          });
+
+          let smoothProgress;
+          if (itemAbove === null) {
+            smoothProgress = 0;
+          } else if (itemBelow === null) {
+            smoothProgress = 1;
+          } else {
+            const range = itemBelow.top - itemAbove.top;
+            const offset = thresholdDocY - itemAbove.top;
+            const factor =
+              range > 0 ? Math.max(0, Math.min(1, offset / range)) : 0;
+            smoothProgress =
+              itemAbove.pathProgress +
+              factor * (itemBelow.pathProgress - itemAbove.pathProgress);
+          }
+
+          canvas.style.setProperty(
+            '--timeline-progress',
+            smoothProgress.toFixed(4)
+          );
           items.forEach((item) => {
             const itemRect = item.getBoundingClientRect();
 
