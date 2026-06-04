@@ -7,10 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://eryk.one',
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap(), icon()],
 
   vite: {
     plugins: [tailwindcss()],

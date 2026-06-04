@@ -28,17 +28,13 @@ export type GithubProject = {
   highlighted?: boolean;
 };
 
+export type TimelineItemCategory = 'education' | 'work' | 'project';
+
 export type TimelineItem = {
   title: string;
   eyebrow: string;
   description: string;
-  marker: 'circle' | 'oval' | 'large';
-  media: {
-    type: 'image' | 'github' | 'code' | 'terminal' | 'spark';
-    shape: 'circle' | 'square';
-    src?: string;
-    alt?: string;
-  };
+  category: TimelineItemCategory;
   href?: string;
 };
 
@@ -549,25 +545,14 @@ export const timelineItems: TimelineItem[] = [
     eyebrow: '2026',
     description:
       'I continued learning Spanish and finished the course and exam of Spanish at B1.2 level',
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: '',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'Project: wikiparse-rs',
     eyebrow: '2026',
     description:
       'Developed a rust parser and CLI for streaming Wikipedia SQL dumps into usable data formats for downstream analysis.',
-    marker: 'circle',
-    media: {
-      type: 'code',
-      shape: 'circle',
-      alt: 'Code icon for wikiparse-rs',
-    },
+    category: 'project',
     href: 'https://github.com/erykksc/wikiparse-rs',
   },
   {
@@ -576,25 +561,13 @@ export const timelineItems: TimelineItem[] = [
     description:
       'TODO: Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
 		The platform has already been used in Summer Semester 2026 for the applications for XYZ degree.',
-    marker: 'circle',
-    media: {
-      type: 'code',
-      shape: 'circle',
-      alt: '',
-    },
-    href: '',
+    category: 'project',
   },
   {
     title: 'Computer Science M.Sc. at Technische Universität Berlin',
     eyebrow: '2025-Present',
     description: 'I continued my studies at TU Berlin at master level.',
-    marker: 'circle',
-    media: {
-      type: 'code',
-      shape: 'circle',
-      alt: '',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'Computer Science B.Sc. at Technische Universität Berlin',
@@ -602,13 +575,7 @@ export const timelineItems: TimelineItem[] = [
     description:
       'I graduated Computer Science B.Sc. at Technische Universität.\
 		My bachelor thesis was comparing horizontal and vertical scalability of two distributed spatiotemporal database systems (MobilityDB+Citus vs CrateDB) with custom Kubernetes and infrastrucutre deployments.',
-    marker: 'circle',
-    media: {
-      type: 'image',
-      shape: 'circle',
-      alt: 'Graduation',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'Project: busybees',
@@ -616,24 +583,14 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Developed a serverless scheduling app for university group work, using calendar integrations, Cognito auth, DynamoDB, Redis caching, and React Router.\
 		The project was being developed in a team of 2, where I've handled the backend and infrastrucutre.",
-    marker: 'circle',
-    media: {
-      type: 'github',
-      shape: 'circle',
-      alt: 'busybees on GitHub',
-    },
+    category: 'project',
     href: 'https://github.com/erykksc/busybees',
   },
   {
     title: 'Project: kwikquiz',
     eyebrow: '2024',
     description: 'Developed a quiz platform using Go and HTMX in a team.',
-    marker: 'oval',
-    media: {
-      type: 'terminal',
-      shape: 'square',
-      alt: 'Terminal icon for kwikquiz',
-    },
+    category: 'project',
     href: 'https://github.com/erykksc/kwikquiz',
   },
   {
@@ -641,12 +598,7 @@ export const timelineItems: TimelineItem[] = [
     eyebrow: '2021-2025',
     description:
       'Created a practical React app for manipulating PDFs in the browser, including merging, cutting, and joining documents.',
-    marker: 'large',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: 'Spark icon for pdf-tools-js',
-    },
+    category: 'project',
     href: 'https://github.com/erykksc/pdf-tools-js',
   },
   {
@@ -654,12 +606,7 @@ export const timelineItems: TimelineItem[] = [
     eyebrow: '2021-2024',
     description:
       'Built and maintained the website for Bitwa o Śląsk, a recurring boxing gala series. The project involved full-stack development, deployment, and direct coordination with designers, social media managers, and event organizers.',
-    marker: 'large',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: '',
-    },
+    category: 'project',
     href: 'https://bitwa-slask.eryk.one',
   },
   {
@@ -668,25 +615,14 @@ export const timelineItems: TimelineItem[] = [
     description:
       "TODO: Worked at Engie Zielona Energia corporation, a renewable energy provider and distributor company, hiring more than XYZ employeed worldwide. \
 		There I've been building interal tools.",
-    marker: 'large',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: 'Engie Zielona Energia Logo',
-    },
-    href: '',
+    category: 'work',
   },
   {
     title: 'Project: Terminal-Tetris',
     eyebrow: '2021',
     description:
       'Created Tetris clone implemented using a custom C++ terminal game engine.',
-    marker: 'circle',
-    media: {
-      type: 'github',
-      shape: 'circle',
-      alt: 'Terminal-Tetris on GitHub',
-    },
+    category: 'project',
     href: 'https://github.com/erykksc/Terminal-Tetris',
   },
   {
@@ -697,25 +633,14 @@ export const timelineItems: TimelineItem[] = [
       "Completed 2 semesters of Computer Science B.Sc. at Silesian University of Technology.\
 		Due to COVID, I started my studies in Poland instead of abroad.\
 		I've completed full 2 semesters at Silesian University of Technology",
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'circle',
-      alt: '',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'LanguageCert Test of English C2 (Listening, Reading)',
     eyebrow: '14 Jul 2021',
     description:
       'Earned the LanguageCert Level 3 Certificate in ESOL International for C2 English listening and reading, issued by LanguageCert through PeopleCert.',
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'circle',
-      alt: '',
-    },
+    category: 'education',
     href: 'https://badges.peoplecert.org/Badge/en/E0BDB160-9446-46CC-A712-43891D9D561E',
   },
   {
@@ -724,39 +649,21 @@ export const timelineItems: TimelineItem[] = [
     description:
       "Graduated International Baccalaureate Program where I've completed higher level of Computer Science, Mathematics, English and German. \
 		The whole school was completed in English and thus I've acquired a C1 English certificate that is recognized by Universities",
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'circle',
-      alt: '',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'German Language Certificate: DSD II',
     eyebrow: 'May 2020',
     description:
       'Earned the Deutsches Sprachdiplom Stufe II der Kultusministerkonferenz (German Language Certificate Level II of the Education Ministers Conference), issued by the Kultusministerkonferenz (German education authorities).',
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: '',
-    },
-    href: '',
+    category: 'education',
   },
   {
     title: 'TODO: Project: Emeralds',
     eyebrow: 'TODO: 2020',
     description:
       'Video game with one server/screen where players usewith their phones as controllers.',
-    marker: 'circle',
-    media: {
-      type: 'spark',
-      shape: 'square',
-      alt: '',
-    },
-    href: '',
+    category: 'project',
   },
 ];
 

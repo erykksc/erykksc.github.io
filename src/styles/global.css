@@ -14,6 +14,10 @@
   --accent-blue: #efefea;
   --accent-green: #2b2b2b;
   --accent-orange: #b8b8ae;
+  --timeline-edu-bg: #d6e4f0;
+  --timeline-edu-fg: #111111;
+  --timeline-project-bg: #c4c4bc;
+  --timeline-project-fg: #111111;
   --shadow-hard: 7px 7px 0 rgba(17, 17, 17, 0.86);
   --shadow-hard-lg: 14px 14px 0 rgba(17, 17, 17, 0.9);
   --shadow-hard-sm: 4px 4px 0 rgba(17, 17, 17, 0.82);
@@ -33,6 +37,10 @@
   --accent-blue: #2b2b30;
   --accent-green: #f4f1e8;
   --accent-orange: #767165;
+  --timeline-edu-bg: #1a2d45;
+  --timeline-edu-fg: #d6e4f0;
+  --timeline-project-bg: #3a3a3c;
+  --timeline-project-fg: #e8e8e0;
   --shadow-hard: 7px 7px 0 var(--line);
   --shadow-hard-lg: 14px 14px 0 var(--line);
   --shadow-hard-sm: 4px 4px 0 var(--line);
@@ -53,6 +61,10 @@
     --accent-blue: #2b2b30;
     --accent-green: #f4f1e8;
     --accent-orange: #767165;
+    --timeline-edu-bg: #1a2d45;
+    --timeline-edu-fg: #d6e4f0;
+    --timeline-project-bg: #3a3a3c;
+    --timeline-project-fg: #e8e8e0;
     --shadow-hard: 7px 7px 0 var(--line);
     --shadow-hard-lg: 14px 14px 0 var(--line);
     --shadow-hard-sm: 4px 4px 0 var(--line);
@@ -1373,7 +1385,6 @@ a.timeline-marker:focus-visible {
 
 .timeline-item--oval .timeline-marker {
   transform: rotate(1.5deg);
-  background: var(--accent-blue);
 }
 
 .timeline-canvas.is-positioned .timeline-item--oval .timeline-marker {
@@ -1389,7 +1400,6 @@ a.timeline-marker:focus-visible {
 
 .timeline-item--large .timeline-marker {
   transform: rotate(1deg);
-  background: var(--accent-pink);
 }
 
 .timeline-canvas.is-positioned .timeline-item--large .timeline-marker {
@@ -1401,21 +1411,6 @@ a.timeline-marker:focus-visible {
   .timeline-item--large
   a.timeline-marker:focus-visible {
   transform: translate(calc(-50% + 4px), calc(-50% + 4px)) rotate(1deg);
-}
-
-.timeline-item:nth-child(2n) .timeline-marker {
-  background: var(--accent-blue);
-  color: var(--ink);
-}
-
-.timeline-item:nth-child(2n + 1) .timeline-marker {
-  background: var(--surface);
-  color: var(--ink);
-}
-
-.timeline-item:nth-child(3n) .timeline-marker {
-  background: var(--accent-yellow);
-  color: var(--ink-on-accent);
 }
 
 .timeline-marker span {
@@ -1441,17 +1436,22 @@ a.timeline-marker:focus-visible {
   max-width: 30rem;
 }
 
-.timeline-item:nth-child(2n) .timeline-card {
-  background: var(--accent-blue);
+.timeline-item[data-category='education'] .timeline-marker,
+.timeline-item[data-category='education'] .timeline-card {
+  background: var(--timeline-edu-bg);
+  color: var(--timeline-edu-fg);
 }
 
-.timeline-item:nth-child(2n + 1) .timeline-card {
-  background: var(--surface);
-}
-
-.timeline-item:nth-child(3n) .timeline-card {
+.timeline-item[data-category='work'] .timeline-marker,
+.timeline-item[data-category='work'] .timeline-card {
   background: var(--accent-yellow);
   color: var(--ink-on-accent);
+}
+
+.timeline-item[data-category='project'] .timeline-marker,
+.timeline-item[data-category='project'] .timeline-card {
+  background: var(--timeline-project-bg);
+  color: var(--timeline-project-fg);
 }
 
 .timeline-item:nth-child(2n) .timeline-card {
