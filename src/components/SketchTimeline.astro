@@ -231,11 +231,14 @@ const categoryIcons = {
         window.addEventListener('resize', updateItemPositions);
       } else {
         let ticking = false;
+        let lastScrollY = window.scrollY || window.pageYOffset;
 
         const updateProgress = () => {
           const viewportHeight =
             window.innerHeight || document.documentElement.clientHeight;
           const scrollY = window.scrollY || window.pageYOffset;
+          const scrollingDown = scrollY > lastScrollY;
+          lastScrollY = scrollY;
           const canvasRect = canvas.getBoundingClientRect();
           const canvasTop = canvasRect.top + scrollY;
           const canvasHeight = canvasRect.height;
@@ -252,10 +255,12 @@ const categoryIcons = {
           canvas.style.setProperty('--timeline-progress', progress.toFixed(4));
           items.forEach((item) => {
             const itemRect = item.getBoundingClientRect();
-            const isVisible =
-              itemRect.bottom > 0 && itemRect.top < viewportHeight * 0.92;
 
-            item.classList.toggle('is-visible', isVisible);
+            if (scrollingDown && itemRect.top < viewportHeight * 0.92) {
+              item.classList.add('is-visible');
+            } else if (!scrollingDown && itemRect.top > viewportHeight * 0.92) {
+              item.classList.remove('is-visible');
+            }
           });
           ticking = false;
         };
