@@ -8,7 +8,11 @@ import { timelineItems } from '../data/portfolio';
     <h2 id="timeline-heading">A winding record of things I have built</h2>
   </div>
 
-  <div class="timeline-canvas" data-timeline-canvas>
+  <div
+    class="timeline-canvas"
+    style={`--timeline-items: ${timelineItems.length}`}
+    data-timeline-canvas
+  >
     <svg
       class="timeline-path"
       viewBox="0 0 1000 1650"
@@ -25,11 +29,7 @@ import { timelineItems } from '../data/portfolio';
       {
         timelineItems.map((item) => (
           <li
-            class:list={[
-              'timeline-item',
-              `timeline-item--${item.side}`,
-              `timeline-item--${item.marker}`,
-            ]}
+            class:list={['timeline-item', `timeline-item--${item.marker}`]}
             data-timeline-item
           >
             {item.href ? (
@@ -153,9 +153,75 @@ import { timelineItems } from '../data/portfolio';
     ).matches;
 
     if (canvas) {
+      const path = canvas.querySelector('.timeline-path path');
+      const compactTimelineQuery = window.matchMedia('(max-width: 760px)');
+
+      const updateItemPositions = () => {
+        if (!path || !items.length || !path.getTotalLength) return;
+
+        if (compactTimelineQuery.matches) {
+          canvas.style.removeProperty('min-height');
+          return;
+        }
+
+        const rootFontSize = Number.parseFloat(
+          window.getComputedStyle(document.documentElement).fontSize
+        );
+        const itemGap = rootFontSize * 6;
+        const slotHeight =
+          Array.from(items).reduce((max, item) => {
+            const marker = item.querySelector('.timeline-marker');
+            const card = item.querySelector('.timeline-card');
+            const markerHeight = marker?.getBoundingClientRect().height ?? 0;
+            const cardHeight = card?.getBoundingClientRect().height ?? 0;
+            return Math.max(max, markerHeight, cardHeight);
+          }, 0) + itemGap;
+
+        canvas.style.minHeight = `${Math.ceil(items.length * slotHeight)}px`;
+
+        const totalLength = path.getTotalLength();
+        const viewBox = path.ownerSVGElement?.viewBox.baseVal;
+        if (!totalLength || !viewBox?.width || !viewBox?.height) return;
+
+        const getXAtY = (targetY) => {
+          let start = 0;
+          let end = totalLength;
+
+          for (let step = 0; step < 24; step += 1) {
+            const middle = (start + end) / 2;
+            const point = path.getPointAtLength(middle);
+
+            if (point.y < targetY) {
+              start = middle;
+            } else {
+              end = middle;
+            }
+          }
+
+          return path.getPointAtLength((start + end) / 2).x;
+        };
+
+        items.forEach((item, index) => {
+          const progress = (index + 0.5) / items.length;
+          const targetY = viewBox.y + viewBox.height * progress;
+          const x = ((getXAtY(targetY) - viewBox.x) / viewBox.width) * 100;
+          const y = progress * 100;
+          const cardSide = x < 50 ? 'right' : 'left';
+
+          item.style.setProperty('--timeline-x', `${x.toFixed(3)}%`);
+          item.style.setProperty('--timeline-y', `${y.toFixed(3)}%`);
+          item.dataset.cardSide = cardSide;
+        });
+
+        canvas.classList.add('is-positioned');
+      };
+
+      updateItemPositions();
+
       if (reducedMotion) {
         canvas.style.setProperty('--timeline-progress', '1');
         items.forEach((item) => item.classList.add('is-visible'));
+        window.addEventListener('resize', updateItemPositions);
       } else {
         let ticking = false;
 
@@ -193,9 +259,14 @@ import { timelineItems } from '../data/portfolio';
           window.requestAnimationFrame(updateProgress);
         };
 
+        const requestLayoutUpdate = () => {
+          updateItemPositions();
+          requestUpdate();
+        };
+
         updateProgress();
         window.addEventListener('scroll', requestUpdate, { passive: true });
-        window.addEventListener('resize', requestUpdate);
+        window.addEventListener('resize', requestLayoutUpdate);
       }
     }
   }

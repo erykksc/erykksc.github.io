@@ -40,7 +40,6 @@ export type TimelineItem = {
     alt?: string;
   };
   href?: string;
-  side: 'left' | 'right';
 };
 
 export type SocialLink = {
@@ -79,7 +78,9 @@ export const heroContent = {
   kicker: 'Software developer portfolio',
   title: profileName,
   description:
-    "Computer Science master's student at TU Berlin building practical software across web apps, systems tooling, data processing, infrastructure, and small game experiments.",
+    "Computer Science master's student at TU Berlin , Open-source contributor, full-stack web developer, and hobbist game-developer \
+	I use neovim btw ;) \
+	",
 };
 
 export const heroActions: HeroAction[] = [
@@ -555,7 +556,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'right',
   },
   {
     title: 'Project: wikiparse-rs',
@@ -569,7 +569,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Code icon for wikiparse-rs',
     },
     href: 'https://github.com/erykksc/wikiparse-rs',
-    side: 'right',
   },
   {
     title: 'TODO: Project: Master Application Platform for TU Berlin',
@@ -584,7 +583,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'right',
   },
   {
     title: 'Computer Science M.Sc. at Technische Universität Berlin',
@@ -597,7 +595,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'right',
   },
   {
     title: 'Computer Science B.Sc. at Technische Universität Berlin',
@@ -612,7 +609,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Graduation',
     },
     href: '',
-    side: 'left',
   },
   {
     title: 'Project: busybees',
@@ -627,7 +623,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'busybees on GitHub',
     },
     href: 'https://github.com/erykksc/busybees',
-    side: 'left',
   },
   {
     title: 'Project: kwikquiz',
@@ -640,7 +635,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Terminal icon for kwikquiz',
     },
     href: 'https://github.com/erykksc/kwikquiz',
-    side: 'right',
   },
   {
     title: 'Project: pdf-tools-js',
@@ -654,7 +648,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Spark icon for pdf-tools-js',
     },
     href: 'https://github.com/erykksc/pdf-tools-js',
-    side: 'left',
   },
   {
     title: 'Bitwa o Śląsk boxing event website',
@@ -668,7 +661,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: 'https://bitwa-slask.eryk.one',
-    side: 'left',
   },
   {
     title: 'TODO: Engie Zielona Energia',
@@ -683,7 +675,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Engie Zielona Energia Logo',
     },
     href: '',
-    side: 'left',
   },
   {
     title: 'Project: Terminal-Tetris',
@@ -697,7 +688,6 @@ export const timelineItems: TimelineItem[] = [
       alt: 'Terminal-Tetris on GitHub',
     },
     href: 'https://github.com/erykksc/Terminal-Tetris',
-    side: 'right',
   },
   {
     title:
@@ -714,7 +704,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'left',
   },
   {
     title: 'LanguageCert Test of English C2 (Listening, Reading)',
@@ -728,7 +717,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: 'https://badges.peoplecert.org/Badge/en/E0BDB160-9446-46CC-A712-43891D9D561E',
-    side: 'left',
   },
   {
     title: 'International Baccalaureate in Gliwice (Poland)',
@@ -743,7 +731,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'left',
   },
   {
     title: 'German Language Certificate: DSD II',
@@ -757,7 +744,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'right',
   },
   {
     title: 'TODO: Project: Emeralds',
@@ -771,7 +757,6 @@ export const timelineItems: TimelineItem[] = [
       alt: '',
     },
     href: '',
-    side: 'right',
   },
 ];
 
