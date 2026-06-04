@@ -107,6 +107,7 @@ export const terminalSections: TerminalSection[] = [
       '- Technische Universitaet Berlin, Master degree 2027',
       '- Technische Universitaet Berlin, Bachelor degree 2025',
       '- Silesian University of Technology',
+      '- LanguageCert Test of English C2 (Listening, Reading)',
       '- International Baccalaureate 2021',
     ],
   },
@@ -656,16 +657,17 @@ export const timelineItems: TimelineItem[] = [
     side: 'left',
   },
   {
-    title: 'TODO: Bitwa o Śląsk',
-    eyebrow: '',
-    description: '',
+    title: 'Bitwa o Śląsk boxing event website',
+    eyebrow: '2021-2024',
+    description:
+      'Built and maintained the website for Bitwa o Śląsk, a recurring boxing gala series. The project involved full-stack development, deployment, and direct coordination with designers, social media managers, and event organizers.',
     marker: 'large',
     media: {
       type: 'spark',
       shape: 'square',
       alt: '',
     },
-    href: '',
+    href: 'https://bitwa-slask.eryk.one',
     side: 'left',
   },
   {
@@ -715,17 +717,17 @@ export const timelineItems: TimelineItem[] = [
     side: 'left',
   },
   {
-    title: 'TODO: C2 exam in english during POLSL',
-    eyebrow: '2022',
+    title: 'LanguageCert Test of English C2 (Listening, Reading)',
+    eyebrow: '14 Jul 2021',
     description:
-      "I've completed the exam XYZ and obtained the C2 English certificate.",
+      'Earned the LanguageCert Level 3 Certificate in ESOL International for C2 English listening and reading, issued by LanguageCert through PeopleCert.',
     marker: 'circle',
     media: {
       type: 'spark',
       shape: 'circle',
       alt: '',
     },
-    href: '',
+    href: 'https://badges.peoplecert.org/Badge/en/E0BDB160-9446-46CC-A712-43891D9D561E',
     side: 'left',
   },
   {
@@ -744,10 +746,10 @@ export const timelineItems: TimelineItem[] = [
     side: 'left',
   },
   {
-    title: 'German Language Certificate: DSD 2',
-    eyebrow: '2021',
+    title: 'German Language Certificate: DSD II',
+    eyebrow: 'May 2020',
     description:
-      'Acquired German language certificate from Gäthe Institut for C1 speaking and reading comprehension and B2 for the writing skills',
+      'Earned the Deutsches Sprachdiplom Stufe II der Kultusministerkonferenz (German Language Certificate Level II of the Education Ministers Conference), issued by the Kultusministerkonferenz (German education authorities).',
     marker: 'circle',
     media: {
       type: 'spark',
