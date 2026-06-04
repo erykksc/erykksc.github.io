@@ -541,11 +541,17 @@ export const projectPreviews: ProjectPreview[] = allGithubProjects.map(
 
 export const timelineItems: TimelineItem[] = [
   {
-    title: 'Spanish B1.2 course at ZEMS',
-    eyebrow: '2026',
-    description:
-      'I continued learning Spanish and finished the course and exam of Spanish at B1.2 level',
+    title: 'Computer Science M.Sc. at Technische Universität Berlin',
+    eyebrow: '2025-Present',
+    description: 'I continued my studies at TU Berlin at master level.',
     category: 'education',
+  },
+  {
+    title: 'TODO: Project: wikigraph',
+    eyebrow: '2026',
+    description: '',
+    category: 'project',
+    href: 'https://github.com/erykksc/wikigraph',
   },
   {
     title: 'Project: wikiparse-rs',
@@ -556,18 +562,19 @@ export const timelineItems: TimelineItem[] = [
     href: 'https://github.com/erykksc/wikiparse-rs',
   },
   {
+    title: 'Spanish B1.2 course at ZEMS',
+    eyebrow: '2026',
+    description:
+      'I continued learning Spanish and finished the course and exam of Spanish at B1.2 level',
+    category: 'education',
+  },
+  {
     title: 'TODO: Project: Master Application Platform for TU Berlin',
     eyebrow: '2025-2026',
     description:
       'TODO: Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
 		The platform has already been used in Summer Semester 2026 for the applications for XYZ degree.',
     category: 'project',
-  },
-  {
-    title: 'Computer Science M.Sc. at Technische Universität Berlin',
-    eyebrow: '2025-Present',
-    description: 'I continued my studies at TU Berlin at master level.',
-    category: 'education',
   },
   {
     title: 'Computer Science B.Sc. at Technische Universität Berlin',
@@ -606,7 +613,7 @@ export const timelineItems: TimelineItem[] = [
     eyebrow: '2021-2024',
     description:
       'Built and maintained the website for Bitwa o Śląsk, a recurring boxing gala series. The project involved full-stack development, deployment, and direct coordination with designers, social media managers, and event organizers.',
-    category: 'project',
+    category: 'work',
     href: 'https://bitwa-slask.eryk.one',
   },
   {
@@ -616,14 +623,6 @@ export const timelineItems: TimelineItem[] = [
       "TODO: Worked at Engie Zielona Energia corporation, a renewable energy provider and distributor company, hiring more than XYZ employeed worldwide. \
 		There I've been building interal tools.",
     category: 'work',
-  },
-  {
-    title: 'Project: Terminal-Tetris',
-    eyebrow: '2021',
-    description:
-      'Created Tetris clone implemented using a custom C++ terminal game engine.',
-    category: 'project',
-    href: 'https://github.com/erykksc/Terminal-Tetris',
   },
   {
     title:
@@ -636,8 +635,16 @@ export const timelineItems: TimelineItem[] = [
     category: 'education',
   },
   {
+    title: 'Project: Terminal-Tetris',
+    eyebrow: '2021',
+    description:
+      'Created Tetris clone implemented using a custom C++ terminal game engine.',
+    category: 'project',
+    href: 'https://github.com/erykksc/Terminal-Tetris',
+  },
+  {
     title: 'LanguageCert Test of English C2 (Listening, Reading)',
-    eyebrow: '14 Jul 2021',
+    eyebrow: 'Jul 2021',
     description:
       'Earned the LanguageCert Level 3 Certificate in ESOL International for C2 English listening and reading, issued by LanguageCert through PeopleCert.',
     category: 'education',
@@ -645,7 +652,7 @@ export const timelineItems: TimelineItem[] = [
   },
   {
     title: 'International Baccalaureate in Gliwice (Poland)',
-    eyebrow: '2021',
+    eyebrow: '2020',
     description:
       "Graduated International Baccalaureate Program where I've completed higher level of Computer Science, Mathematics, English and German. \
 		The whole school was completed in English and thus I've acquired a C1 English certificate that is recognized by Universities",
