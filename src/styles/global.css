@@ -1731,7 +1731,7 @@ a.timeline-marker:focus-visible {
 
   .timeline-item {
     grid-template-columns: 5rem minmax(0, 1fr);
-    align-items: start;
+    align-items: center;
   }
 
   .timeline-canvas.is-positioned .timeline-item {
@@ -1739,6 +1739,7 @@ a.timeline-marker:focus-visible {
     left: auto;
     top: auto;
     display: grid;
+    align-items: center;
     width: auto;
     height: auto;
   }

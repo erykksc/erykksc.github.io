@@ -79,7 +79,7 @@ export const heroContent = {
   title: profileName,
   description:
     "Computer Science master's student at TU Berlin , Open-source contributor, full-stack web developer, and hobbist game-developer \
-	I use neovim btw ;) \
+	I use neovim and daily drive linux btw. ;) \
 	",
 };
 
