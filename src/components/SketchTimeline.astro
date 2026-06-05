@@ -142,6 +142,19 @@ const categoryIcons = {
                   )}
                 </h3>
                 <p>{item.description}</p>
+                {item.links && item.links.length > 0 && (
+                  <div class="timeline-card-actions">
+                    {item.links.map((link) => (
+                      <a
+                        href={link.href}
+                        class="timeline-card-action"
+                        data-color={link.color ?? 'yellow'}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </article>
             </li>
           );

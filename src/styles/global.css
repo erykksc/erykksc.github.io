@@ -1514,6 +1514,102 @@ a.timeline-marker:focus-visible {
   line-height: 1.55;
 }
 
+.timeline-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.timeline-card-action {
+  display: inline-flex;
+  padding: 0.4rem 0.65rem;
+  border: 2px solid var(--line);
+  border-radius: 0.45rem;
+  background: var(--accent-yellow);
+  box-shadow: var(--shadow-hard-sm);
+  color: var(--ink-on-accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.timeline-card-action:hover,
+.timeline-card-action:focus-visible {
+  box-shadow: 1px 1px 0 var(--line);
+  color: var(--ink);
+  outline: none;
+  transform: translate(3px, 3px);
+}
+
+.timeline-card-action:focus-visible {
+  outline: 3px solid var(--line);
+  outline-offset: 3px;
+}
+
+.timeline-card-action[data-color='yellow'] {
+  background: var(--accent-yellow);
+  color: var(--ink-on-accent);
+}
+.timeline-card-action[data-color='yellow']:hover,
+.timeline-card-action[data-color='yellow']:focus-visible {
+  background: var(--accent-pink);
+}
+
+.timeline-card-action[data-color='pink'] {
+  background: var(--accent-pink);
+  color: var(--ink);
+}
+.timeline-card-action[data-color='pink']:hover,
+.timeline-card-action[data-color='pink']:focus-visible {
+  background: var(--accent-yellow);
+  color: var(--ink-on-accent);
+}
+
+.timeline-card-action[data-color='blue'] {
+  background: var(--accent-blue);
+  color: var(--ink);
+}
+.timeline-card-action[data-color='blue']:hover,
+.timeline-card-action[data-color='blue']:focus-visible {
+  background: var(--accent-pink);
+}
+
+.timeline-card-action[data-color='green'] {
+  background: var(--accent-green);
+  color: var(--ink-on-accent);
+}
+.timeline-card-action[data-color='green']:hover,
+.timeline-card-action[data-color='green']:focus-visible {
+  background: var(--accent-pink);
+  color: var(--ink);
+}
+
+.timeline-card-action[data-color='orange'] {
+  background: var(--accent-orange);
+  color: var(--ink);
+}
+.timeline-card-action[data-color='orange']:hover,
+.timeline-card-action[data-color='orange']:focus-visible {
+  background: var(--accent-pink);
+}
+
+.timeline-card-action[data-color='surface'] {
+  background: var(--surface);
+  color: var(--ink);
+}
+.timeline-card-action[data-color='surface']:hover,
+.timeline-card-action[data-color='surface']:focus-visible {
+  background: var(--accent-pink);
+}
+
 .static-section {
   width: min(48rem, 100%);
   padding: clamp(1.25rem, 3vw, 2rem);

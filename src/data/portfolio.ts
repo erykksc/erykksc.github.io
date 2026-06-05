@@ -30,12 +30,27 @@ export type GithubProject = {
 
 export type TimelineItemCategory = 'education' | 'work' | 'project';
 
+export type TimelineButtonColor =
+  | 'yellow'
+  | 'pink'
+  | 'blue'
+  | 'green'
+  | 'orange'
+  | 'surface';
+
+export type TimelineButton = {
+  label: string;
+  href: string;
+  color?: TimelineButtonColor;
+};
+
 export type TimelineItem = {
   title: string;
   eyebrow: string;
   description: string;
   category: TimelineItemCategory;
   href?: string;
+  links?: TimelineButton[];
 };
 
 export type SocialLink = {
@@ -545,6 +560,21 @@ export const timelineItems: TimelineItem[] = [
     eyebrow: '2025-Present',
     description: 'I continued my studies at TU Berlin at master level.',
     category: 'education',
+    href: 'https://www.tu.berlin/en/',
+  },
+  {
+    title: 'Maxmed platform',
+    eyebrow: '2025-Present',
+    description:
+      'Develop and maintain full-stack plaform of Maxmed with multi-user management, observability, transactional emails, GDPR compliance, telemetry and analytics.',
+    category: 'work',
+    links: [
+      {
+        label: 'View Live',
+        href: 'https://maxmed.edu.pl',
+        color: 'pink',
+      },
+    ],
   },
   {
     title: 'Project: wikigraph',
@@ -553,6 +583,18 @@ export const timelineItems: TimelineItem[] = [
       'Built an interactive audio-visual graph visualization that maps Wikipedia articles and their connections, inspired by the Obsidian graph view.',
     category: 'project',
     href: 'https://github.com/erykksc/wikigraph',
+    links: [
+      {
+        label: 'Live Demo',
+        href: 'https://wikigraph.eryk.one',
+        color: 'yellow',
+      },
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/wikigraph',
+        color: 'pink',
+      },
+    ],
   },
   {
     title: 'Project: wikiparse-rs',
@@ -561,6 +603,9 @@ export const timelineItems: TimelineItem[] = [
       'Developed a rust parser and CLI for streaming Wikipedia SQL dumps into usable data formats for downstream analysis.',
     category: 'project',
     href: 'https://github.com/erykksc/wikiparse-rs',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/wikiparse-rs' },
+    ],
   },
   {
     title: 'Spanish B1.2 course at ZEMS',
@@ -593,6 +638,9 @@ export const timelineItems: TimelineItem[] = [
 		The project was being developed in a team of 2, where I've handled the backend and infrastrucutre.",
     category: 'project',
     href: 'https://github.com/erykksc/busybees',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/busybees' },
+    ],
   },
   {
     title: 'Project: kwikquiz',
@@ -600,6 +648,9 @@ export const timelineItems: TimelineItem[] = [
     description: 'Developed a quiz platform using Go and HTMX in a team.',
     category: 'project',
     href: 'https://github.com/erykksc/kwikquiz',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/kwikquiz' },
+    ],
   },
   {
     title: 'Project: pdf-tools-js',
@@ -608,6 +659,14 @@ export const timelineItems: TimelineItem[] = [
       'Created a practical React app for manipulating PDFs in the browser, including merging, cutting, and joining documents.',
     category: 'project',
     href: 'https://github.com/erykksc/pdf-tools-js',
+    links: [
+      { label: 'Live Demo', href: 'https://pdf.eryk.one', color: 'yellow' },
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/pdf-tools-js',
+        color: 'pink',
+      },
+    ],
   },
   {
     title: 'Bitwa o Śląsk boxing event website',
@@ -616,6 +675,13 @@ export const timelineItems: TimelineItem[] = [
       'Built and maintained the website for Bitwa o Śląsk, a recurring boxing gala series. The project involved full-stack development, deployment, and direct coordination with designers, social media managers, and event organizers.',
     category: 'work',
     href: 'https://bitwa-slask.eryk.one',
+    links: [
+      {
+        label: 'Live Demo',
+        href: 'https://bitwa-slask.eryk.one',
+        color: 'pink',
+      },
+    ],
   },
   {
     title: 'TODO: Engie Zielona Energia',
@@ -628,7 +694,7 @@ export const timelineItems: TimelineItem[] = [
   {
     title:
       '2 semesters of Computer Science B.Sc. at Silesian University of Technology',
-    eyebrow: 'TODO: 2021-2022',
+    eyebrow: '2020-2021',
     description:
       "Completed 2 semesters of Computer Science B.Sc. at Silesian University of Technology.\
 		Due to COVID, I started my studies in Poland instead of abroad.\
@@ -639,9 +705,15 @@ export const timelineItems: TimelineItem[] = [
     title: 'Project: Terminal-Tetris',
     eyebrow: '2021',
     description:
-      'Created Tetris clone implemented using a custom C++ terminal game engine.',
+      'Tetris clone playable entirely in the terminal, built on a custom C++ character-based game engine. Features grayscale and color modes, scales to fill large terminal windows, and runs on low-end hardware.',
     category: 'project',
     href: 'https://github.com/erykksc/Terminal-Tetris',
+    links: [
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/Terminal-Tetris',
+      },
+    ],
   },
   {
     title: 'LanguageCert Test of English C2 (Listening, Reading)',
@@ -650,6 +722,12 @@ export const timelineItems: TimelineItem[] = [
       'Earned the LanguageCert Level 3 Certificate in ESOL International for C2 English listening and reading, issued by LanguageCert through PeopleCert.',
     category: 'education',
     href: 'https://badges.peoplecert.org/Badge/en/E0BDB160-9446-46CC-A712-43891D9D561E',
+    links: [
+      {
+        label: 'View Certificate',
+        href: 'https://badges.peoplecert.org/Badge/en/E0BDB160-9446-46CC-A712-43891D9D561E',
+      },
+    ],
   },
   {
     title: 'International Baccalaureate in Gliwice (Poland)',
