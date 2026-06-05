@@ -263,7 +263,16 @@ const categoryIcons = {
 
           let smoothProgress;
           if (itemAbove === null) {
-            smoothProgress = 0;
+            if (itemBelow !== null) {
+              const canvasTop = canvas.getBoundingClientRect().top + scrollY;
+              const range = itemBelow.top - canvasTop;
+              const offset = thresholdDocY - canvasTop;
+              const factor =
+                range > 0 ? Math.max(0, Math.min(1, offset / range)) : 0;
+              smoothProgress = factor * itemBelow.pathProgress;
+            } else {
+              smoothProgress = 0;
+            }
           } else if (itemBelow === null) {
             smoothProgress = 1;
           } else {

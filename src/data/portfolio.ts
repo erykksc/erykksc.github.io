@@ -547,9 +547,10 @@ export const timelineItems: TimelineItem[] = [
     category: 'education',
   },
   {
-    title: 'TODO: Project: wikigraph',
+    title: 'Project: wikigraph',
     eyebrow: '2026',
-    description: '',
+    description:
+      'Built an interactive audio-visual graph visualization that maps Wikipedia articles and their connections, inspired by the Obsidian graph view.',
     category: 'project',
     href: 'https://github.com/erykksc/wikigraph',
   },
