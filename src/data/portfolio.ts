@@ -761,7 +761,7 @@ export const timelineItems: TimelineItem[] = [
     title: 'TODO: Project: Emeralds',
     eyebrow: 'TODO: 2020',
     description:
-      'Video game with one server/screen where players usewith their phones as controllers.',
+      'Live multiplayer video game with one server/screen where players use their phones as controllers.',
     category: 'project',
   },
 ];
