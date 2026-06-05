@@ -50,6 +50,7 @@ export type TimelineItem = {
   description: string;
   category: TimelineItemCategory;
   href?: string;
+  image?: string;
   links?: TimelineButton[];
 };
 
@@ -718,8 +719,9 @@ export const timelineItems: TimelineItem[] = [
     title: 'Project: Terminal-Tetris',
     eyebrow: '2021',
     description:
-      'Tetris clone playable entirely in the terminal, built on a custom C++ character-based game engine. Features grayscale and color modes, scales to fill large terminal windows, and runs on low-end hardware.',
+      'Tetris clone playable entirely in the terminal, built on a custom C++ character-based game engine. Features grayscale and color modes, scales to fill large terminal windows, and runs on low-end hardware. It uses no third-party libraries.',
     category: 'project',
+    image: '/terminal-tetris.gif',
     href: 'https://github.com/erykksc/Terminal-Tetris',
     links: [
       {

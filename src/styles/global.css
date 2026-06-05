@@ -1416,6 +1416,11 @@ p {
   border-radius: 0.85rem;
 }
 
+.timeline-marker--image {
+  width: clamp(8rem, 16vw, 14rem);
+  height: clamp(8rem, 16vw, 14rem);
+}
+
 a.timeline-marker:hover,
 a.timeline-marker:focus-visible {
   box-shadow: 3px 3px 0 var(--line);
@@ -1440,7 +1445,7 @@ a.timeline-marker:focus-visible {
   display: block;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(1) contrast(1.05);
+  filter: contrast(1.05);
 }
 
 .timeline-marker-github {
@@ -1934,6 +1939,11 @@ a.timeline-marker:focus-visible {
     width: 4.6rem;
     height: 4.6rem;
     transform: rotate(-2deg);
+  }
+
+  .timeline-marker--image {
+    width: 6rem;
+    height: 6rem;
   }
 
   .timeline-item--oval .timeline-marker {

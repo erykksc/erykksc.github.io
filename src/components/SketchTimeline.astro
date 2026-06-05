@@ -46,15 +46,16 @@ const categoryIcons = {
                 <a
                   class:list={[
                     'timeline-marker',
-                    `timeline-marker--${icon.shape}`,
+                    `timeline-marker--${item.image ? 'square' : icon.shape}`,
+                    item.image && 'timeline-marker--image',
                   ]}
                   href={item.href}
                   aria-label={`Open ${item.title}`}
                 >
-                  {icon.type === 'image' && icon.src ? (
+                  {item.image ? (
                     <img
-                      src={icon.src}
-                      alt={icon.alt ?? item.title}
+                      src={item.image}
+                      alt={`Preview of ${item.title}`}
                       loading="lazy"
                     />
                   ) : icon.type === 'github' ? (
@@ -93,12 +94,13 @@ const categoryIcons = {
                 <div
                   class:list={[
                     'timeline-marker',
-                    `timeline-marker--${icon.shape}`,
+                    `timeline-marker--${item.image ? 'square' : icon.shape}`,
+                    item.image && 'timeline-marker--image',
                   ]}
                   aria-hidden="true"
                 >
-                  {icon.type === 'image' && icon.src ? (
-                    <img src={icon.src} alt="" loading="lazy" />
+                  {item.image ? (
+                    <img src={item.image} alt="" loading="lazy" />
                   ) : icon.type === 'github' ? (
                     <Icon
                       name="simple-icons:github"
