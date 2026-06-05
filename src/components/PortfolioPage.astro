@@ -3,7 +3,7 @@ import TerminalFrame from './TerminalFrame.astro';
 import SketchTimeline from './SketchTimeline.astro';
 import SocialLinks from './SocialLinks.astro';
 import HeroActions from './HeroActions.astro';
-import { heroContent } from '../data/portfolio';
+import { heroContent, languages } from '../data/portfolio';
 ---
 
 <main class="page-shell home-page">
@@ -30,6 +30,16 @@ import { heroContent } from '../data/portfolio';
         <strong>X</strong>
         <span>OSS projects contributions</span>
       </article>
+    </section>
+    <section class="language-list" aria-label="Languages">
+      {
+        languages.map((lang) => (
+          <article class="language-badge">
+            <strong class="language-badge__name">{lang.name}</strong>
+            <span class="language-badge__level">{lang.level}</span>
+          </article>
+        ))
+      }
     </section>
     <SocialLinks />
     <p>{heroContent.description}</p>

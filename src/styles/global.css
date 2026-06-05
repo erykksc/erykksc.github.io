@@ -429,6 +429,82 @@ p {
   outline-offset: 3px;
 }
 
+.language-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  width: min(40rem, 100%);
+  margin: clamp(1rem, 2.2vw, 1.5rem) auto 0;
+}
+
+.language-badge {
+  --badge-rotate: 0deg;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border: 3px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow-hard-sm);
+  cursor: not-allowed;
+  font-weight: 900;
+  line-height: 1.2;
+  transform: translate(0, 0) rotate(var(--badge-rotate));
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.language-badge:nth-child(1) {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.language-badge:nth-child(2) {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.language-badge:nth-child(3) {
+  background: #f59e0b;
+  color: #111111;
+}
+
+.language-badge:nth-child(4) {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+.language-badge:nth-child(5) {
+  background: #0891b2;
+  color: #ffffff;
+}
+
+.language-badge:nth-child(2n) {
+  --badge-rotate: 0.5deg;
+}
+
+.language-badge:nth-child(2n + 1) {
+  --badge-rotate: -0.4deg;
+}
+
+.language-badge:hover {
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.2);
+  transform: translate(2px, 2px) rotate(var(--badge-rotate));
+}
+
+.language-badge__name {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+}
+
+.language-badge__level {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
 .hero-stats {
   display: grid;
   width: min(48rem, 100%);
