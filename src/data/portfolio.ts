@@ -67,10 +67,10 @@ export type Language = {
 
 export const languages: Language[] = [
   { name: 'Polish', level: 'Native' },
+  { name: 'Silesian', level: 'Native' },
   { name: 'English', level: 'C2' },
   { name: 'German', level: 'C1' },
   { name: 'Spanish', level: 'B1' },
-  { name: 'Silesian', level: 'B2' },
 ];
 
 export type HeroAction = {
