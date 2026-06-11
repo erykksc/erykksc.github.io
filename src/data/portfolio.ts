@@ -625,8 +625,9 @@ export const timelineItems: TimelineItem[] = [
     title: 'Spanish B1.2 course at ZEMS',
     eyebrow: '2026',
     description:
-      'I continued learning Spanish and finished the course and exam of Spanish at B1.2 level',
+      'I continued learning Spanish and finished the course and exam of Spanish at B1.2 level at Modern Language Center (ZEMS) at TU Berlin',
     category: 'education',
+    href: 'https://www.tu.berlin/en/zems/about-us/mission-statement',
   },
   {
     title: 'TODO: Project: Master Application Platform for TU Berlin',
@@ -643,6 +644,17 @@ export const timelineItems: TimelineItem[] = [
       'I graduated Computer Science B.Sc. at Technische Universität.\
 		My bachelor thesis was comparing horizontal and vertical scalability of two distributed spatiotemporal database systems (MobilityDB+Citus vs CrateDB) with custom Kubernetes and infrastrucutre deployments.',
     category: 'education',
+  },
+  {
+    title: 'KrakJam 2025: Boba Tea Tycoon',
+    eyebrow: 'Jan 2025',
+    description:
+      'Led an interdisciplinary team in building a 3D first-person bubble tea cooking game in 48 hours for KrakJam 2025 using Godot 4.3 and GDScript. Orchestrated development across programming, art, and design to deliver a complete game within the jam timeframe.',
+    category: 'project',
+    href: 'https://github.com/erykksc/krakjam25',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/krakjam25' },
+    ],
   },
   {
     title: 'Project: busybees',
@@ -664,6 +676,28 @@ export const timelineItems: TimelineItem[] = [
     href: 'https://github.com/erykksc/kwikquiz',
     links: [
       { label: 'View Source', href: 'https://github.com/erykksc/kwikquiz' },
+    ],
+  },
+  {
+    title: 'KrakJam 2024: Poczta Ploska',
+    eyebrow: 'Jan 2024',
+    description:
+      'Led an interdisciplinary team in building a 3D post office management game in 48 hours for KrakJam 2024 using Godot 4.2 and GDScript. Coordinated programmers and artists to ship a complete game under tight time constraints.',
+    category: 'project',
+    href: 'https://github.com/erykksc/KrakJam24',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/KrakJam24' },
+    ],
+  },
+  {
+    title: 'KrakJam 2023: Bobry VS Drzewa',
+    eyebrow: 'Feb 2023',
+    description:
+      'Led an interdisciplinary team in creating a beaver dam-building game in 48 hours for KrakJam 2023 using Godot and GDScript. Guided development across disciplines to deliver a polished game from concept to playable build within the jam weekend.',
+    category: 'project',
+    href: 'https://github.com/erykksc/KrakJam2k23',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/KrakJam2k23' },
     ],
   },
   {
@@ -704,6 +738,7 @@ export const timelineItems: TimelineItem[] = [
       "TODO: Worked at Engie Zielona Energia corporation, a renewable energy provider and distributor company, hiring more than XYZ employeed worldwide. \
 		There I've been building interal tools.",
     category: 'work',
+    href: 'https://www.engie-zielonaenergia.pl/',
   },
   {
     title:
@@ -714,6 +749,7 @@ export const timelineItems: TimelineItem[] = [
 		Due to COVID, I started my studies in Poland instead of abroad.\
 		I've completed full 2 semesters at Silesian University of Technology",
     category: 'education',
+    href: 'https://www.polsl.pl/en/',
   },
   {
     title: 'Project: Terminal-Tetris',
@@ -751,6 +787,7 @@ export const timelineItems: TimelineItem[] = [
       "Graduated International Baccalaureate Program where I've completed higher level of Computer Science, Mathematics, English and German. \
 		The whole school was completed in English and thus I've acquired a C1 English certificate that is recognized by Universities",
     category: 'education',
+    href: 'https://www.lo1.gliwice.pl/',
   },
   {
     title: 'German Language Certificate: DSD II',
@@ -760,11 +797,40 @@ export const timelineItems: TimelineItem[] = [
     category: 'education',
   },
   {
+    title: "Ludum Dare 46: Baby, Don't Hurt Me",
+    eyebrow: 'Apr 2020',
+    description:
+      'Led the programming team in an interdisciplinary group of 10 (5 programmers, 2 artists, 2 level designers, a musician) building a tower defense game in 72 hours for Ludum Dare 46 using Unity and C#. Coordinated development across the team to deliver a complete game under jam pressure.',
+    category: 'project',
+    href: 'https://github.com/erykksc/Ludum-Dare-46',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/Ludum-Dare-46' },
+    ],
+  },
+  {
+    title: "Ludum Dare 45: Survive in Neon Lights",
+    eyebrow: 'Oct 2019',
+    description:
+      'Led the programming team in a group of 6 programmers building a tower defense game in 72 hours for Ludum Dare 45 using Unity and C#. Directed the technical architecture and coordinated efforts to ship a playable game within the jam deadline.',
+    category: 'project',
+    href: 'https://github.com/erykksc/LD_45',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/LD_45' },
+    ],
+  },
+  {
     title: 'TODO: Project: Emeralds',
     eyebrow: 'TODO: 2020',
     description:
       'Live multiplayer video game with one server/screen where players use their phones as controllers.',
     category: 'project',
+    href: 'https://github.com/erykksc/Emeralds',
+    links: [
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/Emeralds',
+      },
+    ],
   },
 ];
 
