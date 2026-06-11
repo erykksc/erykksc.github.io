@@ -630,11 +630,11 @@ export const timelineItems: TimelineItem[] = [
     href: 'https://www.tu.berlin/en/zems/about-us/mission-statement',
   },
   {
-    title: 'TODO: Project: Master Application Platform for TU Berlin',
+    title: 'Project: Master Application Platform for TU Berlin',
     eyebrow: '2025-2026',
     description:
-      'TODO: Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
-		The platform has already been used in Summer Semester 2026 for the applications for XYZ degree.',
+      'Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
+		The platform has been used by TU Berlin for the applications for ISM progam.',
     category: 'project',
   },
   {
@@ -679,7 +679,7 @@ export const timelineItems: TimelineItem[] = [
     ],
   },
   {
-    title: 'KrakJam 2024: Poczta Ploska',
+    title: 'KrakJam 2024: Głąb Pocztowy',
     eyebrow: 'Jan 2024',
     description:
       'Led an interdisciplinary team in building a 3D post office management game in 48 hours for KrakJam 2024 using Godot 4.2 and GDScript. Coordinated programmers and artists to ship a complete game under tight time constraints.',
@@ -732,11 +732,11 @@ export const timelineItems: TimelineItem[] = [
     ],
   },
   {
-    title: 'TODO: Engie Zielona Energia',
-    eyebrow: '2021-2024',
+    title: 'Engie Zielona Energia',
+    eyebrow: 'TODO: 2021-2024',
     description:
-      "TODO: Worked at Engie Zielona Energia corporation, a renewable energy provider and distributor company, hiring more than XYZ employeed worldwide. \
-		There I've been building interal tools.",
+      "Worked at Engie Zielona Energia, a multinational energy company, hiring more than XYZ employeed worldwide. \
+		There I've been building, deplying and maintining interal tools using a diverse set of technologies for business users.",
     category: 'work',
     href: 'https://www.engie-zielonaenergia.pl/',
   },
