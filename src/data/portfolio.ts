@@ -804,19 +804,20 @@ export const timelineItems: TimelineItem[] = [
     category: 'project',
     href: 'https://github.com/erykksc/Ludum-Dare-46',
     links: [
-      { label: 'View Source', href: 'https://github.com/erykksc/Ludum-Dare-46' },
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/Ludum-Dare-46',
+      },
     ],
   },
   {
-    title: "Ludum Dare 45: Survive in Neon Lights",
+    title: 'Ludum Dare 45: Survive in Neon Lights',
     eyebrow: 'Oct 2019',
     description:
       'Led the programming team in a group of 6 programmers building a tower defense game in 72 hours for Ludum Dare 45 using Unity and C#. Directed the technical architecture and coordinated efforts to ship a playable game within the jam deadline.',
     category: 'project',
     href: 'https://github.com/erykksc/LD_45',
-    links: [
-      { label: 'View Source', href: 'https://github.com/erykksc/LD_45' },
-    ],
+    links: [{ label: 'View Source', href: 'https://github.com/erykksc/LD_45' }],
   },
   {
     title: 'TODO: Project: Emeralds',

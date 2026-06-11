@@ -1327,7 +1327,7 @@ p {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: clamp(5.5rem, 10vw, 9rem);
+  gap: 2.625rem;
   margin: 0;
   padding: 0rem 0 4rem;
   list-style: none;
@@ -1366,7 +1366,7 @@ p {
 }
 
 .js-enabled .timeline-canvas.is-positioned .timeline-item {
-  transform: translate(-50%, calc(-50% + 1.5rem));
+  transform: translate(-50%, -50%);
 }
 
 .js-enabled .timeline-item.is-visible {
@@ -1896,7 +1896,7 @@ a.timeline-marker:focus-visible {
   }
 
   .timeline-list {
-    gap: 3rem;
+    gap: 1.875rem;
     padding-left: 0;
   }
 

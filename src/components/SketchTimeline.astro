@@ -189,17 +189,9 @@ const categoryIcons = {
         const rootFontSize = Number.parseFloat(
           window.getComputedStyle(document.documentElement).fontSize
         );
-        const itemGap = rootFontSize * 6;
-        const slotHeight =
-          Array.from(items).reduce((max, item) => {
-            const marker = item.querySelector('.timeline-marker');
-            const card = item.querySelector('.timeline-card');
-            const markerHeight = marker?.getBoundingClientRect().height ?? 0;
-            const cardHeight = card?.getBoundingClientRect().height ?? 0;
-            return Math.max(max, markerHeight, cardHeight);
-          }, 0) + itemGap;
+        const itemGap = rootFontSize * 2.625;
 
-        canvas.style.minHeight = `${Math.ceil(items.length * slotHeight)}px`;
+        canvas.classList.add('is-positioned');
 
         const totalLength = path.getTotalLength();
         const viewBox = path.ownerSVGElement?.viewBox.baseVal;
@@ -223,22 +215,37 @@ const categoryIcons = {
           return (start + end) / 2;
         };
 
+        const cardHeights = Array.from(items).map((item) => {
+          const card = item.querySelector('.timeline-card');
+          return card?.offsetHeight ?? 0;
+        });
+
+        const totalContentHeight =
+          cardHeights.reduce((sum, h) => sum + h, 0) +
+          itemGap * (items.length + 1);
+
+        canvas.style.minHeight = `${Math.ceil(totalContentHeight)}px`;
+
         items.forEach((item, index) => {
-          const progress = (index + 0.5) / items.length;
+          let top = itemGap;
+          for (let i = 0; i < index; i++) {
+            top += cardHeights[i] + itemGap;
+          }
+          const centerY = top + cardHeights[index] / 2;
+          const progress = centerY / totalContentHeight;
+
           const targetY = viewBox.y + viewBox.height * progress;
           const pathLen = findPathLengthAtY(targetY);
           const point = path.getPointAtLength(pathLen);
           const x = ((point.x - viewBox.x) / viewBox.width) * 100;
           const y = progress * 100;
-          const cardSide = x < 50 ? 'right' : 'left';
 
           item.style.setProperty('--timeline-x', `${x.toFixed(3)}%`);
           item.style.setProperty('--timeline-y', `${y.toFixed(3)}%`);
-          item.dataset.cardSide = cardSide;
+          item.dataset.cardSide =
+            point.x < viewBox.x + viewBox.width / 2 ? 'right' : 'left';
           item.dataset.pathProgress = String(pathLen / totalLength);
         });
-
-        canvas.classList.add('is-positioned');
       };
 
       updateItemPositions();
