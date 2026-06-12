@@ -325,7 +325,7 @@ const otherGithubProjects: GithubProject[] = [
   {
     name: 'Neural-Net',
     description:
-      'Neural network implemented in pure Python and NumPy without usage of external macihne learning libraries. \
+      'Neural network implemented in pure Python and NumPy without usage of external machine learning libraries. \
 		It was written for an International Baccalaureate extended essay.',
     href: 'https://github.com/erykksc/Neural-Net',
     year: '2019',
