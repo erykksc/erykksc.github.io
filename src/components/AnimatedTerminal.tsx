@@ -704,7 +704,7 @@ export default function AnimatedTerminal({
                     <p>{project.description}</p>
                     {project.sourceHref && (
                       <a
-                        className="btn-hover focus-ring inline-flex self-start mt-auto px-3 py-2 border-2 border-border rounded-lg bg-primary text-primary-foreground shadow-hard-sm text-xs font-black no-underline uppercase"
+                        className="btn-hover focus-ring inline-flex self-start mt-auto px-3 py-2 border-2 border-border rounded-lg bg-primary text-primary-foreground shadow-hard text-xs font-black no-underline uppercase"
                         href={project.sourceHref}
                         target="_blank"
                         rel="noreferrer"

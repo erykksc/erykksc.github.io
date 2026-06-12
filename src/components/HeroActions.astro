@@ -10,12 +10,12 @@ import { heroActions } from '../data/hero';
   {
     heroActions.map((action, i) => (
       <a
-        class="btn-hover flex flex-1 items-center justify-center min-w-0 px-4 py-3.5 border-3 border-border rounded-xl bg-primary text-primary-foreground shadow-hard font-black text-[clamp(0.88rem,1.8vw,1rem)] tracking-wide leading-tight text-center no-underline focus-ring"
-        style={
+        class:list={[
+          'flex flex-1 items-center justify-center min-w-0 px-4 py-3.5 border-3 border-border rounded-xl shadow-hard font-black text-[clamp(0.88rem,1.8vw,1rem)] tracking-wide leading-tight text-center no-underline focus-ring transition-all duration-150 hover:shadow-[3px_3px_0_var(--color-border)] hover:translate-x-1 hover:translate-y-1 focus-visible:shadow-[3px_3px_0_var(--color-border)] focus-visible:translate-x-1 focus-visible:translate-y-1',
           i === 1
-            ? 'background: var(--color-secondary); color: var(--color-foreground); transform: rotate(0.45deg);'
-            : ''
-        }
+            ? 'bg-secondary text-foreground [transform:rotate(0.45deg)]'
+            : 'bg-primary text-primary-foreground',
+        ]}
         href={action.href}
       >
         {action.label}

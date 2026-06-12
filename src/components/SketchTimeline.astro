@@ -9,8 +9,11 @@ const categoryIcons = {
 } as const;
 ---
 
-<section class="timeline-section" aria-labelledby="timeline-heading">
-  <div class="timeline-heading-block">
+<section
+  class="mx-auto max-w-[94rem] w-full"
+  aria-labelledby="timeline-heading"
+>
+  <div class="mx-auto max-w-[50rem] w-full text-center">
     <p class="section-kicker">Projects and achievements</p>
     <h2 id="timeline-heading">A winding record of things I have built</h2>
   </div>
@@ -141,22 +144,24 @@ const categoryIcons = {
                   )}
                 </div>
               )}
-              <article class="timeline-card">
-                <p>{item.eyebrow}</p>
-                <h3>
+              <article class="timeline-card relative z-[2] border-3 border-border bg-card shadow-hard rounded-xl p-[clamp(0.9rem,2.3vw,1.35rem)] max-w-lg">
+                <p class="inline-block m-0 mb-[0.4rem] text-[0.85rem] font-extrabold tracking-widest uppercase bg-accent border-2 border-border px-[0.38rem] py-[0.16rem]">
+                  {item.eyebrow}
+                </p>
+                <h3 class="m-0 mb-[0.6rem] text-[clamp(1.05rem,2vw,1.35rem)]">
                   {item.href ? (
                     <a href={item.href}>{item.title}</a>
                   ) : (
                     item.title
                   )}
                 </h3>
-                <p>{item.description}</p>
+                <p class="m-0 leading-[1.55]">{item.description}</p>
                 {item.links && item.links.length > 0 && (
-                  <div class="timeline-card-actions">
+                  <div class="flex flex-wrap justify-end gap-2 mt-3">
                     {item.links.map((link) => (
                       <a
                         href={link.href}
-                        class="timeline-card-action"
+                        class="timeline-card-action inline-flex px-[0.65rem] py-[0.4rem] border-2 border-border rounded-[0.45rem] shadow-hard-sm text-[0.78rem] font-black no-underline uppercase focus-ring transition-all duration-150 hover:shadow-[1px_1px_0_var(--color-border)] hover:translate-x-[3px] hover:translate-y-[3px] focus-visible:shadow-[1px_1px_0_var(--color-border)] focus-visible:translate-x-[3px] focus-visible:translate-y-[3px]"
                         data-color={link.color ?? 'yellow'}
                       >
                         {link.label}

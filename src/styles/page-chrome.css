@@ -122,8 +122,7 @@
 }
 
 .hero-copy h1,
-.timeline-heading-block h2,
-.static-section h2 {
+.timeline-heading-block h2 {
   margin: 0;
   font-size: clamp(2rem, 6vw, 5rem);
   line-height: 0.98;
@@ -208,8 +207,9 @@
   --badge-rotate: -0.4deg;
 }
 
-.language-badge:hover {
-  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.2);
+.language-badge:hover,
+.language-badge:focus-visible {
+  box-shadow: 2px 2px 0 var(--color-border);
   transform: translate(2px, 2px) rotate(var(--badge-rotate));
 }
 
