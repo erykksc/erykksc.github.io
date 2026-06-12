@@ -65,6 +65,7 @@ export default function AnimatedTerminal({
 }: Props) {
   const reducedMotion = useReducedMotion();
   const animatingSlugs = useRef(new Set<string>());
+  const hasIntroPlayedRef = useRef(new Set<string>());
   const [openSlugs, setOpenSlugs] = useState(() =>
     sections.map((item) => item.slug)
   );
@@ -109,6 +110,7 @@ export default function AnimatedTerminal({
 
   function closeTab(slug: string) {
     animatingSlugs.current.delete(slug);
+    hasIntroPlayedRef.current.delete(slug);
     setTabStates((currentStates) => {
       const nextStates = { ...currentStates };
       delete nextStates[slug];
@@ -149,76 +151,6 @@ export default function AnimatedTerminal({
     setActiveSlug(slug);
   }
 
-  function getInteractiveOutput(enteredCommand: string) {
-    if (enteredCommand === command) return output;
-
-    const [commandName = '', ...args] = enteredCommand.split(' ');
-    const firstArg = args[0];
-
-    if (commandName === 'ls' && args.length === 0 && section)
-      return section.files.join('\n');
-    if (
-      section?.slug === 'projects' &&
-      commandName === 'cd' &&
-      args.length === 1 &&
-      ['projects', 'projects/'].includes(firstArg)
-    ) {
-      setIsProjectWindowOpen(true);
-      return '';
-    }
-
-    if (
-      section?.slug === 'projects' &&
-      commandName === 'ls' &&
-      args.length === 1 &&
-      ['projects', 'projects/'].includes(firstArg)
-    )
-      return '';
-
-    if (commandName === 'cat' && args.length === 0)
-      return 'cat <FILE> - prints content of the file';
-    if (
-      commandName === 'cat' &&
-      args.length === 1 &&
-      section?.files.includes(firstArg)
-    )
-      return output;
-
-    if (['cat', 'cd', 'ls'].includes(commandName)) return 'permission denied';
-
-    return 'command unknown';
-  }
-
-  function runInteractiveCommand() {
-    if (!section) return;
-
-    const slug = section.slug;
-    const rawCommand = activeTabState?.interactiveCommand ?? '';
-    const enteredCommand = rawCommand.trim().replace(/\s+/g, ' ');
-    if (!enteredCommand) return;
-
-    const historyItem = {
-      command: rawCommand,
-      output: getInteractiveOutput(enteredCommand),
-      showProjectsAction:
-        section.slug === 'projects' &&
-        ['ls projects', 'ls projects/'].includes(enteredCommand),
-    };
-
-    setTabStates((currentStates) => {
-      const currentState = currentStates[slug] ?? createTerminalTabState();
-
-      return {
-        ...currentStates,
-        [slug]: {
-          ...currentState,
-          interactiveCommand: '',
-          interactiveHistory: [...currentState.interactiveHistory, historyItem],
-        },
-      };
-    });
-  }
-
   function closeTerminal() {
     setIsProjectWindowOpen(false);
     setIsMaximized(false);
@@ -254,8 +186,9 @@ export default function AnimatedTerminal({
     if (!section) return;
 
     const slug = section.slug;
-    if (tabStates[slug]?.hasIntroPlayed || animatingSlugs.current.has(slug))
-      return;
+    const slugs = animatingSlugs.current;
+    const playedSlugs = hasIntroPlayedRef.current;
+    if (playedSlugs.has(slug) || slugs.has(slug)) return;
 
     if (reducedMotion) {
       setTabStates((currentStates) => ({
@@ -268,10 +201,11 @@ export default function AnimatedTerminal({
           hasIntroPlayed: true,
         },
       }));
+      playedSlugs.add(slug);
       return;
     }
 
-    animatingSlugs.current.add(slug);
+    slugs.add(slug);
     setTabStates((currentStates) => ({
       ...currentStates,
       [slug]: {
@@ -299,7 +233,8 @@ export default function AnimatedTerminal({
 
       if (commandIndex >= command.length) {
         window.clearInterval(commandTimer);
-        animatingSlugs.current.delete(slug);
+        slugs.delete(slug);
+        playedSlugs.add(slug);
         setTabStates((currentStates) => {
           const currentState = currentStates[slug] ?? createTerminalTabState();
 
@@ -319,9 +254,10 @@ export default function AnimatedTerminal({
 
     return () => {
       window.clearInterval(commandTimer);
-      if (!animatingSlugs.current.has(slug)) return;
+      if (!slugs.has(slug)) return;
 
-      animatingSlugs.current.delete(slug);
+      slugs.delete(slug);
+      playedSlugs.add(slug);
       setTabStates((currentStates) => {
         const currentState = currentStates[slug];
         if (!currentState) return currentStates;
@@ -343,7 +279,7 @@ export default function AnimatedTerminal({
     output,
     promptSpeedMs,
     reducedMotion,
-    section?.slug,
+    section,
     terminalWindowState,
   ]);
 
@@ -354,6 +290,79 @@ export default function AnimatedTerminal({
       terminalWindowState !== 'open'
     )
       return;
+
+    function getInteractiveOutput(enteredCommand: string) {
+      if (enteredCommand === command) return output;
+
+      const [commandName = '', ...args] = enteredCommand.split(' ');
+      const firstArg = args[0];
+
+      if (commandName === 'ls' && args.length === 0 && section)
+        return section.files.join('\n');
+      if (
+        section?.slug === 'projects' &&
+        commandName === 'cd' &&
+        args.length === 1 &&
+        ['projects', 'projects/'].includes(firstArg)
+      ) {
+        setIsProjectWindowOpen(true);
+        return '';
+      }
+
+      if (
+        section?.slug === 'projects' &&
+        commandName === 'ls' &&
+        args.length === 1 &&
+        ['projects', 'projects/'].includes(firstArg)
+      )
+        return '';
+
+      if (commandName === 'cat' && args.length === 0)
+        return 'cat <FILE> - prints content of the file';
+      if (
+        commandName === 'cat' &&
+        args.length === 1 &&
+        section?.files.includes(firstArg)
+      )
+        return output;
+
+      if (['cat', 'cd', 'ls'].includes(commandName)) return 'permission denied';
+
+      return 'command unknown';
+    }
+
+    function runInteractiveCommand() {
+      if (!section) return;
+
+      const slug = section.slug;
+      const rawCommand = interactiveCommand;
+      const enteredCommand = rawCommand.trim().replace(/\s+/g, ' ');
+      if (!enteredCommand) return;
+
+      const historyItem = {
+        command: rawCommand,
+        output: getInteractiveOutput(enteredCommand),
+        showProjectsAction:
+          section.slug === 'projects' &&
+          ['ls projects', 'ls projects/'].includes(enteredCommand),
+      };
+
+      setTabStates((currentStates) => {
+        const currentState = currentStates[slug] ?? createTerminalTabState();
+
+        return {
+          ...currentStates,
+          [slug]: {
+            ...currentState,
+            interactiveCommand: '',
+            interactiveHistory: [
+              ...currentState.interactiveHistory,
+              historyItem,
+            ],
+          },
+        };
+      });
+    }
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.defaultPrevented || event.altKey || event.metaKey) return;
