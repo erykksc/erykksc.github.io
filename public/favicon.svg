@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M43 32L11 64l32 32M85 32l32 32-32 32" />
-  <style>
-    path { stroke: #000; }
-    @media (prefers-color-scheme: dark) {
-      path { stroke: #FFF; }
-    }
-  </style>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><style>path{stroke:#000}@media(prefers-color-scheme:dark){path{stroke:#FFF}}</style></svg>
