@@ -158,6 +158,7 @@ export default function AnimatedTerminal({
     setActiveSlug(sections[0]?.slug);
     setTabStates({});
     animatingSlugs.current.clear();
+    hasIntroPlayedRef.current.clear();
     setTerminalWindowState('closed');
   }
 
