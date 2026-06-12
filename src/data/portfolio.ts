@@ -602,6 +602,7 @@ export const timelineItems: TimelineItem[] = [
     description:
       'Develop and maintain full-stack plaform of Maxmed with multi-user management, observability, transactional emails, GDPR compliance, telemetry and analytics.',
     category: 'work',
+    href: 'https://maxmed.edu.pl',
     links: [
       {
         label: 'View Live',
