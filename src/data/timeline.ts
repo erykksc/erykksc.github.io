@@ -44,7 +44,7 @@ export const timelineItems: TimelineItem[] = [
     title: 'Maxmed',
     eyebrow: '2025-Present',
     description:
-      'Develop and maintain full-stack plaform of Maxmed with multi-user management, observability, transactional emails, GDPR compliance, telemetry and analytics.',
+      'Develop and maintain full-stack plaform of Maxmed with multi-user management, observability, backups, CI deployments, transactional emails, GDPR compliance, telemetry and analytics.',
     category: 'work',
     href: 'https://maxmed.edu.pl',
     links: [
