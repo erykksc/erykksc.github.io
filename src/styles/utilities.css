@@ -1,0 +1,25 @@
+.btn-hover {
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.btn-hover:hover,
+.btn-hover:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-foreground);
+  box-shadow: 3px 3px 0 var(--color-border);
+  transform: translate(4px, 4px);
+}
+
+.btn-hover:focus-visible {
+  outline: 3px solid var(--color-border);
+  outline-offset: 3px;
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid var(--color-border);
+  outline-offset: 3px;
+}

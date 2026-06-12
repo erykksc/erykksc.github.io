@@ -3,7 +3,7 @@ import TerminalFrame from './TerminalFrame.astro';
 import SketchTimeline from './SketchTimeline.astro';
 import SocialLinks from './SocialLinks.astro';
 import HeroActions from './HeroActions.astro';
-import { heroContent, languages } from '../data/portfolio';
+import { heroContent, languages } from '../data/hero';
 ---
 
 <main class="page-shell home-page">
@@ -33,12 +33,21 @@ import { heroContent, languages } from '../data/portfolio';
     </section>
     <section class="language-list" aria-label="Languages">
       {
-        languages.map((lang) => (
-          <article class="language-badge">
-            <strong class="language-badge__name">{lang.name}</strong>
-            <span class="language-badge__level">{lang.level}</span>
-          </article>
-        ))
+        languages.map((lang, i) => {
+          const colors = [
+            'bg-red-500 text-white',
+            'bg-blue-500 text-white',
+            'bg-amber-500 text-gray-900',
+            'bg-orange-600 text-white',
+            'bg-cyan-600 text-white',
+          ];
+          return (
+            <article class={`language-badge ${colors[i] ?? colors[0]}`}>
+              <strong class="language-badge__name">{lang.name}</strong>
+              <span class="language-badge__level">{lang.level}</span>
+            </article>
+          );
+        })
       }
     </section>
     <SocialLinks />

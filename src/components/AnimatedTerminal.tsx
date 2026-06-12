@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
-import { projectPreviews } from '../data/portfolio';
-import type { TerminalSection } from '../data/portfolio';
+import { projectPreviews } from '../data/projects';
+import { getTagStyle } from '../data/tag-colors';
+import type { TerminalSection } from '../data/terminal';
 
 type Props = {
   sections: TerminalSection[];
@@ -38,12 +39,8 @@ function createTerminalTabState(): TerminalTabState {
   };
 }
 
-function getTechnologyBadgeClass(tag: string) {
-  const slug = tag
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-  return `project-preview-tag project-preview-tag--${slug || 'default'}`;
+function getTechnologyBadgeClass() {
+  return 'project-preview-tag';
 }
 
 function useReducedMotion() {
@@ -444,7 +441,7 @@ export default function AnimatedTerminal({
   if (terminalWindowState === 'closed') {
     return (
       <button
-        className="terminal-reopen-action"
+        className="btn-hover focus-ring terminal-reopen-action inline-flex items-center justify-center min-h-15 px-5 py-3.5 border-3 border-border rounded-xl bg-primary text-primary-foreground shadow-hard cursor-pointer font-mono font-black tracking-wide uppercase"
         type="button"
         onClick={openTerminal}
       >
@@ -456,7 +453,7 @@ export default function AnimatedTerminal({
   if (terminalWindowState === 'minimized') {
     return (
       <button
-        className="terminal-minimized-action"
+        className="btn-hover focus-ring terminal-minimized-action inline-flex items-center justify-center gap-3 px-4 py-3.5 border-3 border-border rounded-2xl bg-primary text-primary-foreground shadow-hard cursor-pointer font-mono font-black tracking-wide uppercase"
         type="button"
         aria-label="Restore terminal"
         onClick={openTerminal}
@@ -598,7 +595,7 @@ export default function AnimatedTerminal({
           <pre className="terminal-lines">{visibleOutput}</pre>
           {section?.slug === 'projects' && phase === 'done' && (
             <button
-              className="terminal-projects-action"
+              className="terminal-projects-action flex items-center justify-center w-[min(16rem,100%)] mx-auto mt-[1.35rem] px-4 py-[0.9rem] border-3 border-border rounded-[0.65rem] bg-primary text-primary-foreground shadow-hard cursor-pointer font-mono font-black tracking-[0.04em] uppercase transition-all duration-150 hover:bg-accent hover:text-foreground hover:shadow-[3px_3px_0_var(--color-border)] hover:translate-x-1 hover:translate-y-1 focus-visible:bg-accent focus-visible:text-foreground focus-visible:shadow-[3px_3px_0_var(--color-border)] focus-visible:translate-x-1 focus-visible:translate-y-1 focus-visible:outline-[3px] focus-visible:outline-border focus-visible:outline-offset-[3px]"
               type="button"
               onClick={() => setIsProjectWindowOpen(true)}
             >
@@ -622,7 +619,7 @@ export default function AnimatedTerminal({
                 )}
                 {item.showProjectsAction && (
                   <button
-                    className="terminal-projects-action"
+                    className="btn-hover focus-ring terminal-projects-action flex items-center justify-center w-[min(16rem,100%)] mx-auto mt-5 px-4 py-3.5 border-3 border-border rounded-xl bg-primary text-primary-foreground shadow-hard cursor-pointer font-mono font-black tracking-wide uppercase"
                     type="button"
                     onClick={() => setIsProjectWindowOpen(true)}
                   >
@@ -686,7 +683,11 @@ export default function AnimatedTerminal({
                       aria-label={`${project.title} technologies`}
                     >
                       {project.tags.map((tag) => (
-                        <li className={getTechnologyBadgeClass(tag)} key={tag}>
+                        <li
+                          className={getTechnologyBadgeClass()}
+                          style={getTagStyle(tag)}
+                          key={tag}
+                        >
                           {tag}
                         </li>
                       ))}
@@ -694,6 +695,7 @@ export default function AnimatedTerminal({
                     <p>{project.description}</p>
                     {project.sourceHref && (
                       <a
+                        className="btn-hover focus-ring inline-flex self-start mt-auto px-3 py-2 border-2 border-border rounded-lg bg-primary text-primary-foreground shadow-hard-sm text-xs font-black no-underline uppercase"
                         href={project.sourceHref}
                         target="_blank"
                         rel="noreferrer"

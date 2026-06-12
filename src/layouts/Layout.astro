@@ -47,7 +47,8 @@ const {
   </head>
   <body>
     <button
-      class="theme-toggle"
+      class="theme-toggle fixed z-10 inline-flex items-center gap-2 min-h-10 py-1.5 px-3 border-2 border-border rounded-full bg-[color-mix(in_srgb,var(--color-card)_92%,transparent)] shadow-hard-sm text-foreground cursor-pointer font-mono text-xs font-black tracking-widest uppercase transition-all duration-150 hover:bg-primary hover:text-primary-foreground hover:shadow-[2px_2px_0_rgba(0,0,0,0.72)] hover:translate-x-0.5 hover:translate-y-0.5 focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:shadow-[2px_2px_0_rgba(0,0,0,0.72)] focus-visible:translate-x-0.5 focus-visible:translate-y-0.5 focus-visible:outline-[3px] focus-visible:outline-border focus-visible:outline-offset-[3px]"
+      style="top: clamp(0.85rem, 2vw, 1.35rem); right: clamp(0.85rem, 2vw, 1.35rem);"
       type="button"
       aria-label="Switch to dark theme"
       aria-pressed="false"
