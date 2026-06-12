@@ -36,18 +36,25 @@ const categoryIcons = {
       {
         timelineItems.map((item) => {
           const icon = categoryIcons[item.category];
+          const markerStyle = item.image ? 'image' : null;
           return (
             <li
               class:list={['timeline-item', 'timeline-item--circle']}
               data-timeline-item
               data-category={item.category}
             >
-              {item.href ? (
+              {item.markerComponent ? (
+                <item.markerComponent
+                  title={item.title}
+                  href={item.href}
+                  {...item.markerProps}
+                />
+              ) : item.href ? (
                 <a
                   class:list={[
                     'timeline-marker',
-                    `timeline-marker--${item.image ? 'square' : icon.shape}`,
-                    item.image && 'timeline-marker--image',
+                    `timeline-marker--${markerStyle ? 'square' : icon.shape}`,
+                    markerStyle && `timeline-marker--${markerStyle}`,
                   ]}
                   href={item.href}
                   aria-label={`Open ${item.title}`}
@@ -94,8 +101,8 @@ const categoryIcons = {
                 <div
                   class:list={[
                     'timeline-marker',
-                    `timeline-marker--${item.image ? 'square' : icon.shape}`,
-                    item.image && 'timeline-marker--image',
+                    `timeline-marker--${markerStyle ? 'square' : icon.shape}`,
+                    markerStyle && `timeline-marker--${markerStyle}`,
                   ]}
                   aria-hidden="true"
                 >

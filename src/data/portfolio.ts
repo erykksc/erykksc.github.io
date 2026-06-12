@@ -1,3 +1,6 @@
+import { EmeraldsMarker } from '../components/markers/EmeraldsMarker';
+import { LogoMarker } from '../components/markers/LogoMarker';
+
 export type TerminalSection = {
   slug: 'about' | 'projects' | 'experience';
   label: string;
@@ -51,6 +54,10 @@ export type TimelineItem = {
   category: TimelineItemCategory;
   href?: string;
   image?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  markerComponent?: React.ComponentType<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  markerProps?: Record<string, any>;
   links?: TimelineButton[];
 };
 
@@ -128,13 +135,17 @@ export const terminalSections: TerminalSection[] = [
     files: ['about.txt'],
     heading: 'About Me',
     lines: [
-      'Stats:',
-      '- Software developer focused on practical, user-facing systems',
-      '- Technische Universitaet Berlin, Master degree 2027',
-      '- Technische Universitaet Berlin, Bachelor degree 2025',
-      '- Silesian University of Technology',
-      '- LanguageCert Test of English C2 (Listening, Reading)',
-      '- International Baccalaureate 2021',
+      'Education:',
+      '- M.Sc. Computer Science @ TU Berlin (2025-Present)',
+      '- B.Sc. Computer Science @ TU Berlin (2022-2025)',
+      '- 2 semesters @ Silesian University of Technology (2020-2021)',
+      '- International Baccalaureate @ Gliwice, Poland (2020)',
+      '',
+      'Languages:',
+      '- English C2 (International Baccalaureate and LanguageCert)',
+      '- German C1 (DSD II)',
+      '- Spanish B1.2 (ZEMS @ TU Berlin)',
+      '- Polish (Native), Silesian (Native)',
     ],
   },
   {
@@ -145,13 +156,21 @@ export const terminalSections: TerminalSection[] = [
     files: ['projects/', 'highlights.txt'],
     heading: 'Projects',
     lines: [
-      'Pinned GitHub highlights:',
+      'Pinned highlights:',
       '- pdf-tools-js: browser PDF merge, cut, and join utility',
-      '- busybees: cloud-native group scheduling app for shared free time',
-      '- kwikquiz: Go and HTMX quiz platform',
-      '- chatreply: CLI bridge from stdin to chat platforms',
-      '- citus-mobilitydb: Docker images for MobilityDB with Citus',
-      '- Terminal-Tetris: terminal Tetris built on a custom engine',
+      '- wikigraph: interactive Wikipedia graph visualization',
+      '- Emeralds: multiplayer WebSocket board game (phone-as-controller)',
+      '- busybees: serverless group scheduling app',
+      '- kwikquiz: Go + HTMX quiz platform',
+      '- Terminal-Tetris: terminal Tetris on a custom C++ engine',
+      '- chatreply: CLI bridge from stdin to Discord/Telegram',
+      '',
+      'Game jams:',
+      '- KrakJam 2025 (Boba Tea Tycoon) — 1st person cooking game in Godot',
+      '- KrakJam 2024 (Głąb Pocztowy) — post office management in Godot',
+      '- KrakJam 2023 (Bobry VS Drzewa) — beaver dam-building in Godot',
+      '- Ludum Dare 46 — tower defence in Unity (team of 10)',
+      '- Ludum Dare 45 — tower defence in Unity (team of 6)',
     ],
   },
   {
@@ -162,11 +181,10 @@ export const terminalSections: TerminalSection[] = [
     files: ['professional_experience.txt'],
     heading: 'Professional Experience',
     lines: [
-      'Experience:',
-      '- Role One at Company: describe ownership and impact',
-      '- Role Two at Company: describe systems, users, and outcomes',
-      '- Technologies: TypeScript, React, Astro, Node.js, databases',
-      '- Add internships, research work, freelance work, or open-source here',
+      'Work Experience:',
+      '- Maxmed (2025-Present)',
+      '- Bitwa o Śląsk boxing (2021-2024)',
+      '- Engie Zielona Energia (2021-2024)',
     ],
   },
 ];
@@ -575,9 +593,11 @@ export const timelineItems: TimelineItem[] = [
     description: 'I continued my studies at TU Berlin at master level.',
     category: 'education',
     href: 'https://www.tu.berlin/en/',
+    markerComponent: LogoMarker,
+    markerProps: { src: '/tu-berlin-logo.png', aspectRatio: '5/4' },
   },
   {
-    title: 'Maxmed platform',
+    title: 'Maxmed',
     eyebrow: '2025-Present',
     description:
       'Develop and maintain full-stack plaform of Maxmed with multi-user management, observability, transactional emails, GDPR compliance, telemetry and analytics.',
@@ -597,11 +617,22 @@ export const timelineItems: TimelineItem[] = [
       'Built an interactive audio-visual graph visualization that maps Wikipedia articles and their connections, inspired by the Obsidian graph view.',
     category: 'project',
     href: 'https://github.com/erykksc/wikigraph',
+    markerComponent: LogoMarker,
+    markerProps: {
+      src: '/wikigraph-marker.png',
+      size: 'wide',
+      objectFit: 'cover',
+    },
     links: [
       {
         label: 'Live Demo',
         href: 'https://wikigraph.eryk.one',
         color: 'yellow',
+      },
+      {
+        label: 'Watch Demo',
+        href: 'https://github.com/erykksc/wikigraph#wikigraph',
+        color: 'green',
       },
       {
         label: 'View Source',
@@ -644,6 +675,8 @@ export const timelineItems: TimelineItem[] = [
       'I graduated Computer Science B.Sc. at Technische Universität.\
 		My bachelor thesis was comparing horizontal and vertical scalability of two distributed spatiotemporal database systems (MobilityDB+Citus vs CrateDB) with custom Kubernetes and infrastrucutre deployments.',
     category: 'education',
+    markerComponent: LogoMarker,
+    markerProps: { src: '/tu-berlin-logo.png', aspectRatio: '5/4' },
   },
   {
     title: 'KrakJam 2025: Boba Tea Tycoon',
@@ -669,6 +702,48 @@ export const timelineItems: TimelineItem[] = [
     ],
   },
   {
+    title: 'Project: valkey-benchmark',
+    eyebrow: '2025',
+    description:
+      'Benchmark comparing horizontal and vertical scalability of Valkey, with a full report.',
+    category: 'project',
+    href: 'https://github.com/erykksc/valkey-benchmark',
+    links: [
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/valkey-benchmark',
+      },
+    ],
+  },
+  {
+    title: 'Project: citus-mobilitydb',
+    eyebrow: '2025',
+    description:
+      'Dockerfiles and image configuration for running MobilityDB with the Citus extension for distributed spatiotemporal queries.',
+    category: 'project',
+    href: 'https://github.com/erykksc/citus-mobilitydb',
+    links: [
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/citus-mobilitydb',
+      },
+    ],
+  },
+  {
+    title: 'Project: escooter-trips-generator',
+    eyebrow: '2025',
+    description:
+      'Generate synthetic e-scooter trip datasets for urban mobility simulations.',
+    category: 'project',
+    href: 'https://github.com/erykksc/escooter-trips-generator',
+    links: [
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/escooter-trips-generator',
+      },
+    ],
+  },
+  {
     title: 'Project: kwikquiz',
     eyebrow: '2024',
     description: 'Developed a quiz platform using Go and HTMX in a team.',
@@ -676,6 +751,17 @@ export const timelineItems: TimelineItem[] = [
     href: 'https://github.com/erykksc/kwikquiz',
     links: [
       { label: 'View Source', href: 'https://github.com/erykksc/kwikquiz' },
+    ],
+  },
+  {
+    title: 'Project: chatreply',
+    eyebrow: '2024',
+    description:
+      'CLI bridge that lets scripts respond to stdin messages through chat platforms like Discord and Telegram.',
+    category: 'project',
+    href: 'https://github.com/erykksc/chatreply',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/chatreply' },
     ],
   },
   {
@@ -717,7 +803,7 @@ export const timelineItems: TimelineItem[] = [
     ],
   },
   {
-    title: 'Bitwa o Śląsk boxing event website',
+    title: 'Bitwa o Śląsk boxing',
     eyebrow: '2021-2024',
     description:
       'Built and maintained the website for Bitwa o Śląsk, a recurring boxing gala series. The project involved full-stack development, deployment, and direct coordination with designers, social media managers, and event organizers.',
@@ -725,7 +811,7 @@ export const timelineItems: TimelineItem[] = [
     href: 'https://bitwa-slask.eryk.one',
     links: [
       {
-        label: 'Live Demo',
+        label: 'See Archival Demo',
         href: 'https://bitwa-slask.eryk.one',
         color: 'pink',
       },
@@ -739,6 +825,8 @@ export const timelineItems: TimelineItem[] = [
 		There I've been building, deplying and maintining interal tools using a diverse set of technologies for business users.",
     category: 'work',
     href: 'https://www.engie-zielonaenergia.pl/',
+    markerComponent: LogoMarker,
+    markerProps: { src: '/engie-logo.png', objectFit: 'cover' },
   },
   {
     title:
@@ -750,6 +838,12 @@ export const timelineItems: TimelineItem[] = [
 		I've completed full 2 semesters at Silesian University of Technology",
     category: 'education',
     href: 'https://www.polsl.pl/en/',
+    markerComponent: LogoMarker,
+    markerProps: {
+      src: '/polsl-logo.jpg',
+      alt: 'Silesian University of Technology logo',
+      aspectRatio: '744/957',
+    },
   },
   {
     title: 'Project: Terminal-Tetris',
@@ -787,7 +881,9 @@ export const timelineItems: TimelineItem[] = [
       "Graduated International Baccalaureate Program where I've completed higher level of Computer Science, Mathematics, English and German. \
 		The whole school was completed in English and thus I've acquired a C1 English certificate that is recognized by Universities",
     category: 'education',
-    href: 'https://www.lo1.gliwice.pl/',
+    href: 'https://ibo.org/',
+    markerComponent: LogoMarker,
+    markerProps: { src: '/ib-logo.png', shape: 'circle' },
   },
   {
     title: 'German Language Certificate: DSD II',
@@ -795,6 +891,13 @@ export const timelineItems: TimelineItem[] = [
     description:
       'Earned the Deutsches Sprachdiplom Stufe II der Kultusministerkonferenz (German Language Certificate Level II of the Education Ministers Conference), issued by the Kultusministerkonferenz (German education authorities).',
     category: 'education',
+    href: 'https://www.auslandsschulwesen.de/DE/Deutsch-lernen/DaF/DSD/DSD-II/dsd-II_node.html',
+    markerComponent: LogoMarker,
+    markerProps: {
+      src: '/dsd-logo.jpg',
+      alt: 'DSD II logo',
+      aspectRatio: '1000/725',
+    },
   },
   {
     title: "Ludum Dare 46: Baby, Don't Hurt Me",
@@ -820,17 +923,35 @@ export const timelineItems: TimelineItem[] = [
     links: [{ label: 'View Source', href: 'https://github.com/erykksc/LD_45' }],
   },
   {
-    title: 'TODO: Project: Emeralds',
-    eyebrow: 'TODO: 2020',
+    title: 'Project: Emeralds',
+    eyebrow: '2019',
     description:
-      'Live multiplayer video game with one server/screen where players use their phones as controllers.',
+      'Multiplayer board game with a server-client architecture — a Pygame renderer displays the shared game board while players connect via their phones through WebSockets to control their characters. \
+    Collect gems, avoid traps, and gather relics.',
     category: 'project',
     href: 'https://github.com/erykksc/Emeralds',
+    markerComponent: EmeraldsMarker,
     links: [
       {
         label: 'View Source',
         href: 'https://github.com/erykksc/Emeralds',
       },
+      {
+        label: 'Watch Demo',
+        href: 'https://github.com/erykksc/emeralds/tree/master#demo',
+        color: 'green',
+      },
+    ],
+  },
+  {
+    title: 'Project: Neural-Net',
+    eyebrow: '2019',
+    description:
+      'Neural network implemented in pure Python and NumPy for an International Baccalaureate extended essay, built without ML libraries.',
+    category: 'project',
+    href: 'https://github.com/erykksc/Neural-Net',
+    links: [
+      { label: 'View Source', href: 'https://github.com/erykksc/Neural-Net' },
     ],
   },
 ];

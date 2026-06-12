@@ -1421,6 +1421,15 @@ p {
   height: clamp(8rem, 16vw, 14rem);
 }
 
+.timeline-marker--image-wide {
+  width: clamp(14rem, 26vw, 24rem);
+  height: clamp(7.875rem, 14.625vw, 13.5rem);
+}
+
+.timeline-marker--logo {
+  width: clamp(8rem, 16vw, 14rem);
+}
+
 a.timeline-marker:hover,
 a.timeline-marker:focus-visible {
   box-shadow: 3px 3px 0 var(--line);
@@ -1548,14 +1557,14 @@ a.timeline-marker:focus-visible {
 .timeline-canvas.is-positioned
   .timeline-item[data-card-side='right']
   .timeline-card {
-  left: clamp(6rem, 10vw, 13rem);
+  left: clamp(8rem, 16vw, 18rem);
   transform: translateY(-50%) rotate(-0.35deg);
 }
 
 .timeline-canvas.is-positioned
   .timeline-item[data-card-side='left']
   .timeline-card {
-  right: clamp(6rem, 10vw, 13rem);
+  right: clamp(8rem, 16vw, 18rem);
   transform: translateY(-50%) rotate(0.3deg);
 }
 
@@ -1944,6 +1953,11 @@ a.timeline-marker:focus-visible {
   .timeline-marker--image {
     width: 6rem;
     height: 6rem;
+  }
+
+  .timeline-marker--image-wide {
+    width: 6rem;
+    height: 3.375rem;
   }
 
   .timeline-item--oval .timeline-marker {
