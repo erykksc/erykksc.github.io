@@ -320,6 +320,16 @@ export const timelineItems: TimelineItem[] = [
     ],
   },
   {
+    title: 'Text4Videos',
+    eyebrow: '2020',
+    description:
+      'Ran a small business offering subtitle creation and translation services for videos, from Polish to English. \
+      Subtitles were auto-generated using my custom software and then manually corrected, making it the first service of its kind in Poland. \
+      One of my clients was the University of Warsaw.',
+    category: 'work',
+    href: 'https://text4videos.eryk.one/',
+  },
+  {
     title: 'International Baccalaureate in Gliwice (Poland)',
     eyebrow: '2020',
     description:
