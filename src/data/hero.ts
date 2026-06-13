@@ -20,9 +20,10 @@ export const heroContent = {
   kicker: 'Software developer portfolio',
   title: 'Eryk Kściuczyk',
   description:
-    "Computer Science master's student at TU Berlin , Open-source contributor, full-stack web developer, and hobbist game-developer \
-	I use neovim and daily drive linux btw. ;) \
-	",
+    "Computer Science master's student at TU Berlin, Open-source contributor, full-stack web developer, and hobbyist game developer",
+  personalNote:
+    'I use neovim and daily drive linux btw. ;)<br> -\
+  <a style="color:var(--color-primary);text-decoration:underline" href="https://github.com/erykksc/.dotfiles">My dotfiles</a>',
 };
 
 export const heroActions: HeroAction[] = [

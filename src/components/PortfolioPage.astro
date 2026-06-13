@@ -52,6 +52,7 @@ import { heroContent, languages } from '../data/hero';
     </section>
     <SocialLinks />
     <p>{heroContent.description}</p>
+    <p class="opacity-60" set:html={heroContent.personalNote} />
   </section>
 
   <HeroActions />
