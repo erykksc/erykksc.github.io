@@ -298,7 +298,7 @@ a.timeline-marker:focus-visible {
 
 .timeline-card-action[data-color='green'] {
   background: var(--color-accent-contrast);
-  color: var(--color-primary-foreground);
+  color: var(--color-card);
 }
 
 .timeline-card-action[data-color='orange'] {
