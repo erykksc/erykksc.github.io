@@ -109,8 +109,9 @@ export const timelineItems: TimelineItem[] = [
     title: 'Project: Master Application Platform for TU Berlin',
     eyebrow: '2025-2026',
     description:
-      'Developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
-		The platform has been used by TU Berlin for the applications for ISM progam.',
+      "I've been a backend team-lead and spokesperson of a team of XYZ for this project.\
+        We've developed a platform for applying and reviewing applications for master degrees at TU Berlin. \
+        The platform has been used by TU Berlin for the applications for ISM progam.",
     category: 'project',
   },
   {
