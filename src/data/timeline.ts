@@ -216,8 +216,19 @@ export const timelineItems: TimelineItem[] = [
       'Led an interdisciplinary team in building a 3D post office management game in 48 hours for KrakJam 2024 using Godot 4.2 and GDScript. Coordinated programmers and artists to ship a complete game under tight time constraints.',
     category: 'project',
     href: 'https://github.com/erykksc/KrakJam24',
+    markerComponent: LogoMarker,
+    markerProps: {
+      src: '/krakjam24-screenshot.png',
+      size: 'wide',
+      objectFit: 'cover',
+    },
     links: [
-      { label: 'View Source', href: 'https://github.com/erykksc/KrakJam24' },
+      { label: 'Play Demo', href: 'https://eroar.itch.io/glab-pocztowy' },
+      {
+        label: 'View Source',
+        href: 'https://github.com/erykksc/KrakJam24',
+        color: 'pink',
+      },
     ],
   },
   {
