@@ -233,7 +233,7 @@ export const timelineItems: TimelineItem[] = [
   },
   {
     title: 'Project: pdf-tools-js',
-    eyebrow: '2021-2025',
+    eyebrow: '2021',
     description:
       'Created a practical React app for manipulating PDFs in the browser, including merging, cutting, and joining documents.',
     category: 'project',

@@ -73,6 +73,7 @@ export const terminalSections: TerminalSection[] = [
       '- Maxmed (2025-Present)',
       '- Bitwa o Śląsk boxing (2021-2024)',
       '- Engie Zielona Energia (2021-2024)',
+      '- Text4Videos (2020-2021)',
     ],
   },
 ];
