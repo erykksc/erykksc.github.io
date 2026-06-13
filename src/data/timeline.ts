@@ -375,6 +375,13 @@ export const timelineItems: TimelineItem[] = [
       'Led the programming team in a group of 6 programmers building a tower defense game in 72 hours for Ludum Dare 45 using Unity and C#. Directed the technical architecture and coordinated efforts to ship a playable game within the jam deadline.',
     category: 'project',
     href: 'https://github.com/erykksc/LD_45',
+    markerComponent: LogoMarker,
+    markerProps: {
+      src: '/surviving-neon-lights.png',
+      alt: 'Survive in Neon Lights screenshot',
+      size: 'wide',
+      objectFit: 'cover',
+    },
     links: [{ label: 'View Source', href: 'https://github.com/erykksc/LD_45' }],
   },
   {
